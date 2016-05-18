@@ -2,6 +2,7 @@
 
 namespace axolotl\entities;
 
+require_once __DIR__.'/Module.class.hh';
 require_once __DIR__.'/../exceptions/InvalidArgumentException.class.hh';
 
 /**
@@ -30,6 +31,9 @@ class User{
   /** @Column(type="datetimetz", name="last_activity") */
   protected \DateTime $lastActivity;
 
+  /** @OneToMany(targetEntity="Module", mappedBy="creator") */
+  protected array<Module> $installedModules;
+
   //Needed for the hack typechecker
   public function __construct(){
     $this->id = -1;
@@ -43,6 +47,7 @@ class User{
     $this->lastActivity = new \DateTime(
       "@".time(), new \DateTimeZone("Europe/Berlin")
     );
+    $this->installedModules = array();
   }
 
   //Not possible as a constructor as polymorfic method-overloading
