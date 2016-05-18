@@ -33,7 +33,7 @@ class ModuleTest{
   }
 
   <<Setup('test')>>
-  public function setUp(): void{
+  public async function setUp(): Awaitable<void>{
     $this->module = Module::newInstance(
       "Astley",
       new \DateTime("@102556800", new \DateTimeZone("Europe/Berlin")),
@@ -42,7 +42,7 @@ class ModuleTest{
   }
 
   <<Test>>
-  public function testName(Assert $assert): void{
+  public async function testName(Assert $assert): Awaitable<void>{
     $assert->string($this->module->getName())->is("Astley");
     $this->module->setName("Jan");
     $assert->string($this->module->getName())->is("Jan");
@@ -55,7 +55,7 @@ class ModuleTest{
   }
 
   <<Test>>
-  public function testInstallationDate(Assert $assert): void{
+  public async function testInstallationDate(Assert $assert): Awaitable<void>{
     $assert->mixed($this->module->getInstallationDate())->isTypeOf("\DateTime");
     $assert->mixed($this->module->getInstallationDate())->looselyEquals(
       new \DateTime("@102556800", new \DateTimeZone("Europe/Berlin"))
@@ -70,7 +70,7 @@ class ModuleTest{
   }
 
   <<Test>>
-  public function testCreator(Assert $assert): void{
+  public async function testCreator(Assert $assert): Awaitable<void>{
     $assert->mixed($this->module->getCreator())->identicalTo($this->exampleUser);
 
     $user = User::newInstance(

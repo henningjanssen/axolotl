@@ -24,7 +24,7 @@ class UserTest{
   }
 
   <<Setup('test')>>
-  public function setUp(): void{
+  public async function setUp(): Awaitable<void>{
     $this->user = User::newInstance(
       "timothy.test@example.org",
       "Timothy Test",
@@ -37,7 +37,7 @@ class UserTest{
   }
 
   <<Test>>
-  public function testMail(Assert $assert): void{
+  public async function testMail(Assert $assert): Awaitable<void>{
     $assert->string($this->user->getEmail())->is("timothy.test@example.org");
     $this->user->setEmail("test@test.org");
     $assert->string($this->user->getEmail())->is("test@test.org");
@@ -56,7 +56,7 @@ class UserTest{
   }
 
   <<Test>>
-  public function testFullName(Assert $assert): void{
+  public async function testFullName(Assert $assert): Awaitable<void>{
     $assert->string($this->user->getFullName())->is("Timothy Test");
     $this->user->setFullName("Rick");
     $assert->string($this->user->getFullName())->is("Rick");
@@ -75,7 +75,7 @@ class UserTest{
   }
 
   <<Test>>
-  public function testPassword(Assert $assert): void{
+  public async function testPassword(Assert $assert): Awaitable<void>{
     $assert->string($this->user->getPassword())->is(hash("sha256", "testpass"));
 
     $pw = hash("sha256", "nevergonnaletyoudown");
@@ -94,7 +94,7 @@ class UserTest{
   }
 
   <<Test>>
-  public function testRegistration(Assert $assert): void{
+  public async function testRegistration(Assert $assert): Awaitable<void>{
     $assert->mixed($this->user->getRegistration())->isTypeOf("\DateTime");
     $assert->mixed($this->user->getRegistration())->looselyEquals(
       new \DateTime("@-1815350400", new \DateTimeZone("Europe/Berlin"))
@@ -109,7 +109,7 @@ class UserTest{
   }
 
   <<Test>>
-  public function testLastActivity(Assert $assert): void{
+  public async function testLastActivity(Assert $assert): Awaitable<void>{
     $assert->mixed($this->user->getLastActivity())->isTypeOf("\DateTime");
     $assert->mixed($this->user->getLastActivity())->looselyEquals(
       new \DateTime("@1463576124", new \DateTimeZone("Europe/Berlin"))
