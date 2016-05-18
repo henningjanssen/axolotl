@@ -119,7 +119,7 @@ class User{
     return $this->note;
   }
 
-  public function setRegistration(?\DateTime $reg): void{
+  public function setRegistration(?\DateTime $reg = null): void{
     if($reg === null){
       $reg = new \DateTime("@".time(), new \DateTimeZone("Europe/Berlin"));
     }
@@ -130,7 +130,7 @@ class User{
     return $this->registration;
   }
 
-  public function setLastActivity(?\DateTime $la): void{
+  public function setLastActivity(?\DateTime $la = null): void{
     if($la === null){
       $la = new \DateTime("@".time(), new \DateTimeZone("Europe/Berlin"));
     }
