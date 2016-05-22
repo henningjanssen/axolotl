@@ -2,9 +2,6 @@
 
 namespace axolotl\entities;
 
-require_once __DIR__.'/Module.class.hh';
-require_once __DIR__.'/../exceptions/InvalidArgumentException.class.hh';
-
 /**
  * @Entity
  * @Table(name="users")

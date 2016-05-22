@@ -2,9 +2,6 @@
 
 namespace axolotl\entities;
 
-require_once __DIR__.'/User.class.hh';
-require_once __DIR__.'/../exceptions/InvalidArgumentException.class.hh';
-
 use \axolotl\exceptions\InvalidArgumentException;
 
 /**
