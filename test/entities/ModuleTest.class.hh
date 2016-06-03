@@ -18,6 +18,7 @@ class ModuleTest{
   public function __construct(){
     $this->exampleUser = User::newInstance(
       "timothy.test@example.org",
+      "ricky",
       "Timothy Test",
       hash("sha256", "testpass"),
       true,
@@ -75,6 +76,7 @@ class ModuleTest{
 
     $user = User::newInstance(
       "a.b@example.org",
+      "rickey",
       "ab",
       hash("sha256", "testpass"),
       true,

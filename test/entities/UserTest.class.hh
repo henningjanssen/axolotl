@@ -14,6 +14,7 @@ class UserTest{
   public function __construct(){
     $this->user = User::newInstance(
       "timothy.test@example.org",
+      "poof",
       "Timothy Test",
       hash("sha256", "testpass"),
       true,
@@ -27,6 +28,7 @@ class UserTest{
   public async function setUp(): Awaitable<void>{
     $this->user = User::newInstance(
       "timothy.test@example.org",
+      "poof",
       "Timothy Test",
       hash("sha256", "testpass"),
       true,
@@ -50,6 +52,18 @@ class UserTest{
 
     try{
       $this->user->setEmail("@test.org");
+      $assert->bool(true)->is(false);
+    }
+    catch(\axolotl\exceptions\InvalidArgumentException $iaex){}
+  }
+
+  <<Test>>
+  public async function testUsername(Assert $assert): Awaitable<void>{
+    $assert->string($this->user->getUsername())->is("poof");
+    $this->user->setUsername("foop");
+    $assert->string($this->user->getUsername())->is("foop");
+    try{
+      $this->user->setUsername("  \t ");
       $assert->bool(true)->is(false);
     }
     catch(\axolotl\exceptions\InvalidArgumentException $iaex){}

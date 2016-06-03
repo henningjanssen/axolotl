@@ -13,6 +13,9 @@ class User{
   /** @Id @Column(type="Integer") @GeneratedValue */
   protected int $id;
 
+  /** @Column(type="string", length=32, unique=true, nullable=false)*/
+  protected string $username;
+
   /** @Column(type="text") */
   protected string $email;
 
@@ -37,6 +40,7 @@ class User{
   //Needed for the hack typechecker
   public function __construct(){
     $this->id = -1;
+    $this->username = "";
     $this->email = "";
     $this->fullName = "";
     $this->password = "";
@@ -53,11 +57,13 @@ class User{
   //Not possible as a constructor as polymorfic method-overloading
   //is not possible
   public static function newInstance(
-    string $mail, string $fullName, string $password, bool $pwHashed,
-    string $note, ?\DateTime $registration, ?\DateTime $lastActivity
+    string $mail, string $username, string $fullName, string $password,
+    bool $pwHashed, string $note, ?\DateTime $registration,
+    ?\DateTime $lastActivity
   ): User{
     $user = new User();
     $user->setEmail($mail);
+    $user->setUsername($username);
     $user->setFullName($fullName);
     $user->setPassword($password, $pwHashed);
     $user->setNote($note);
@@ -80,6 +86,19 @@ class User{
   }
   public function getEmail(): string{
     return $this->email;
+  }
+
+  public function setUsername(string $username): void{
+    $username = trim($username);
+    if(strlen($username) === 0){
+      throw new \axolotl\exceptions\InvalidArgumentException(
+        "Username is empty"
+      );
+    }
+    $this->username = $username;
+  }
+  public function getUsername(): string{
+    return $this->username;
   }
 
   public function setFullName(string $fullname): void{
