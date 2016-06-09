@@ -2,6 +2,8 @@
 
 require_once __DIR__.'/vendor/autoload.php';
 
+use axolotl\util\_;
+
 $httpMethod = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
 
@@ -36,6 +38,11 @@ switch($routeInfo[0]){
   case \FastRoute\Dispatcher::FOUND:
     $handler = $routeInfo[1];
     $vars = $routeInfo[2];
-    //do stuff
+    try{
+      (new $handler())->execute();
+    }
+    catch(NotLoggedInException $nliex){
+      (new LoginController($vars, $uri))->execute();
+    }
   break;
 }
