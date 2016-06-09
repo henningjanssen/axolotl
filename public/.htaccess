@@ -4,4 +4,4 @@ php_flag log_errors on
 AddDefaultCharset utf-8
 
 RewriteEngine on
-RewriteRule ^(.*)$ route.php
+RewriteRule ^(.*)$ index.php
