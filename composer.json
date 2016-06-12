@@ -1,8 +1,10 @@
 {
+  "minimum-stability":"dev",
   "require":{
     "doctrine/orm":"2.4.*",
     "nikic/fast-route":"*",
-    "hackpack/hackunit":"*"
+    "hackpack/hackunit":"*",
+    "hhvm/xhp-bootstrap":"dev-master"
   },
   "autoload":{
     "psr-0":{
