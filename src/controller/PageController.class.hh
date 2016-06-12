@@ -8,5 +8,5 @@ abstract class PageController{
     $this->vars = $vars;
   }
 
-  public function execute(){}
+  public abstract function execute(): void;
 }

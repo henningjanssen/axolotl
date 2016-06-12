@@ -2,6 +2,7 @@
 
 namespace axolotl\controller;
 
+use axolotl\exceptions\NotLoggedInException;
 use axolotl\util\Session;
 
 abstract class LoggedInPageController extends PageController{
@@ -9,6 +10,6 @@ abstract class LoggedInPageController extends PageController{
     if(!Session::loggedIn()){
       throw new NotLoggedInException();
     }
-    parent::construct($vars);
+    parent::__construct($vars);
   }
 }
