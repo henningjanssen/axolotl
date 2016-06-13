@@ -19,6 +19,9 @@ class _{
   }
 
   public static function SESSION(arraykey $key, mixed $value = null): mixed{
+    if(session_status() !== 2){
+      session_start();
+    }
     if($value === null){
       return $_SESSION["axolotl"][$key] ?? null;
     }
