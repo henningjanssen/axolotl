@@ -1,3 +1,5 @@
 <?hh // strict
 
-class BrokenInstallationException extends Exception{}
+namespace axolotl\exceptions;
+
+class BrokenInstallationException extends \Exception{}

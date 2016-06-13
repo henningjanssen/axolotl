@@ -5,39 +5,43 @@ namespace axolotl\util;
 use axolotl\exceptions\BrokenInstallationException;
 
 class _{
-  private static array<string, mixed> $settings = array();
-  public static function GET(string $key): mixed{
+  private static array<arraykey, mixed> $settings = array();
+  public static function GET(arraykey $key): mixed{
     return $_GET[$key] ?? null;
   }
 
-  public static function POST(string $key): mixed{
+  public static function POST(arraykey $key): mixed{
     return $_POST[$key] ?? null;
   }
 
-  public static function SERVER(string $key): mixed{
+  public static function SERVER(arraykey $key): mixed{
     return $_SERVER[$key] ?? null;
   }
 
-  public static function SESSION(string $key, mixed $value = null): mixed{
+  public static function SESSION(arraykey $key, mixed $value = null): mixed{
     if($value === null){
       return $_SESSION["axolotl"][$key] ?? null;
     }
     return $_SESSION["axolotl"][$key] = $value;
   }
 
-  public static function SETTINGS(string $key){
+  public static function SETTINGS(arraykey $key): mixed{
     if(count(self::$settings) === 0){
-      $configPath = realpath(__DIR__.'/../../config/config.json');
-      if(!file_exists($configPath)){
-        throw new BrokenInstallationException("config-file is missing");
-      }
-      self::$settings = json_decode(
-        file_get_contents($configPath)
-      );
-      if(!is_array(self::$settings) || count(self::$settings) === 0){
-        throw new BrokenInstallationException("config-file is malformed");
-      }
+      self::reloadSettings();
     }
     return self::$settings[$key] ?? null;
+  }
+
+  public static function reloadSettings(): void{
+    $configPath = realpath(__DIR__.'/../../config/config.json');
+    if(!file_exists($configPath)){
+      throw new BrokenInstallationException("config-file is missing");
+    }
+    self::$settings = json_decode(
+      file_get_contents($configPath), true
+    );
+    if(!is_array(self::$settings) || count(self::$settings) === 0){
+      throw new BrokenInstallationException("config-file is malformed or empty");
+    }
   }
 }
