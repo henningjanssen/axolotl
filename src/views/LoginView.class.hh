@@ -5,7 +5,7 @@ class LoginView extends PageView{
   public function __construct(
     bool $failedLogin = false, string $presetUser = "", string $presetPW = ""
   ){
-    parent::__construct("Login | axolotl");
+    parent::__construct("Login");
     $this->content = <bootstrap:panel use="primary">
         <bootstrap:panel:heading>Login</bootstrap:panel:heading>
         <bootstrap:panel:body>

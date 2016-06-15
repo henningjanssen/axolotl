@@ -4,7 +4,7 @@ use axolotl\util\_;
 
 class RedirectView extends PageView{
   public function __construct(string $target){
-    parent::__construct("Redirecting | axolotl");
+    parent::__construct("Redirecting");
     $base = strval(_::SETTINGS("axolotl_base_uri"));
     if($base[strlen($base)-1] !== '/'){
       $base .= '/';

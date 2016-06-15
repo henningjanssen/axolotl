@@ -7,7 +7,14 @@ abstract class PageView{
   protected :xhp $content;
   protected :xhp $postcontent; //footer, etc.
 
-  public function __construct(string $title = "axolotl"){
+  public function __construct(string $title = ""){
+    $vendor = strval(_::SETTINGS("vendor", "axolotl"));
+    if(strlen($title) > 0 && strlen($vendor) > 0){
+      $title .= " | "
+    };
+    if(strlen($vendor) > 0){
+      $title .= $vendor;
+    }
     $this->head =
       <head>
         <meta charset="utf-8"/>
