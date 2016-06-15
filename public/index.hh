@@ -2,6 +2,7 @@
 
 require_once __DIR__.'/vendor/autoload.php';
 
+use axolotl\controller\HomePageController;
 use axolotl\controller\LoginController;
 use axolotl\controller\LogoutController;
 use axolotl\util\_;
@@ -11,6 +12,7 @@ $uri = $_SERVER['REQUEST_URI'];
 
 $dispatcher = \FastRoute\simpleDispatcher(
   function(\FastRoute\RouteCollector $r){
+    $r->addRoute('GET', '/(home)?', 'HomePageController');
     $r->addRoute(['GET','POST'], '/login', 'LoginController');
     $r->addRoute('GET', '/logout', 'LogoutController');
     $r->addRoute(['GET','POST'], '/module/{name}/{params:.+}', 'modroute');
