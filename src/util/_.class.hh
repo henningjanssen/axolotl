@@ -28,11 +28,11 @@ class _{
     return $_SESSION["axolotl"][$key] = $value;
   }
 
-  public static function SETTINGS(arraykey $key): mixed{
+  public static function SETTINGS(arraykey $key, mixed $stdval = null): mixed{
     if(count(self::$settings) === 0){
       self::reloadSettings();
     }
-    return self::$settings[$key] ?? null;
+    return self::$settings[$key] ?? $stdval;
   }
 
   public static function reloadSettings(): void{
