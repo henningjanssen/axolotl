@@ -2,6 +2,7 @@
 
 require_once __DIR__.'/vendor/autoload.php';
 
+use axolotl\controller\LoginController;
 use axolotl\util\_;
 
 $httpMethod = $_SERVER['REQUEST_METHOD'];
@@ -9,7 +10,7 @@ $uri = $_SERVER['REQUEST_URI'];
 
 $dispatcher = \FastRoute\simpleDispatcher(
   function(\FastRoute\RouteCollector $r){
-    $r->addRoute(['GET','POST'], '/login', 'loginhandler');
+    $r->addRoute(['GET','POST'], '/login', 'LoginController');
     $r->addRoute('GET', '/logout', 'logouthandler');
     $r->addRoute(['GET','POST'], '/module/{name}/{params:.+}', 'modroute');
     $r->addRoute(['GET','POST'], '/user/edit/{id:\d+}', 'somehandler');
