@@ -1,5 +1,7 @@
 <?hh // strict
 
+use axolotl\util\_;
+use axolotl\util\Session;
 
 abstract class PageView{
   protected :xhp $head;
@@ -10,11 +12,12 @@ abstract class PageView{
   public function __construct(string $title = ""){
     $vendor = strval(_::SETTINGS("vendor", "axolotl"));
     if(strlen($title) > 0 && strlen($vendor) > 0){
-      $title .= " | "
-    };
+      $title .= " | ";
+    }
     if(strlen($vendor) > 0){
       $title .= $vendor;
     }
+    $baseuri = _::SETTINGS("axolotl_base_uri", "/");
     $this->head =
       <head>
         <meta charset="utf-8"/>
@@ -30,9 +33,39 @@ abstract class PageView{
           src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"
         />
       </head>;
-    $this->precontent = <x:frag/>;
+    $this->precontent = $this->getPrecontent();
     $this->content = <x:frag/>;
     $this->postcontent = <x:frag/>;
+  }
+
+  final private function getPrecontent(): :xhp{
+    $navbar =
+      <bootstrap:navbar>
+        <bootstrap:navbar:brand href="#">
+          AXL
+        </bootstrap:navbar:brand>
+      </bootstrap:navbar>;
+      
+    if(Session::loggedIn()){
+      $navbar->appendChild(
+        <x:frag>
+          <bootstrap:navigation:link href="{$base.'home'}">
+            Home
+          </bootstrap:navigation:link>
+          <bootstrap:navigation:link href="{$base.'logout'}">
+            Logout
+          </bootstrap:navigation:link>
+        </x:frag>
+      );
+    }
+    else{
+      $navbar->appendChild(
+        <bootstrap:navigation:link href="{$base.'login'}">
+          Login
+        </bootstrap:navigation:link>
+      );
+    }
+    return $navbar;
   }
 
   final public function setHeader(string $header): void{
