@@ -1,11 +1,11 @@
 <?hh // strict
 
-namespace axolotl\controller;
+namespace axolotl\control;
 
 use \RedirectView;
 use axolotl\util\Session;
 
-class LogoutController extends PageController{
+class LogoutControl extends PageControl{
   public function execute(): void{
     Session::logout();
     (new RedirectView("/login"))->render();

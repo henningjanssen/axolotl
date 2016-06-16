@@ -1,12 +1,12 @@
 <?hh // strict
 
-namespace axolotl\controller;
+namespace axolotl\control;
 
 use \HomePageView;
 use axolotl\util\_;
 use axolotl\util\Doctrine;
 
-class HomePageController extends LoggedInPageController{
+class HomePageControl extends LoggedInPageControl{
   public function execute(): void{
     $entityManager = Doctrine::getEntityManager();
     $user = $entityManager->find("users", _::SESSION("uid"));

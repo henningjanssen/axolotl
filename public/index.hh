@@ -2,9 +2,9 @@
 
 require_once __DIR__.'/vendor/autoload.php';
 
-use axolotl\controller\HomePageController;
-use axolotl\controller\LoginController;
-use axolotl\controller\LogoutController;
+use axolotl\control\HomePageControl;
+use axolotl\control\LoginControl;
+use axolotl\control\LogoutControl;
 use axolotl\util\_;
 
 $httpMethod = $_SERVER['REQUEST_METHOD'];
@@ -12,9 +12,9 @@ $uri = $_SERVER['REQUEST_URI'];
 
 $dispatcher = \FastRoute\simpleDispatcher(
   function(\FastRoute\RouteCollector $r){
-    $r->addRoute('GET', '/(home)?', 'HomePageController');
-    $r->addRoute(['GET','POST'], '/login', 'LoginController');
-    $r->addRoute('GET', '/logout', 'LogoutController');
+    $r->addRoute('GET', '/(home)?', 'HomePageControl');
+    $r->addRoute(['GET','POST'], '/login', 'LoginControl');
+    $r->addRoute('GET', '/logout', 'LogoutControl');
     $r->addRoute(['GET','POST'], '/module/{name}/{params:.+}', 'modroute');
     $r->addRoute(['GET','POST'], '/user/edit/{id:\d+}', 'somehandler');
     $r->addRoute('GET', '/user/list', 'somehandler');
@@ -46,7 +46,7 @@ switch($routeInfo[0]){
       (new $handler())->execute();
     }
     catch(NotLoggedInException $nliex){
-      (new LoginController($vars, $uri))->execute();
+      (new LoginControl($vars, $uri))->execute();
     }
   break;
 }

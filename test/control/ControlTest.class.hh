@@ -1,8 +1,8 @@
 <?hh // strict
 
-namespace axolotl\test\controller;
+namespace axolotl\test\control;
 
-abstract class ControllerTest{
+abstract class ControlTest{
   <<Setup('test')>>
   public async function setUp(): Awaitable<void>{
     ob_start();

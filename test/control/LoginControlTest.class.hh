@@ -1,9 +1,9 @@
 <?hh // strict
 
-namespace axolotl\test\controller;
+namespace axolotl\test\control;
 
 require_once __DIR__.'/../../vendor/autoload.php';
 
 use \HackPack\HackUnit\Contract\Assert;
 
-class LoggedInPageControllerTest extends ControllerTest{}
+class LoginControlTest extends ControlTest{}

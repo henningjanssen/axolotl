@@ -1,6 +1,6 @@
 <?hh // strict
 
-namespace axolotl\controller;
+namespace axolotl\control;
 
 use \LoginView;
 use \RedirectView;
@@ -9,7 +9,7 @@ use axolotl\util\_;
 use axolotl\util\Doctrine;
 use axolotl\util\Session;
 
-class LoginController extends PageController{
+class LoginControl extends PageControl{
   private string $redirect = "/";
   public function __construct(array<string> $vars, string $redirect = "/"){
     parent::__construct($vars);
