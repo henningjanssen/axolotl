@@ -2,51 +2,7 @@
 
 require_once __DIR__.'/vendor/autoload.php';
 
-use axolotl\control\HomePageControl;
-use axolotl\control\LoginControl;
-use axolotl\control\LogoutControl;
-use axolotl\util\_;
+use axolotl\control\ApplicationControl;
 
-$httpMethod = $_SERVER['REQUEST_METHOD'];
-$uri = $_SERVER['REQUEST_URI'];
-
-$dispatcher = \FastRoute\simpleDispatcher(
-  function(\FastRoute\RouteCollector $r){
-    $r->addRoute('GET', '/(home)?', 'HomePageControl');
-    $r->addRoute(['GET','POST'], '/login', 'LoginControl');
-    $r->addRoute('GET', '/logout', 'LogoutControl');
-    $r->addRoute(['GET','POST'], '/module/{name}/{params:.+}', 'modroute');
-    $r->addRoute(['GET','POST'], '/user/edit/{id:\d+}', 'somehandler');
-    $r->addRoute('GET', '/user/list', 'somehandler');
-    $r->addRoute('GET', '/user/new', 'somehandler');
-    $r->addRoute('GET', '/user/show/{id:\d+}', 'somehandler');
-  }
-);
-
-$pos = strpos("uri", '?');
-if($pos !== false){
-  $uri = substr($uri, 0, $pos);
-}
-$uri = rawurldecode($uri);
-
-$routeInfo = $dispatcher->dispatch($httpMethod, $uri);
-switch($routeInfo[0]){
-  case \FastRoute\Dispatcher::NOT_FOUND:
-    //404
-  break;
-
-  case \FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
-    //405 Method not allowed
-  break;
-
-  case \FastRoute\Dispatcher::FOUND:
-    $handler = $routeInfo[1];
-    $vars = $routeInfo[2];
-    try{
-      (new $handler())->execute();
-    }
-    catch(NotLoggedInException $nliex){
-      (new LoginControl($vars, $uri))->execute();
-    }
-  break;
-}
+(new ApplicationControl(_::SERVER['REQUEST_METHOD'], _::SERVER['REQUEST_URI']))
+  ->execute();
