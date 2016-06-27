@@ -42,7 +42,7 @@ class LoginControl extends PageControl{
     else{
       (new LoginView(
         $loginFailed,
-        strval(_::POST("__ax_login")) ?? "",
+        strval(_::POST("__ax_nick")) ?? "",
         strval(_::POST("__ax_pw")) ?? ""
       ))->render();
     }
