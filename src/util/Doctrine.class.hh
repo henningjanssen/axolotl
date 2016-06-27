@@ -9,6 +9,8 @@ use Doctrine\DBAL\Connection;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 
+use axolotl\exceptions\BrokenInstallationException;
+
 class Doctrine{
   private static ?Connection $customDriver = null;
 
@@ -19,13 +21,22 @@ class Doctrine{
   public static function getEntityManager(
     array<string> $entityPaths = array()
   ): EntityManager{
-    $devMode = false;
-    $entityPaths[] = realpath(__DIR__."/../entities");
-    $dbConf = self::getDBSettings();
-    $config = Setup::createAnnotationMetadataConfiguration(
-      $entityPaths, $devMode
-    );
-    return EntityManager::create(self::$customDriver ?? $dbConf, $config);
+    try{
+      $devMode = false;
+      $entityPaths[] = realpath(__DIR__."/../entities");
+      $dbConf = self::getDBSettings();
+      $config = Setup::createAnnotationMetadataConfiguration(
+        $entityPaths, $devMode
+      );
+      return EntityManager::create(self::$customDriver ?? $dbConf, $config);
+    }
+    catch(\Doctrine\DBAL\DBALException $dbalex){
+      throw new BrokenInstallationException(
+        "Can't create doctrine-entitymanager. Errors in config?",
+        42,
+        $dbalex
+      );
+    }
   }
 
   private static function getDBSettings(): array<arraykey,mixed>{
