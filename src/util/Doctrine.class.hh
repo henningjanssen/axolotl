@@ -1,9 +1,9 @@
 <?hh // partial
 //Needs partial-mode as Doctrine is a php-framework
 
-require_once realpath(__DIR__.'/../../vendor/autoload.php');
-
 namespace axolotl\util;
+
+require_once realpath(__DIR__.'/../../vendor/autoload.php');
 
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\Tools\Setup;
