@@ -3,3 +3,5 @@ logs/*.log
 vendor/
 composer.phar
 composer.lock
+www.pid
+public/www.pid
