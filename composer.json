@@ -10,6 +10,9 @@
     "psr-0":{
       "":"src/"
     },
+    "psr-4":{
+      "axolotl\\":"src/"
+    },
     "classmap":[
       "src/"
     ]
