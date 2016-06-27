@@ -11,9 +11,10 @@ class ApplicationControl{
   public function execute(): void{
     $dispatcher = \FastRoute\simpleDispatcher(
       function(\FastRoute\RouteCollector $r){
-        $r->addRoute('GET', '/(home)?', 'HomePageControl');
-        $r->addRoute(['GET','POST'], '/login', 'LoginControl');
-        $r->addRoute('GET', '/logout', 'LogoutControl');
+        $ns = "\\axolotl\\control";
+        $r->addRoute('GET', '/[home]',"$ns\\HomePageControl");
+        $r->addRoute(['GET','POST'], '/login', "$ns\\LoginControl");
+        $r->addRoute('GET', '/logout', "$ns\\LogoutControl");
         $r->addRoute(['GET','POST'], '/module/{name}/{params:.+}', 'modroute');
         $r->addRoute(['GET','POST'], '/user/edit/{id:\d+}', 'somehandler');
         $r->addRoute('GET', '/user/list', 'somehandler');
@@ -29,6 +30,9 @@ class ApplicationControl{
     $pos = strpos($this->uri, _::SETTINGS("axolotl_base_uri"));
     if($pos === 0){
       $this->uri = substr($this->uri, strlen(_::SETTINGS("axolotl_base_uri")));
+    }
+    if($this->uri[0] !== '/'){
+      $this->uri = "/$this->uri";
     }
     $this->uri = rawurldecode($this->uri);
 
@@ -46,7 +50,7 @@ class ApplicationControl{
         $handler = $routeInfo[1];
         $vars = $routeInfo[2];
         try{
-          (new $handler())->execute();
+          (new $handler($vars))->execute();
         }
         catch(NotLoggedInException $nliex){
           (new LoginControl($vars, $this->uri))->execute();
