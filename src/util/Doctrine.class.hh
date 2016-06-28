@@ -50,7 +50,7 @@ class Doctrine{
     $conf["user"] = strval(_::SETTINGS("db_user"));
     $conf["password"] = strval(_::SETTINGS("db_password"));
 
-    if($conf["doctrine_driver"] !== "pdo_sqlite"){
+    if($conf["driver"] !== "pdo_sqlite"){
       $conf["host"] = strval(_::SETTINGS("db_host", "localhost"));
       $conf["dbname"] = strval(_::SETTINGS("db_name"));
     }
@@ -76,8 +76,9 @@ class Doctrine{
         $conf["charset"] = strval(_::SETTINGS("db_charset", "utf8"));
         $conf["default_dbname"] =
           strval(_::SETTINGS("db_default_dbname", "postgres"));
-        $conf["sslmode"] = strval(_::SETTINGS("db_sslmode"));
-        $conf["sslrootcert"] = strval(_::SETTINGS("db_sslrootcert"));
+        $conf["sslmode"] = strval(_::SETTINGS("db_sslmode", "prefer"));
+        $conf["sslrootcert"] =
+          strval(_::SETTINGS("db_sslrootcert", "~/.postgresql/root.crt"));
         $conf["application_name"] =
           strval(_::SETTINGS("db_application_nam", "axolotl"));
       break;
