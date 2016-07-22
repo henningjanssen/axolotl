@@ -1,13 +1,16 @@
 <?hh // partial
 //Needs partial-mode as Doctrine is a php-framework
 
+//http://doctrine-orm.readthedocs.io/projects/doctrine-orm/en/latest/reference/advanced-configuration.html
+
 namespace axolotl\util;
 
 require_once realpath(__DIR__.'/../../vendor/autoload.php');
 
 use Doctrine\DBAL\Connection;
-use Doctrine\ORM\Tools\Setup;
+use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Tools\Setup;
 
 use axolotl\exceptions\BrokenInstallationException;
 
@@ -25,9 +28,17 @@ class Doctrine{
       $devMode = false;
       $entityPaths[] = realpath(__DIR__."/../entities");
       $dbConf = self::getDBSettings();
-      $config = Setup::createAnnotationMetadataConfiguration(
-        $entityPaths, $devMode
-      );
+      $cache = self::getCache();
+      $config = new Configuration();
+      $config->setMetadataCacheImpl($cache);
+      $annotationDriver = $config->newDefaultAnnotationDriver($entityPaths);
+      $pathinfo = pathinfo(__FILE__);
+      $annotationDriver->setFileExtension(".".$pathinfo['extension']);
+      $config->setMetadataDriverImpl($annotationDriver);
+      $config->setQueryCacheImpl($cache);
+      $config->setProxyDir(realpath(__DIR__.'/../proxies/'));
+      $config->setProxyNamespace('axolotl\proxies');
+      $config->setAutogenerateProxyClasses(!$devMode);
       return EntityManager::create(self::$customDriver ?? $dbConf, $config);
     }
     catch(\Doctrine\DBAL\DBALException $dbalex){
@@ -108,5 +119,75 @@ class Doctrine{
       break;
     }
     return $conf;
+  }
+
+  private static function getCache(): \Doctrine\Common\Cache\Cache{
+    $cache = null;
+    switch(strval(_::SETTINGS("doctrine_cache", "array"))){
+      case "apc":{
+        $cache = new \Doctrine\Common\Cache\ApcCache();
+      } break;
+
+      case "memcache":{
+        $cache = new \Doctrine\Common\Cache\MemcacheCache();
+        $memcache = new \Memcache();
+        if(boolval(_::SETTINGS("memcache_persistent"))){
+          $memcache->pconnect(
+            strval(_::SETTINGS("memcache_host", "localhost")),
+            intval(_::SETTINGS("memcache_post",
+              boolval(_::SETTINGS("memcache_socket", false) ? 0 : 11211)
+            )),
+            intval(_::SETTINGS("memcache_timeout", 1))
+          );
+        }
+        else{
+          $memcache->connect(
+            strval(_::SETTINGS("memcache_host", "localhost")),
+            intval(_::SETTINGS("memcache_post",
+              boolval(_::SETTINGS("memcache_socket", false) ? 0 : 11211)
+            )),
+            intval(_::SETTINGS("memcache_timeout", 1))
+          );
+        }
+        $cache->setMemcache($memcache);
+      } break;
+
+      case "memcached":{
+        $cache = new \Doctrine\Common\Cache\MemcacheCache();
+        $memcached = new \Memcached();
+        $memcached->addServer(
+          strval(_::SETTINGS("memcache_host", "localhost")),
+          intval(_::SETTINGS("memcache_post",
+            boolval(_::SETTINGS("memcache_socket", false) ? 0 : 11211)
+          ))
+        );
+        $cache->setMemcache($memcached);
+      } break;
+
+      case "redis":{
+        $redis = new \Redis();
+        $redis->connect(
+          strval(_::SETTINGS("redis_host", "localhost")),
+          intval(_::SETTINGS("redis_port", 6379))
+        );
+        $cache = new \Doctrine\Common\Cache\RedisCache();
+        $cache->setRedis($redis);
+      } break;
+
+      case "xcache":{
+        $cache = new \Doctrine\Common\Cache\XcacheCache();
+      } break;
+
+      case "zend":{
+        $cache = new \Doctrine\Common\Cache\ZendCache();
+      } break;
+
+      //case "array":
+      default:{
+        $cache = new \Doctrine\Common\Cache\ArrayCache();
+      } break;
+    }
+    $cache->setNamespace("_axolotl_doctrine_");
+    return $cache;
   }
 }

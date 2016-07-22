@@ -19,10 +19,12 @@ class LoginControl extends PageControl{
   public function execute(): void{
     $loginFailed = false;
     if(_::POST("__ax_login") !== null){
-      $querystr = "SELECT * FROM users WHERE username = ?1 OR email = ?1";
+      $querystr = "select u from axolotl\\entities\\User u"
+        ." where u.username = :user or u.email = :user";
       $entityManager = Doctrine::getEntityManager();
       $query = $entityManager->createQuery($querystr);
-      $result = $query->getResults();
+      $query->setParameter('user', _::POST("__ax_login"));
+      $result = $query->getResult();
       if(count($result) !== 1){
         $loginFailed = true;
       }

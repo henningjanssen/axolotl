@@ -1,1 +1,1 @@
-../vendor/bin/doctrine orm::schema-tool:create
+hhvm ../vendor/bin/doctrine orm:schema-tool:create

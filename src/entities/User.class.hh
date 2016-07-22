@@ -7,7 +7,7 @@ namespace axolotl\entities;
  * @Table(name="users")
  */
 class User{
-  /** @Id @Column(type="Integer") @GeneratedValue */
+  /** @Id @Column(type="integer") @GeneratedValue */
   protected int $id;
 
   /** @Column(type="string", length=32, unique=true, nullable=false)*/
@@ -19,7 +19,7 @@ class User{
   /** @Column(type="text", name="full_name") */
   protected string $fullName;
 
-  /** @Column(type="string", length="64") */
+  /** @Column(type="string", length=64) */
   protected string $password;
 
   /** @Column(type="text") */

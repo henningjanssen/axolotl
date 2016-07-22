@@ -11,7 +11,8 @@
       "":"src/"
     },
     "psr-4":{
-      "axolotl\\":"src/"
+      "axolotl\\":"src/",
+      "":"src/"
     },
     "classmap":[
       "src/"
