@@ -23,7 +23,7 @@ class LoginControl extends PageControl{
         ." where u.username = :user or u.email = :user";
       $entityManager = Doctrine::getEntityManager();
       $query = $entityManager->createQuery($querystr);
-      $query->setParameter('user', _::POST("__ax_login"));
+      $query->setParameter('user', _::POST("__ax_nick"));
       $result = $query->getResult();
       if(count($result) !== 1){
         $loginFailed = true;
