@@ -8,7 +8,7 @@ abstract class PageView{
   protected :xhp $precontent; //navbar, etc
   protected :xhp $content;
   protected :xhp $postcontent; //footer, etc.
-  protected :xhp $baseuri;
+  protected string $baseuri;
 
   public function __construct(string $title = ""){
     $vendor = strval(_::SETTINGS("vendor", "axolotl"));
@@ -18,7 +18,7 @@ abstract class PageView{
     if(strlen($vendor) > 0){
       $title .= $vendor;
     }
-    $this->baseuri = _::SETTINGS("axolotl_base_uri", "");
+    $this->baseuri = strval(_::SETTINGS("axolotl_base_uri", ""));
     $this->head =
       <head>
         <meta charset="utf-8"/>

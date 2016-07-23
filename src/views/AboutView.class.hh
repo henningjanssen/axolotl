@@ -7,7 +7,7 @@ class AboutView extends PageView{
     //
   ){
     parent::__construct("About");
-    $vendorWebsite = _::SETTINGS("vendor_website", "");
+    $vendorWebsite = strval(_::SETTINGS("vendor_website", ""));
     $this->content->appendChild(
       <bootstrap:panel use="info">
         <bootstrap:panel:heading>
