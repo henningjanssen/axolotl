@@ -1,5 +1,5 @@
 {
-  "axolotl_base_uri":"/axolotl/",
+  "axolotl_base_uri":"/axolotl",
   "doctrine_driver":"pdo_pgsql",
   "db_user":"axl",
   "db_password":"axolotltest",
