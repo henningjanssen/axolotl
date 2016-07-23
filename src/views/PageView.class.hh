@@ -61,7 +61,7 @@ abstract class PageView{
     }
     else{
       $navbar->appendChild(
-        <bootstrap:navigation:link href="{$this->baseuri.'login'}">
+        <bootstrap:navigation:link href={$this->baseuri.'/login'}>
           Login
         </bootstrap:navigation:link>
       );
