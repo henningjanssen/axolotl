@@ -30,9 +30,19 @@ class LoginView extends PageView{
             </form>
           </bootstrap:panel:body>
         </bootstrap:panel>
-        <bootstrap:alert use="info">
-          This site uses Cookies to store information on your computer.
-        </bootstrap:alert>
       </x:frag>;
+    if($failedLogin){
+      $this->content->appendChild(
+        <bootstrap:alert use="warning">
+          The provided e-mail-adress/username and password-combination does not
+          match any user in the database (Login failed).
+        </bootstrap:alert>
+      );
+    }
+    $this->content->appendChild(
+      <bootstrap:alert use="info">
+        This site uses Cookies to store information on your computer.
+      </bootstrap:alert>
+    );
   }
 }
