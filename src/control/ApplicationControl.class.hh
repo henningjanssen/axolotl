@@ -12,7 +12,7 @@ class ApplicationControl{
     $dispatcher = \FastRoute\simpleDispatcher(
       function(\FastRoute\RouteCollector $r){
         $ns = "\\axolotl\\control";
-        $r->addRoute('GET', '/[home]',"$ns\\HomePageControl");
+        $r->addRoute('GET', '[/[home]]',"$ns\\HomePageControl");
         $r->addRoute(['GET','POST'], '/login', "$ns\\LoginControl");
         $r->addRoute('GET', '/logout', "$ns\\LogoutControl");
         $r->addRoute(['GET','POST'], '/module/{name}/{params:.+}', 'modroute');
