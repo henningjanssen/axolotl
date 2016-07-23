@@ -8,6 +8,7 @@ abstract class PageView{
   protected :xhp $precontent; //navbar, etc
   protected :xhp $content;
   protected :xhp $postcontent; //footer, etc.
+  protected :xhp $baseuri;
 
   public function __construct(string $title = ""){
     $vendor = strval(_::SETTINGS("vendor", "axolotl"));
@@ -17,7 +18,7 @@ abstract class PageView{
     if(strlen($vendor) > 0){
       $title .= $vendor;
     }
-    $baseuri = _::SETTINGS("axolotl_base_uri", "/");
+    $this->baseuri = _::SETTINGS("axolotl_base_uri", "");
     $this->head =
       <head>
         <meta charset="utf-8"/>
@@ -45,14 +46,14 @@ abstract class PageView{
           AXL
         </bootstrap:navbar:brand>
       </bootstrap:navbar>;
-      
+
     if(Session::loggedIn()){
       $navbar->appendChild(
         <x:frag>
-          <bootstrap:navigation:link href="{$base.'home'}">
+          <bootstrap:navigation:link href={$this->baseuri.'/home'}>
             Home
           </bootstrap:navigation:link>
-          <bootstrap:navigation:link href="{$base.'logout'}">
+          <bootstrap:navigation:link href={$this->baseuri.'/logout'}>
             Logout
           </bootstrap:navigation:link>
         </x:frag>
@@ -60,7 +61,7 @@ abstract class PageView{
     }
     else{
       $navbar->appendChild(
-        <bootstrap:navigation:link href="{$base.'login'}">
+        <bootstrap:navigation:link href="{$this->baseuri.'login'}">
           Login
         </bootstrap:navigation:link>
       );
