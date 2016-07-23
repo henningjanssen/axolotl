@@ -53,6 +53,9 @@ abstract class PageView{
           <bootstrap:navigation:link href={$this->baseuri.'/home'}>
             Home
           </bootstrap:navigation:link>
+          <bootstrap:navigation:link href={$this->baseuri.'/about'}>
+            About
+          </bootstrap:navigation:link>
           <bootstrap:navigation:link href={$this->baseuri.'/logout'}>
             Logout
           </bootstrap:navigation:link>

@@ -20,6 +20,7 @@ class ApplicationControl{
         $r->addRoute('GET', '/user/list', 'somehandler');
         $r->addRoute('GET', '/user/new', 'somehandler');
         $r->addRoute('GET', '/user/show/{id:\d+}', 'somehandler');
+        $r->addRoute('GET', '/about', "$ns\\AboutControl");
       }
     );
 

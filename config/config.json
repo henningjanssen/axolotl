@@ -3,5 +3,9 @@
   "doctrine_driver":"pdo_pgsql",
   "db_user":"axl",
   "db_password":"axolotltest",
-  "db_name":"axl_dev"
+  "db_name":"axl_dev",
+  "vendor_name":"Your Webmaster",
+  "vendor_mail":"webmaster@example.org",
+  "vendor_phone":"0123-456789x",
+  "vendor_website":"http://example.org/"
 }
