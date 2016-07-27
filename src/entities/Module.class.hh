@@ -18,6 +18,9 @@ class Module{
   /** @Column(type="text") */
   protected string $name;
 
+  /** @ManyToOne(targetEntity="RoutingInfo", inversedBy="module") */
+  protected array<RoutingInfo> $routingInfo;
+
   /** @Column(type="datetimetz", name="installed_at") */
   protected \DateTime $installationDate;
 
@@ -31,6 +34,7 @@ class Module{
       "@".time(), new \DateTimeZone("Europe/Berlin")
     );
     $this->vendor = "";
+    $this->routingInfo = array();
     $this->creator = new User();
   }
 
@@ -82,6 +86,13 @@ class Module{
   }
   public function getInstallationDate(): \DateTime{
     return $this->installationDate;
+  }
+
+  public function setRoutingInfo(array<RoutingInfo> $info): void{
+    $this->routingInfo = $info;
+  }
+  public function getRoutingInfo(): array<RoutingInfo>{
+    return $this->routingInfo;
   }
 
   public function setCreator(User $creator): void{
