@@ -21,6 +21,18 @@ class ApplicationControl{
         $r->addRoute('GET', '/user/new', 'somehandler');
         $r->addRoute('GET', '/user/show/{id:\d+}', 'somehandler');
         $r->addRoute('GET', '/about', "$ns\\AboutControl");
+
+        $modules = \axolotl\util\Doctrine::getEntityManager()
+          ->getRepository('\axolotl\entities\Module')
+          ->findAll();
+        foreach($modules as $mod){
+          foreach($mod->getRoutingInfo() as $i)
+          $r->addRoute(
+            $i->getMethodString(),
+            '/m/'.$mod->getVendor().'/'.$mod->getName().$i->getURI(),
+            $i->getHandler()
+          );
+        }
       }
     );
 
