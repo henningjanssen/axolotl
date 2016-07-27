@@ -89,6 +89,16 @@ class Module{
   }
 
   public function setRoutingInfo(array<RoutingInfo> $info): void{
+    $hasRoot = false;
+    foreach($info as $i){
+      if($i->getURI() === '/'){
+        $hasRoot = true;
+        break;
+      }
+    }
+    if(!$hasRoot){
+      throw new InvalidArgumentException('Module does not provide root');
+    }
     $this->routingInfo = $info;
   }
   public function getRoutingInfo(): array<RoutingInfo>{
