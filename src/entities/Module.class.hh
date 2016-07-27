@@ -13,6 +13,9 @@ class Module{
   protected int $id;
 
   /** @Column(type="text") */
+  protected string $vendor;
+
+  /** @Column(type="text") */
   protected string $name;
 
   /** @Column(type="datetimetz", name="installed_at") */
@@ -27,6 +30,7 @@ class Module{
     $this->installationDate = new \DateTime(
       "@".time(), new \DateTimeZone("Europe/Berlin")
     );
+    $this->vendor = "";
     $this->creator = new User();
   }
 
@@ -42,6 +46,16 @@ class Module{
 
   public function getID(): int{
     return $this->id;
+  }
+
+  public function setVendor(string $vendor): void{
+    if(strlen($vendor) === 0){
+      throw new InvalidArgumentException("Empty vendor");
+    }
+    $this->vendor = $vendor;
+  }
+  public function getVendor(): string{
+    return $this->vendor;
   }
 
   public function setName(string $name): void{
