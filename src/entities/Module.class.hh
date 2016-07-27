@@ -18,7 +18,7 @@ class Module{
   /** @Column(type="datetimetz", name="installed_at") */
   protected \DateTime $installationDate;
 
-  /** @ManyToOne(targetEntity="User", inversedBy="installedModules") */
+  /** @OneToMany(targetEntity="User", mappedBy="installedModules") */
   protected User $creator;
 
   public function __construct(){

@@ -31,7 +31,7 @@ class User{
   /** @Column(type="datetimetz", name="last_activity") */
   protected \DateTime $lastActivity;
 
-  /** @OneToMany(targetEntity="Module", mappedBy="creator") */
+  /** @ManyToOne(targetEntity="Module", inversedBy="creator") */
   protected array<Module> $installedModules;
 
   //Needed for the hack typechecker
