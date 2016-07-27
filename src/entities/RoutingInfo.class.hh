@@ -27,8 +27,8 @@ class RoutingInfo{
   public function __construct(){
     $this->id = -1;
     $this->module = new Module();
-    $this->uri = '';
-    $this->handler = '';
+    $this->uri = '/';
+    $this->handler = 'DummyHandler';
     $this->methods = array('GET');
   }
 
@@ -56,6 +56,12 @@ class RoutingInfo{
   }
 
   public function setURI(string $uri): void{
+    if(strlen($uri) === 0){
+      throw new InvalidArgumentException('Empty uri');
+    }
+    if($uri[0] !== '/'){
+      throw new InvalidArgumentException('URI has to begin with /');
+    }
     $this->uri = $uri;
   }
   public function getURI(): string{
@@ -63,6 +69,9 @@ class RoutingInfo{
   }
 
   public function setHandler(string $handler): void{
+    if(strlen($handler) === 0){
+      throw new InvalidArgumentException('Empty handler');
+    }
     $this->handler = $handler;
   }
   public function getHandler(): string{
