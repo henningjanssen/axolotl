@@ -10,6 +10,9 @@ class HomePageControl extends LoggedInPageControl{
   public function execute(): void{
     $entityManager = Doctrine::getEntityManager();
     $user = $entityManager->find("\\axolotl\\entities\\User", _::SESSION("uid"));
-    (new HomePageView($user))->render();
+    $modules = $entityManager
+      ->getRepository('axolotl\entities\Module')
+      ->findAll();
+    (new HomePageView($user, $modules))->render();
   }
 }
