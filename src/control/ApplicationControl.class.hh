@@ -29,7 +29,8 @@ class ApplicationControl{
           foreach($mod->getRoutingInfo() as $i)
           $r->addRoute(
             $i->getMethodString(),
-            '/m/'.$mod->getVendor().'/'.$mod->getName().$i->getURI(),
+            '/m/'.urlencode($mod->getVendor())
+              .'/'.urlencode($mod->getName()).$i->getURI(),
             $i->getHandler()
           );
         }
