@@ -15,6 +15,7 @@ class ApplicationControl{
         $r->addRoute('GET', '[/[home]]',"$ns\\HomePageControl");
         $r->addRoute(['GET','POST'], '/login', "$ns\\LoginControl");
         $r->addRoute('GET', '/logout', "$ns\\LogoutControl");
+        $r->addRoute(['GET'], '/settings/modules', "$ns\\ModuleControl");
         $r->addRoute(['GET','POST'], '/module/{name}/{params:.+}', 'modroute');
         $r->addRoute(['GET','POST'], '/user/edit/{id:\d+}', 'somehandler');
         $r->addRoute('GET', '/user/list', 'somehandler');
