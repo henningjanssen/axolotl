@@ -18,6 +18,9 @@ class Module{
   /** @Column(type="text") */
   protected string $name;
 
+  /** @Column(type="text") */
+  protected string $description;
+
   /** @ManyToOne(targetEntity="RoutingInfo", inversedBy="module") */
   protected array<RoutingInfo> $routingInfo;
 
@@ -34,15 +37,19 @@ class Module{
       "@".time(), new \DateTimeZone("Europe/Berlin")
     );
     $this->vendor = "";
+    $this->description = "";
     $this->routingInfo = array();
     $this->creator = new User();
   }
 
   public static function newInstance(
-    string $name, ?\DateTime $installationDate, User $creator
+    string $vendor, string $name, string $description,
+    ?\DateTime $installationDate, User $creator
   ): Module{
     $module = new Module();
+    $module->setVendor($vendor);
     $module->setName($name);
+    $module->setDescription($description);
     $module->setInstallationDate($installationDate);
     $module->setCreator($creator);
     return $module;
@@ -71,6 +78,13 @@ class Module{
   }
   public function getName(): string{
     return $this->name;
+  }
+
+  public function setDescription(string $desc): void{
+    $this->description = $desc;
+  }
+  public function getDescription(): string{
+    return $this->description;
   }
 
   public function setInstallationDate(?\DateTime $installationDate=null): void{

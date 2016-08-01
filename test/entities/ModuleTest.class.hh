@@ -25,7 +25,9 @@ class ModuleTest{
       new \DateTime("@1463576124", new \DateTimeZone("Europe/Berlin"))
     );
     $this->module = Module::newInstance(
+      "Rick",
       "Astley",
+      "Pure awesomeness",
       new \DateTime("@102556800", new \DateTimeZone("Europe/Berlin")),
       $this->exampleUser
     );
@@ -34,7 +36,9 @@ class ModuleTest{
   <<Setup('test')>>
   public async function setUp(): Awaitable<void>{
     $this->module = Module::newInstance(
+      "Rick",
       "Astley",
+      "Pure awesomeness",
       new \DateTime("@102556800", new \DateTimeZone("Europe/Berlin")),
       $this->exampleUser
     );
