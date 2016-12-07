@@ -65,9 +65,9 @@ abstract class PageView{
               <bootstrap:dropdown:item
                 href={$this->baseuri.'/settings/modules'}
               >
-                //Normally not needed. Bug in xhp-bootstrap, which
+                <!--//Normally not needed. Bug in xhp-bootstrap, which
                 //is also present on their docs
-                //Does produce slightly different layout (space above entry)
+                //Does produce slightly different layout (space above entry)-->
                 <a href={$this->baseuri.'/settings/modules'}>Modules</a>
               </bootstrap:dropdown:item>
             </bootstrap:dropdown:menu>
