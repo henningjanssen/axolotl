@@ -66,7 +66,7 @@ class Doctrine{
       $conf["dbname"] = strval(_::SETTINGS("db_name"));
     }
     if(_::SETTINGS("db_driver_options") !== null){
-      $conf["driverOptions"] = strval(_::SETTINGS("driverOptions"));
+      $conf["driverOptions"] = strval(_::SETTINGS("db_driver_options"));
     }
 
     switch(strval($conf["driver"])){
@@ -83,7 +83,7 @@ class Doctrine{
       break;
 
       case "pdo_pgsql":
-        $conf["port"] = intval(_::SETTINGS("db_port"), 5432);
+        $conf["port"] = intval(_::SETTINGS("db_port", 5432));
         $conf["charset"] = strval(_::SETTINGS("db_charset", "utf8"));
         $conf["default_dbname"] =
           strval(_::SETTINGS("db_default_dbname", "postgres"));
@@ -91,7 +91,7 @@ class Doctrine{
         $conf["sslrootcert"] =
           strval(_::SETTINGS("db_sslrootcert", "~/.postgresql/root.crt"));
         $conf["application_name"] =
-          strval(_::SETTINGS("db_application_nam", "axolotl"));
+          strval(_::SETTINGS("db_application_name", "axolotl"));
       break;
 
       case "pdo_oci":
