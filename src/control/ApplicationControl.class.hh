@@ -16,6 +16,9 @@ class ApplicationControl{
         $r->addRoute(['GET','POST'], '/login', "$ns\\LoginControl");
         $r->addRoute('GET', '/logout', "$ns\\LogoutControl");
         $r->addRoute(['GET'], '/settings/modules', "$ns\\ModuleControl");
+        $r->addRoute(['GET', 'POST'],
+          '/settings/modules/install', "$ns\\InstallModuleControl"
+        );
         $r->addRoute(['GET','POST'], '/module/{name}/{params:.+}', 'modroute');
         $r->addRoute(['GET','POST'], '/user/edit/{id:\d+}', 'somehandler');
         $r->addRoute('GET', '/user/list', 'somehandler');
@@ -55,6 +58,7 @@ class ApplicationControl{
     switch($routeInfo[0]){
       case \FastRoute\Dispatcher::NOT_FOUND:
         //404
+        printf("404");
       break;
 
       case \FastRoute\Dispatcher::METHOD_NOT_ALLOWED:

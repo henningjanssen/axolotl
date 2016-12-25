@@ -6,8 +6,22 @@ use axolotl\exceptions\BrokenInstallationException;
 
 class _{
   private static array<arraykey, mixed> $settings = array();
+
+  public static function FILE(
+    string $file, string $key, mixed $default = null
+  ): mixed{
+    if(!isset($_FILE[$file])){
+      return $default ?? null;
+    }
+    return $_FILE[$file][$key] ?? null;
+  }
+
   public static function GET(arraykey $key): mixed{
     return $_GET[$key] ?? null;
+  }
+
+  public static function INI(string $key): mixed{
+    return ini_get($key);
   }
 
   public static function POST(arraykey $key): mixed{
