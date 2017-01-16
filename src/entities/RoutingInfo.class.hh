@@ -12,7 +12,7 @@ class RoutingInfo{
   /** @Id @Column(type="integer") @GeneratedValue */
   protected int $id;
 
-  /** @OneToMany(targetEntity="Module", mappedBy="routingInfo") */
+  /** @ManyToOne(targetEntity="Module", inversedBy="routingInfo") */
   protected Module $module;
 
   /** @Column(type="text") */

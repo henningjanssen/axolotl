@@ -21,13 +21,13 @@ class Module{
   /** @Column(type="text") */
   protected string $description;
 
-  /** @ManyToOne(targetEntity="RoutingInfo", inversedBy="module") */
+  /** @OneToMany(targetEntity="RoutingInfo", mappedBy="module") */
   protected array<RoutingInfo> $routingInfo;
 
   /** @Column(type="datetimetz", name="installed_at") */
   protected \DateTime $installationDate;
 
-  /** @OneToMany(targetEntity="User", mappedBy="installedModules") */
+  /** @ManyToOne(targetEntity="User", inversedBy="installedModules") */
   protected User $creator;
 
   public function __construct(){
