@@ -10,10 +10,10 @@ class _{
   public static function FILE(
     string $file, string $key, mixed $default = null
   ): mixed{
-    if(!isset($_FILE[$file])){
+    if(!isset($_FILES[$file])){
       return $default ?? null;
     }
-    return $_FILE[$file][$key] ?? null;
+    return $_FILES[$file][$key] ?? default ?? null;
   }
 
   public static function GET(arraykey $key): mixed{
