@@ -4,6 +4,7 @@ namespace axolotl\control;
 
 use axolotl\exceptions\NotLoggedInException;
 use axolotl\util\_;
+use \RedirectView;
 
 class ApplicationControl{
   public function __construct(private string $uri, private string $httpMethod){}
@@ -59,12 +60,12 @@ class ApplicationControl{
     $routeInfo = $dispatcher->dispatch($this->httpMethod, $this->uri);
     switch($routeInfo[0]){
       case \FastRoute\Dispatcher::NOT_FOUND:
-        //404
-        printf("404");
+        (new RedirectView("/error/404"))->render();
       break;
 
       case \FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
         //405 Method not allowed
+        (new RedirectView("/error/405"))->render();
       break;
 
       case \FastRoute\Dispatcher::FOUND:
