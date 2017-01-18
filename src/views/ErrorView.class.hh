@@ -6,7 +6,7 @@ class ErrorView extends View{
     $this->setHTTPStatusCode($this->errno);
   }
 
-  public function render(){
+  public function render(): void{
     echo $this->errno; // TODO: make things nicer
   }
 }
