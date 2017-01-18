@@ -18,6 +18,10 @@ class Log{
   ): void {
     $date = date("Y-m-d H:i:s");
     $msg = "[$date][$lvl][$topic] $msg".PHP_EOL;
+
+    if(!file_exists(__DIR__.'/../../logs/axl.log')){
+      fclose(fopen(__DIR__.'/../../logs/axl.log', "w"));
+    }
     error_log($msg, 3, realpath(__DIR__.'/../../logs/axl.log'));
   }
 
