@@ -10,7 +10,7 @@ class StaticContentView{
     header("Content-Type: ".$this->mimetype);
   }
 
-  public function render(){
-    echo $content;
+  public function render(): void{
+    echo $this->content;
   }
 }
