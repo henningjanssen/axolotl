@@ -19,6 +19,7 @@ class ApplicationControl{
         $r->addRoute(['GET', 'POST'],
           '/settings/modules/install', "$ns\\InstallModuleControl"
         );
+        $r->addRoute('GET', '/static/{path:.+}', "$ns\\StaticContentControl");
         $r->addRoute(['GET','POST'], '/module/{name}/{params:.+}', 'modroute');
         $r->addRoute(['GET','POST'], '/user/edit/{id:\d+}', 'somehandler');
         $r->addRoute('GET', '/user/list', 'somehandler');
