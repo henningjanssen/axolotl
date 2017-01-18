@@ -3,7 +3,7 @@
 use axolotl\util\_;
 use axolotl\util\Session;
 
-abstract class PageView{
+abstract class PageView extends View{
   protected :xhp $head;
   protected :xhp $precontent; //navbar, etc
   protected :xhp $content;
@@ -89,14 +89,6 @@ abstract class PageView{
       );
     }
     return $navbar;
-  }
-
-  final public function setHeader(string $header): void{
-    header($header);
-  }
-
-  final public function setHTTPStatusCode(int $code): void{
-    http_response_code($code);
   }
 
   final public function render(): void{
