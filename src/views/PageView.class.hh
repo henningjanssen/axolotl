@@ -34,7 +34,7 @@ abstract class PageView extends View{
           src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"
         />
         <!-- stuff for fileuploads -->
-        <script src={"{$this->baseuri}/static/3rd-party/resumable.js/resumable.js"}/>
+        <script src={"{$this->baseuri}/static/3rd-party/resumable.js"}/>
         <script src={"{$this->baseuri}/static/js/fileupload.js"}/>
       </head>;
     $this->precontent = $this->getPrecontent();
