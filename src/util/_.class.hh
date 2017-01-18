@@ -13,7 +13,7 @@ class _{
     if(!isset($_FILES[$file])){
       return $default ?? null;
     }
-    return $_FILES[$file][$key] ?? default ?? null;
+    return $_FILES[$file][$key] ?? $default ?? null;
   }
 
   public static function GET(arraykey $key): mixed{
