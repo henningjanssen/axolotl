@@ -3,8 +3,8 @@
 namespace axolotl\control;
 
 abstract class PageControl{
-  protected Map<string, string> $vars;
-  public function __construct(Map<string, string> $vars){
+  protected array<string, string> $vars;
+  public function __construct(array<string, string> $vars){
     $this->vars = $vars;
   }
 

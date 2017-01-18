@@ -11,7 +11,7 @@ use axolotl\util\Session;
 
 class LoginControl extends PageControl{
   private string $redirect = "/";
-  public function __construct(Map<string, string> $vars, string $redirect = "/"){
+  public function __construct(array<string, string> $vars, string $redirect = "/"){
     parent::__construct($vars);
     $this->redirect = $redirect;
   }
