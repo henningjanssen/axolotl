@@ -36,7 +36,7 @@ class InstallModuleView extends PageView{
             <div class="form-group">
               <label for="__ax_modFile">.zip containing the module</label>
               <fileupload id="__ax_modFile" name="__ax_modFile"
-                accept="application/zip"/>
+                accept="zip"/>
               <small id="modFileDesc" class="form-text text-muted">
                 For more information about modules take a look at the
                 project on github.
