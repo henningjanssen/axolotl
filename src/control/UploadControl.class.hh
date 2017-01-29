@@ -16,8 +16,6 @@ class UploadControl extends LoggedInPageControl{
       (new UploadView())->render();
       return;
     }*/
-    \axolotl\util\Log::debug("UploadControl", strval(_::SERVER('REQUEST_METHOD')), 0);
-    \axolotl\util\Log::debug("UploadControl", $this->vars["name"], 0);
 
     //assume it is POST otherwise.
     //library unfortunately handles the output. this is against my design
