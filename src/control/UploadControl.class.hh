@@ -1,4 +1,5 @@
-<?hh // strict
+<?hh // partial
+// We need the partial mode for the use of dilab/resumable.php
 
 namespace axolotl\control;
 
