@@ -8,7 +8,7 @@ class InstallModuleView extends PageView{
     bool $attempt, ?Module $module
   ){
     parent::__construct("Install module");
-    $baseuri = strval(_::SETTINGS("axolotl.base_uri", ""));
+    $baseuri = strval(_::SETTINGS("system.base_uri", ""));
     if($attempt){
       $msg = $module !== null
         ? "Modules successfully installed."

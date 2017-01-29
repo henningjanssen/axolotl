@@ -18,7 +18,7 @@ abstract class PageView extends View{
     if(strlen($vendor) > 0){
       $title .= $vendor;
     }
-    $this->baseuri = strval(_::SETTINGS("axolotl.base_uri", ""));
+    $this->baseuri = strval(_::SETTINGS("system.base_uri", ""));
     $this->head =
       <head>
         <meta charset="utf-8"/>
