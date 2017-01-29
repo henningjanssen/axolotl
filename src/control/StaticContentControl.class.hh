@@ -14,7 +14,7 @@ class StaticContentControl extends PageControl{
     $mime = $this->getMimeType($ext);
 
     $inpath = "public";
-    if(isset($this->vars['vendor'])){
+    if(in_array('vendor', $this->vars)){
       $inpath = "modules/"
         .strval($this->vars['vendor'])
         ."/"
