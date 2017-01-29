@@ -28,7 +28,7 @@ class :fileupload extends :x:element{
   protected function render(): \XHPRoot{
     $elem = <div id={$this->:id}/>;
     $elem->appendChild(
-      <input type="hidden" id={$this->:name."_upload_input"} name={$this->:name}/>
+      <input type="hidden" id={$this->:name."_upload_filename"} name={$this->:name}/>
     );
     $elem->appendChild(
       <bootstrap:button-group>

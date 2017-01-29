@@ -5,14 +5,14 @@ use axolotl\util\_;
 
 class InstallModuleView extends PageView{
   public function __construct(
-    bool $attempt, ?Module $module
+    bool $attempt, ?Module $module, string $error = ""
   ){
     parent::__construct("Install module");
     $baseuri = strval(_::SETTINGS("system.base_uri", ""));
     if($attempt){
       $msg = $module !== null
         ? "Modules successfully installed."
-        : "There were errors installing the module.";
+        : "There were errors installing the module.<br/>$error";
       $link = $module === null ? <x:frag/> :
         <a href={$baseuri.'/'.urlencode($module->getVendor())
             .'/'.urlencode($module->getName()).'/'}>

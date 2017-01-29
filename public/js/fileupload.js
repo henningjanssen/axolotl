@@ -22,6 +22,7 @@ var FileUpload = {
       }
     });
     r.on('fileSuccess', function(file, message){
+      $("#"+id+"_upload_filename").val(file.fileName);
     });
     r.on('fileError', function(file, message){
       alert("There was an error uploading the file '"
