@@ -50,7 +50,7 @@ class :fileupload extends :x:element{
         </bootstrap:progress-bar>
       </bootstrap:progress-group>
     );
-    $baseuri = strval(_::SETTINGS('axolotl_base_uri', ''));
+    $baseuri = strval(_::SETTINGS('axolotl.base_uri', ''));
 
     /* This variable is needed because XHP cannot handle curly braces inside a
      * script tag at the moment. hhvm/xhp-js causes linter-errors in
@@ -62,9 +62,9 @@ class :fileupload extends :x:element{
         \"{$this->:name}\",
         {
           target: \"$baseuri/api/upload/{$this->:name}\",
-          chunkSize: ".strval(_::SETTINGS('upload_chunksize', 1*1024*1024)).",
+          chunkSize: ".strval(_::SETTINGS('upload.chunksize', 1*1024*1024)).",
           forceChunkSize: true,
-          simultaneousUploads: ".strval(_::SETTINGS('upload_simul', 3)).",
+          simultaneousUploads: ".strval(_::SETTINGS('upload.simul', 3)).",
           fileType: [\"".str_replace(";", ", ", $this->:accept)."\"],
           query: {upload_token: \"{$this->:name}\"}
         },

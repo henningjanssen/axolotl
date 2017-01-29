@@ -1,12 +1,18 @@
 {
-  "axolotl_base_uri":"/axolotl",
-  "doctrine_driver":"pdo_pgsql",
-  "db_user":"axl",
-  "db_password":"axolotltest",
-  "db_name":"axl_dev",
-  "vendor_name":"Your Webmaster",
-  "vendor_mail":"webmaster@example.org",
-  "vendor_phone":"0123-456789x",
-  "vendor_website":"http://example.org/",
+  "axolotl":{
+    "base_uri":"/axolotl"
+  },
+  "db":{
+    "doctrine_driver":"pdo_pgsql",
+    "user":"axl",
+    "password":"axolotltest",
+    "name":"axl_dev"
+  },
+  "vendor":{
+    "name":"Your Webmaster",
+    "mail":"webmaster@example.org",
+    "phone":"0123-456789x",
+    "website":"http://example.org/"
+  },
   "static_lock":["index.hh", "dev.ini", "prod.ini", "www.pid", "server.sh"]
 }

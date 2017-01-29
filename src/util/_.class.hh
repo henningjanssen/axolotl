@@ -46,7 +46,23 @@ class _{
     if(count(self::$settings) === 0){
       self::reloadSettings();
     }
-    return self::$settings[$key] ?? $stdval;
+    $keys = array($key);
+    if(is_string($key) && strpos($key, ".") !== false){
+      $keys = explode(".", $key);
+    }
+    $val = self::$settings;
+    foreach($keys as $k){
+      if(!is_array($val)){
+        $val = $stdval;
+        break;
+      }
+      if(!array_key_exists($k, $val)){
+        $val = $stdval;
+        break;
+      }
+      $val = $val[$k];
+    }
+    return $val;
   }
 
   public static function reloadSettings(): void{

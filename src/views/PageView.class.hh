@@ -11,14 +11,14 @@ abstract class PageView extends View{
   protected string $baseuri;
 
   public function __construct(string $title = ""){
-    $vendor = strval(_::SETTINGS("vendor", "axolotl"));
+    $vendor = strval(_::SETTINGS("vendor.name", "axolotl"));
     if(strlen($title) > 0 && strlen($vendor) > 0){
       $title .= " | ";
     }
     if(strlen($vendor) > 0){
       $title .= $vendor;
     }
-    $this->baseuri = strval(_::SETTINGS("axolotl_base_uri", ""));
+    $this->baseuri = strval(_::SETTINGS("axolotl.base_uri", ""));
     $this->head =
       <head>
         <meta charset="utf-8"/>

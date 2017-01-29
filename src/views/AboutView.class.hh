@@ -7,7 +7,7 @@ class AboutView extends PageView{
     //
   ){
     parent::__construct("About");
-    $vendorWebsite = strval(_::SETTINGS("vendor_website", ""));
+    $vendorWebsite = strval(_::SETTINGS("vendor.website", ""));
     $this->content->appendChild(
       <bootstrap:panel use="info">
         <bootstrap:panel:heading>
@@ -16,13 +16,13 @@ class AboutView extends PageView{
         <bootstrap:panel:body>
           <bootstrap:list-group>
             <bootstrap:list-group-item>
-              Vendor: {_::SETTINGS("vendor_name", "")}
+              Vendor: {_::SETTINGS("vendor.name", "")}
             </bootstrap:list-group-item>
             <bootstrap:list-group-item>
-              Support E-Mail: {_::SETTINGS("vendor_mail", "")}
+              Support E-Mail: {_::SETTINGS("vendor.mail", "")}
             </bootstrap:list-group-item>
             <bootstrap:list-group-item>
-              Support Phone: {_::SETTINGS("vendor_phone", "")}
+              Support Phone: {_::SETTINGS("vendor.phone", "")}
             </bootstrap:list-group-item>
             <bootstrap:list-group-item href={$vendorWebsite} target="_blank">
               Website: {$vendorWebsite}

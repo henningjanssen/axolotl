@@ -52,70 +52,70 @@ class Doctrine{
 
   private static function getDBSettings(): array<arraykey,mixed>{
     $conf = array(
-      "driver" => _::SETTINGS("doctrine_driver")
+      "driver" => _::SETTINGS("db.doctrine_driver")
     );
-    if(_::SETTINGS("db_socket") !== null){
-      $conf["db_socket"] = strval(_::SETTINGS("db_socket"));
+    if(_::SETTINGS("db.socket") !== null){
+      $conf["db_socket"] = strval(_::SETTINGS("db.socket"));
       return $conf;
     }
-    $conf["user"] = strval(_::SETTINGS("db_user"));
-    $conf["password"] = strval(_::SETTINGS("db_password"));
+    $conf["user"] = strval(_::SETTINGS("db.user"));
+    $conf["password"] = strval(_::SETTINGS("db.password"));
 
     if($conf["driver"] !== "pdo_sqlite"){
-      $conf["host"] = strval(_::SETTINGS("db_host", "localhost"));
-      $conf["dbname"] = strval(_::SETTINGS("db_name"));
+      $conf["host"] = strval(_::SETTINGS("db.host", "localhost"));
+      $conf["dbname"] = strval(_::SETTINGS("db.name"));
     }
-    if(_::SETTINGS("db_driver_options") !== null){
-      $conf["driverOptions"] = strval(_::SETTINGS("db_driver_options"));
+    if(_::SETTINGS("db.driver_options") !== null){
+      $conf["driverOptions"] = strval(_::SETTINGS("db.driver_options"));
     }
 
     switch(strval($conf["driver"])){
       case "pdo_sqlite":
-        $conf["path"] = strval(_::SETTINGS("db_path"));
-        $conf["memory"] = boolval(_::SETTINGS("db_memory"));
+        $conf["path"] = strval(_::SETTINGS("db.path"));
+        $conf["memory"] = boolval(_::SETTINGS("db.memory"));
       break;
 
       case "pdo_mysql":
       case "drizzle_pdo_mysql":
       case "mysqli":
-        $conf["port"] = intval(_::SETTINGS("db_port"), 3306);
-        $conf["charset"] = strval(_::SETTINGS("db_charset", "utf8"));
+        $conf["port"] = intval(_::SETTINGS("db.port"), 3306);
+        $conf["charset"] = strval(_::SETTINGS("db.charset", "utf8"));
       break;
 
       case "pdo_pgsql":
-        $conf["port"] = intval(_::SETTINGS("db_port", 5432));
-        $conf["charset"] = strval(_::SETTINGS("db_charset", "utf8"));
+        $conf["port"] = intval(_::SETTINGS("db.port", 5432));
+        $conf["charset"] = strval(_::SETTINGS("db.charset", "utf8"));
         $conf["default_dbname"] =
-          strval(_::SETTINGS("db_default_dbname", "postgres"));
-        $conf["sslmode"] = strval(_::SETTINGS("db_sslmode", "prefer"));
+          strval(_::SETTINGS("db.default_dbname", "postgres"));
+        $conf["sslmode"] = strval(_::SETTINGS("db.sslmode", "prefer"));
         $conf["sslrootcert"] =
-          strval(_::SETTINGS("db_sslrootcert", "~/.postgresql/root.crt"));
+          strval(_::SETTINGS("db.sslrootcert", "~/.postgresql/root.crt"));
         $conf["application_name"] =
-          strval(_::SETTINGS("db_application_name", "axolotl"));
+          strval(_::SETTINGS("db.application_name", "axolotl"));
       break;
 
       case "pdo_oci":
       case "oci8":
-        $conf["port"] = intval(_::SETTINGS("db_port", 1521));
+        $conf["port"] = intval(_::SETTINGS("db.port", 1521));
         $conf["servicename"] =
-          strval(_::SETTINGS("db_servicename", $conf["dbname"]));
-        $conf["service"] = _::SETTINGS("db_servicename") === null;
-        $conf["pooled"] = boolval(_::SETTINGS("db_pooled", false));
-        $conf["charset"] = strval(_::SETTINGS("db_charset", "utf8"));
-        if(_::SETTINGS("db_instancename") !== null){
-          $conf["instancename"] = _::SETTINGS("db_instancename");
+          strval(_::SETTINGS("db.servicename", $conf["dbname"]));
+        $conf["service"] = _::SETTINGS("db.servicename") === null;
+        $conf["pooled"] = boolval(_::SETTINGS("db.pooled", false));
+        $conf["charset"] = strval(_::SETTINGS("db.charset", "utf8"));
+        if(_::SETTINGS("db.instancename") !== null){
+          $conf["instancename"] = _::SETTINGS("db.instancename");
         }
       break;
 
       case "pdo_sqlsrv":
       case "sqlsrv":
-        $conf["port"] = intval(_::SETTINGS("db_port", 1433));
+        $conf["port"] = intval(_::SETTINGS("db.port", 1433));
       break;
 
       case "sqlanywhere":
-        $conf["server"] = _::SETTINGS("db_server");
-        $conf["port"] = _::SETTINGS("db_port");
-        $conf["persistent"] = boolval(_::SETTINGS("db_persistent", false));
+        $conf["server"] = _::SETTINGS("db.server");
+        $conf["port"] = _::SETTINGS("db.port");
+        $conf["persistent"] = boolval(_::SETTINGS("db.persistent", false));
       break;
     }
     return $conf;
@@ -123,7 +123,7 @@ class Doctrine{
 
   private static function getCache(): \Doctrine\Common\Cache\Cache{
     $cache = null;
-    switch(strval(_::SETTINGS("doctrine_cache", "array"))){
+    switch(strval(_::SETTINGS("db.doctrine_cache", "array"))){
       case "apc":{
         $cache = new \Doctrine\Common\Cache\ApcCache();
       } break;
@@ -131,22 +131,22 @@ class Doctrine{
       case "memcache":{
         $cache = new \Doctrine\Common\Cache\MemcacheCache();
         $memcache = new \Memcache();
-        if(boolval(_::SETTINGS("memcache_persistent"))){
+        if(boolval(_::SETTINGS("memcache.persistent"))){
           $memcache->pconnect(
-            strval(_::SETTINGS("memcache_host", "localhost")),
-            intval(_::SETTINGS("memcache_post",
-              boolval(_::SETTINGS("memcache_socket", false) ? 0 : 11211)
+            strval(_::SETTINGS("memcache.host", "localhost")),
+            intval(_::SETTINGS("memcache.post",
+              boolval(_::SETTINGS("memcache.socket", false) ? 0 : 11211)
             )),
-            intval(_::SETTINGS("memcache_timeout", 1))
+            intval(_::SETTINGS("memcache.timeout", 1))
           );
         }
         else{
           $memcache->connect(
-            strval(_::SETTINGS("memcache_host", "localhost")),
-            intval(_::SETTINGS("memcache_post",
-              boolval(_::SETTINGS("memcache_socket", false) ? 0 : 11211)
+            strval(_::SETTINGS("memcache.host", "localhost")),
+            intval(_::SETTINGS("memcache.post",
+              boolval(_::SETTINGS("memcache.socket", false) ? 0 : 11211)
             )),
-            intval(_::SETTINGS("memcache_timeout", 1))
+            intval(_::SETTINGS("memcache.timeout", 1))
           );
         }
         $cache->setMemcache($memcache);
@@ -156,9 +156,9 @@ class Doctrine{
         $cache = new \Doctrine\Common\Cache\MemcacheCache();
         $memcached = new \Memcached();
         $memcached->addServer(
-          strval(_::SETTINGS("memcache_host", "localhost")),
-          intval(_::SETTINGS("memcache_post",
-            boolval(_::SETTINGS("memcache_socket", false) ? 0 : 11211)
+          strval(_::SETTINGS("memcache.host", "localhost")),
+          intval(_::SETTINGS("memcache.post",
+            boolval(_::SETTINGS("memcache.socket", false) ? 0 : 11211)
           ))
         );
         $cache->setMemcache($memcached);
@@ -167,8 +167,8 @@ class Doctrine{
       case "redis":{
         $redis = new \Redis();
         $redis->connect(
-          strval(_::SETTINGS("redis_host", "localhost")),
-          intval(_::SETTINGS("redis_port", 6379))
+          strval(_::SETTINGS("redis.host", "localhost")),
+          intval(_::SETTINGS("redis.port", 6379))
         );
         $cache = new \Doctrine\Common\Cache\RedisCache();
         $cache->setRedis($redis);

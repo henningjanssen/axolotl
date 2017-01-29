@@ -51,9 +51,9 @@ class ApplicationControl{
     if($pos !== false){
       $this->uri = substr($this->uri, 0, $pos);
     }
-    $pos = strpos($this->uri, _::SETTINGS("axolotl_base_uri"));
+    $pos = strpos($this->uri, _::SETTINGS("axolotl.base_uri"));
     if($pos === 0){
-      $this->uri = substr($this->uri, strlen(_::SETTINGS("axolotl_base_uri")));
+      $this->uri = substr($this->uri, strlen(_::SETTINGS("axolotl.base_uri")));
     }
     if($this->uri[0] !== '/'){
       $this->uri = "/$this->uri";
