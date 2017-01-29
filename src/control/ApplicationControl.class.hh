@@ -23,6 +23,10 @@ class ApplicationControl{
         $r->addRoute(['GET', 'POST'],
           '/api/upload/{name:.+}', "$ns\\UploadControl"
         );
+        $r->addRoute('GET',
+          '/static/m/{vendor:.+}/{module:.+}/{path:.+}',
+          "$ns\\StaticContentControl"
+        );
         $r->addRoute('GET', '/static/{path:.+}', "$ns\\StaticContentControl");
         $r->addRoute('GET', '/error/{errno:\d+}', "$ns\\ErrorControl");
         $r->addRoute(['GET','POST'], '/module/{name}/{params:.+}', 'modroute');

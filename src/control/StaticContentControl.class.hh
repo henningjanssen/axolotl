@@ -13,7 +13,16 @@ class StaticContentControl extends PageControl{
     $ext = $this->getExtension($path);
     $mime = $this->getMimeType($ext);
 
-    $fullpath = realpath(__DIR__."/../../public/$path");
+    $inpath = "public";
+    if(isset($this->vars['vendor'])){
+      $inpath = "modules/"
+        .strval($this->vars['vendor'])
+        ."/"
+        .strval($this->vars['module'])
+        ."/static";
+    }
+    $fullpath = realpath(__DIR__."/../../$inpath/$path");
+    Log::debug("StaticContentControl", $fullpath, 0);
     if(!file_exists($fullpath)){
       (new RedirectView("/error/404"))->render();
       return;
@@ -34,7 +43,7 @@ class StaticContentControl extends PageControl{
       (new RedirectView("/error/403"))->render();
     }
 
-    $cont = file_get_contents(__DIR__."/../../public/$path");
+    $cont = file_get_contents($fullpath);
     (new StaticContentView($cont, $mime))->render();
   }
 
