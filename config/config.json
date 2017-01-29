@@ -7,5 +7,6 @@
   "vendor_name":"Your Webmaster",
   "vendor_mail":"webmaster@example.org",
   "vendor_phone":"0123-456789x",
-  "vendor_website":"http://example.org/"
+  "vendor_website":"http://example.org/",
+  "static_lock":["index.hh", "dev.ini", "prod.ini", "www.pid", "server.sh"]
 }

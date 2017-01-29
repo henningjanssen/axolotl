@@ -28,6 +28,12 @@ class StaticContentControl extends PageControl{
       }
     }
 
+    // TODO: allow wildcards (or even regex) and stuff
+    $locked = _::SETTINGS("static_lock", array());
+    if(in_array($path, $locked)){
+      (new RedirectView("/error/403"))->render();
+    }
+
     $cont = file_get_contents(__DIR__."/../../public/$path");
     (new StaticContentView($cont, $mime))->render();
   }
