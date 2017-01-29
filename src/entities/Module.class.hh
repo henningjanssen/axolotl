@@ -21,6 +21,9 @@ class Module{
   /** @Column(type="text") */
   protected string $description;
 
+  /** @Column(type="text") */
+  protected string $path;
+
   /** @OneToMany(targetEntity="RoutingInfo", mappedBy="module") */
   protected array<RoutingInfo> $routingInfo;
 
@@ -37,19 +40,21 @@ class Module{
       "@".time(), new \DateTimeZone("Europe/Berlin")
     );
     $this->vendor = "";
+    $this->path = "";
     $this->description = "";
     $this->routingInfo = array();
     $this->creator = new User();
   }
 
   public static function newInstance(
-    string $vendor, string $name, string $description,
+    string $vendor, string $name, string $description, string $path,
     ?\DateTime $installationDate, User $creator
   ): Module{
     $module = new Module();
     $module->setVendor($vendor);
     $module->setName($name);
     $module->setDescription($description);
+    $module->setPath($path);
     $module->setInstallationDate($installationDate);
     $module->setCreator($creator);
     return $module;
@@ -85,6 +90,13 @@ class Module{
   }
   public function getDescription(): string{
     return $this->description;
+  }
+
+  public function setPath(string $path): void{
+    $this->path = $path;
+  }
+  public function getPath(): string{
+    return $this->path;
   }
 
   public function setInstallationDate(?\DateTime $installationDate=null): void{

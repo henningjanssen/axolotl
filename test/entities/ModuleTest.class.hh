@@ -28,6 +28,7 @@ class ModuleTest{
       "Rick",
       "Astley",
       "Pure awesomeness",
+      "rick/astley",
       new \DateTime("@102556800", new \DateTimeZone("Europe/Berlin")),
       $this->exampleUser
     );
@@ -39,6 +40,7 @@ class ModuleTest{
       "Rick",
       "Astley",
       "Pure awesomeness",
+      "rick/astley",
       new \DateTime("@102556800", new \DateTimeZone("Europe/Berlin")),
       $this->exampleUser
     );
