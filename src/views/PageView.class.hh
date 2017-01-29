@@ -11,7 +11,7 @@ abstract class PageView extends View{
   protected string $baseuri;
 
   public function __construct(string $title = ""){
-    $vendor = strval(_::SETTINGS("vendor.name", "axolotl"));
+    $vendor = strval(_::SETTINGS("system.title", "axolotl"));
     if(strlen($title) > 0 && strlen($vendor) > 0){
       $title .= " | ";
     }
