@@ -19,6 +19,15 @@ class StaticContentControl extends PageControl{
       return;
     }
 
+    // disallow hidden files to be displayed
+    $splitpath = explode("/", $path);
+    foreach($splitpath as $p){
+      if($p[0] == "."){
+        (new RedirectView("/error/403"))->render();
+        return;
+      }
+    }
+
     $cont = file_get_contents(__DIR__."/../../public/$path");
     (new StaticContentView($cont, $mime))->render();
   }
