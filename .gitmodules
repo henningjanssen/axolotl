@@ -1,9 +1,6 @@
-[submodule "public/3rd-party/resumable.js"]
-	path = public/3rd-party/resumable.js
-	url = git@github.com:23/resumable.js.git
-[submodule "public/3rd-party/xhp-js"]
-	path = public/3rd-party/xhp-js
-	url = git@github.com:hhvm/xhp-js.git
 [submodule "3rd-party/resumable.js"]
 	path = 3rd-party/resumable.js
 	url = git@github.com:23/resumable.js.git
+[submodule "modules/axl/template"]
+	path = modules/axl/template
+	url = git@github.com:henningjanssen/axl-template.git
