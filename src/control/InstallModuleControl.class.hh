@@ -5,6 +5,7 @@ namespace axolotl\control;
 use \InstallModuleView;
 use \axolotl\exceptions\BrokenModuleException;
 use \axolotl\module\ModuleControl;
+use \axolotl\util\_;
 use \axolotl\util\Doctrine;
 use \axolotl\util\Session;
 use \axolotl\util\UploadedZipFile;
