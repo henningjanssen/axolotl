@@ -48,14 +48,15 @@ class RoutingInfo{
     return $this->id;
   }
 
-  public function setModule(Module $module): void{
+  public function setModule(Module $module): RoutingInfo{
     $this->module = $module;
+    return $this;
   }
   public function getModule(): Module{
     return $this->module;
   }
 
-  public function setURI(string $uri): void{
+  public function setURI(string $uri): this{
     if(strlen($uri) === 0){
       throw new InvalidArgumentException('Empty uri');
     }
@@ -63,22 +64,24 @@ class RoutingInfo{
       throw new InvalidArgumentException('URI has to begin with /');
     }
     $this->uri = $uri;
+    return $this;
   }
   public function getURI(): string{
     return $this->uri;
   }
 
-  public function setHandler(string $handler): void{
+  public function setHandler(string $handler): RoutingInfo{
     if(strlen($handler) === 0){
       throw new InvalidArgumentException('Empty handler');
     }
     $this->handler = $handler;
+    return $this;
   }
   public function getHandler(): string{
     return $this->handler;
   }
 
-  public function setMethods(array<string> $methods): void{
+  public function setMethods(array<string> $methods): RoutingInfo{
     foreach($methods as $m){
       $allowed = array('GET', 'POST');
       if(array_search($m, $allowed) === FALSE){
@@ -86,6 +89,7 @@ class RoutingInfo{
       }
     }
     $this->methods = $methods;
+    return $this;
   }
   public function getMethods(): array<string>{
     return $this->methods;

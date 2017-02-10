@@ -64,57 +64,62 @@ class Module{
     return $this->id;
   }
 
-  public function setVendor(string $vendor): void{
+  public function setVendor(string $vendor): Module{
     if(strlen($vendor) === 0){
       throw new InvalidArgumentException("Empty vendor");
     }
     $this->vendor = $vendor;
+    return $this;
   }
   public function getVendor(): string{
     return $this->vendor;
   }
 
-  public function setName(string $name): void{
+  public function setName(string $name): Module{
     $name = trim($name);
     if(strlen($name) === 0){
       throw new InvalidArgumentException("Name is empty");
     }
     $this->name = $name;
+    return $this;
   }
   public function getName(): string{
     return $this->name;
   }
 
-  public function setDescription(string $desc): void{
+  public function setDescription(string $desc): Module{
     $this->description = $desc;
+    return $this;
   }
   public function getDescription(): string{
     return $this->description;
   }
 
-  public function setPath(string $path): void{
+  public function setPath(string $path): Module{
     $this->path = $path;
+    return $this;
   }
   public function getPath(): string{
     return $this->path;
   }
 
-  public function setInstallationDate(?\DateTime $installationDate=null): void{
+  public function setInstallationDate(?\DateTime $installationDate=null): Module{
     if($installationDate === null){
       $installationDate = new \DateTime(
-        "@".time(), new \DateTimeZone("Europe/Berlin")
+        'now', new \DateTimeZone("Europe/Berlin")
       );
     }
     invariant(
       $installationDate !== null, "Module::setInstallDate: installDate is null"
     );
     $this->installationDate = $installationDate;
+    return $this;
   }
   public function getInstallationDate(): \DateTime{
     return $this->installationDate;
   }
 
-  public function setRoutingInfo(array<RoutingInfo> $info): void{
+  public function setRoutingInfo(array<RoutingInfo> $info): Module{
     $hasRoot = false;
     foreach($info as $i){
       if($i->getURI() === '/'){
@@ -126,13 +131,15 @@ class Module{
       throw new InvalidArgumentException('Module does not provide root');
     }
     $this->routingInfo = $info;
+    return $this;
   }
   public function getRoutingInfo(): array<RoutingInfo>{
     return $this->routingInfo;
   }
 
-  public function setCreator(User $creator): void{
+  public function setCreator(User $creator): Module{
     $this->creator = $creator;
+    return $this;
   }
   public function getCreator(): User{
     return $this->creator;

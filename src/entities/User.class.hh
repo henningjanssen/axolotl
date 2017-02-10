@@ -75,19 +75,20 @@ class User{
     return $this->id;
   }
 
-  public function setEmail(string $mail): void{
+  public function setEmail(string $mail): User{
     if(!filter_var($mail, FILTER_VALIDATE_EMAIL)){
       throw new \axolotl\exceptions\InvalidArgumentException(
         "Malformed e-mail-adress: $mail"
       );
     }
     $this->email = $mail;
+    return $this;
   }
   public function getEmail(): string{
     return $this->email;
   }
 
-  public function setUsername(string $username): void{
+  public function setUsername(string $username): User{
     $username = trim($username);
     if(strlen($username) === 0){
       throw new \axolotl\exceptions\InvalidArgumentException(
@@ -95,12 +96,13 @@ class User{
       );
     }
     $this->username = $username;
+    return $this;
   }
   public function getUsername(): string{
     return $this->username;
   }
 
-  public function setFullName(string $fullname): void{
+  public function setFullName(string $fullname): User{
     $fullname = trim($fullname);
     if(strlen($fullname) === 0){
       throw new \axolotl\exceptions\InvalidArgumentException(
@@ -108,12 +110,13 @@ class User{
       );
     }
     $this->fullName = $fullname;
+    return $this;
   }
   public function getFullName(): string{
     return $this->fullName;
   }
 
-  public function setPassword(string $pw, bool $isHashed = true): void{
+  public function setPassword(string $pw, bool $isHashed = true): User{
     if($isHashed){
       if(strlen($pw) !== 64){
         throw new \axolotl\exceptions\InvalidArgumentException(
@@ -125,35 +128,39 @@ class User{
       $pw = hash("sha256", $pw);
     }
     $this->password = $pw;
+    return $this;
   }
   public function getPassword(): string{
     return $this->password;
   }
 
-  public function setNote(string $note): void{
+  public function setNote(string $note): User{
     $this->note = $note;
+    return $this;
   }
   public function getNote(): string{
     return $this->note;
   }
 
-  public function setRegistration(?\DateTime $reg = null): void{
+  public function setRegistration(?\DateTime $reg = null): User{
     if($reg === null){
       $reg = new \DateTime("@".time(), new \DateTimeZone("Europe/Berlin"));
     }
     invariant($reg !== null, "User::setRegistration: \$reg is null");
     $this->registration = $reg;
+    return $this;
   }
   public function getRegistration(): \DateTime{
     return $this->registration;
   }
 
-  public function setLastActivity(?\DateTime $la = null): void{
+  public function setLastActivity(?\DateTime $la = null): User{
     if($la === null){
       $la = new \DateTime("@".time(), new \DateTimeZone("Europe/Berlin"));
     }
     invariant($la !== null, "User::setRegistration: \$la is null");
     $this->lastActivity = $la;
+    return $this;
   }
   public function getLastActivity(): \DateTime{
     return $this->lastActivity;
