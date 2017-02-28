@@ -2,6 +2,7 @@
 
 namespace axolotl\control;
 
+use axolotl\entities\Module;
 use axolotl\exceptions\NotLoggedInException;
 use axolotl\util\_;
 use \RedirectView;
@@ -35,9 +36,8 @@ class ApplicationControl{
         $r->addRoute('GET', '/user/new', 'somehandler');
         $r->addRoute('GET', '/user/show/{id:\d+}', 'somehandler');
         $r->addRoute('GET', '/about', "$ns\\AboutControl");
-
         $modules = \axolotl\util\Doctrine::getEntityManager()
-          ->getRepository('\axolotl\entities\Module')
+          ->getRepository(Module::class)
           ->findAll();
         foreach($modules as $mod){
           foreach($mod->getRoutingInfo() as $i)
