@@ -158,7 +158,7 @@ class User{
     if($la === null){
       $la = new \DateTime("@".time(), new \DateTimeZone("Europe/Berlin"));
     }
-    invariant($la !== null, "User::setRegistration: \$la is null");
+    invariant($la !== null, "User::setLastActivity: \$la is null");
     $this->lastActivity = $la;
     return $this;
   }
