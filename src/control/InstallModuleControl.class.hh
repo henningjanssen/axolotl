@@ -103,7 +103,7 @@ class InstallModuleControl extends LoggedInPageControl{
     $install = new $classname();
     if(!($install instanceof ModuleControl)){
       throw new BrokenModuleException(
-        "Install-class `$classname` does implement ModuleControl"
+        "Install-class `$classname` does not implement ModuleControl"
       );
     }
     if(!$install->install()){
