@@ -1,6 +1,17 @@
 {
+  "repositories":[
+    {
+      "type":"vcs",
+      "url":"https://github.com/henningjanssen/common"
+    },
+    {
+      "type":"vcs",
+      "url":"https://github.com/henningjanssen/xhp-bootstrap"
+    }
+  ],
   "require":{
-    "doctrine/orm":"2.5.*",
+    "doctrine/common":"dev-hack as 2.7.2",
+    "doctrine/orm":"^2.5.0",
     "nikic/fast-route":"*",
     "hackpack/hackunit":"*",
     "facebook/xhp-lib":"2.x",
