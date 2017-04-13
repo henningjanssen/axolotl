@@ -4,7 +4,7 @@ namespace axolotl\entities;
 
 use \axolotl\exceptions\InvalidArgumentException;
 use \Doctrine\Common\Collections\ArrayCollection;
-use \Doctrine\Common\Collections\Collection;
+use \Doctrine\Common\Collections\Collection as DoctrineCollection;
 
 /**
  * @Entity
@@ -27,7 +27,7 @@ class Module{
   protected string $path;
 
   /** @OneToMany(targetEntity="RoutingInfo", mappedBy="module") */
-  protected Collection<RoutingInfo> $routingInfo;
+  protected DoctrineCollection<RoutingInfo> $routingInfo;
 
   /** @Column(type="datetimetz", name="installed_at") */
   protected \DateTime $installationDate;
@@ -121,7 +121,7 @@ class Module{
     return $this->installationDate;
   }
 
-  public function setRoutingInfo(Collection<RoutingInfo> $info): Module{
+  public function setRoutingInfo(DoctrineCollection<RoutingInfo> $info): Module{
     $hasRoot = false;
     foreach($info as $i){
       if($i->getURI() === '/'){
@@ -138,7 +138,7 @@ class Module{
   public function setRoutingInfoArray(array<RoutingInfo> $info): Module{
     return $this->setRoutingInfo(new ArrayCollection($info));
   }
-  public function getRoutingInfo(): Collection<RoutingInfo>{
+  public function getRoutingInfo(): DoctrineCollection<RoutingInfo>{
     return $this->routingInfo;
   }
   public function getRoutingInfoArray(): array<mixed>{
