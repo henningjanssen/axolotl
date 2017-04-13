@@ -3,6 +3,8 @@
 namespace axolotl\entities;
 
 use \axolotl\exceptions\InvalidArgumentException;
+use \Doctrine\Common\Collections\ArrayCollection;
+use \Doctrine\Common\Collections\Collection;
 
 /**
  * @Entity
@@ -25,7 +27,7 @@ class Module{
   protected string $path;
 
   /** @OneToMany(targetEntity="RoutingInfo", mappedBy="module") */
-  protected array<RoutingInfo> $routingInfo;
+  protected Collection<RoutingInfo> $routingInfo;
 
   /** @Column(type="datetimetz", name="installed_at") */
   protected \DateTime $installationDate;
@@ -37,12 +39,12 @@ class Module{
     $this->id = -1;
     $this->name = "";
     $this->installationDate = new \DateTime(
-      "@".time(), new \DateTimeZone("Europe/Berlin")
+      'now', new \DateTimeZone("Europe/Berlin")
     );
     $this->vendor = "";
     $this->path = "";
     $this->description = "";
-    $this->routingInfo = array();
+    $this->routingInfo = new ArrayCollection(array());
     $this->creator = new User();
   }
 
@@ -119,7 +121,7 @@ class Module{
     return $this->installationDate;
   }
 
-  public function setRoutingInfo(array<RoutingInfo> $info): Module{
+  public function setRoutingInfo(Collection<RoutingInfo> $info): Module{
     $hasRoot = false;
     foreach($info as $i){
       if($i->getURI() === '/'){
@@ -133,8 +135,14 @@ class Module{
     $this->routingInfo = $info;
     return $this;
   }
-  public function getRoutingInfo(): array<RoutingInfo>{
+  public function setRoutingInfoArray(array<RoutingInfo> $info): Module{
+    return $this->setRoutingInfo(new ArrayCollection($info));
+  }
+  public function getRoutingInfo(): Collection<RoutingInfo>{
     return $this->routingInfo;
+  }
+  public function getRoutingInfoArray(): array<mixed>{
+    return $this->routingInfo->toArray();
   }
 
   public function setCreator(User $creator): Module{
