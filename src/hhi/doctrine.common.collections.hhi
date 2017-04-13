@@ -23,7 +23,7 @@ namespace Doctrine\Common\Collections
     /*
     * @author Henning Janßen <development@henning-janssen.net>
     */
-    abstract class AbstractLazyCollection implements Doctrine\Common\Collections\Collection
+    abstract class AbstractLazyCollection<T> implements \Doctrine\Common\Collections\Collection<T>
     {
         protected ?Collection $collection;
         protected bool $initialized = false;
@@ -36,16 +36,44 @@ namespace Doctrine\Common\Collections
     /*
     * @author Henning Janßen <development@henning-janssen.net>
     */
-    class ArrayCollection<T> implements Doctrine\Common\Collections\Collection<T>, Selectable
+    class ArrayCollection<T> implements \Doctrine\Common\Collections\Collection<T>, Selectable
     {
         private array<T> $elements;
-
         public function __construct(array<T> $elements);
         protected function createFrom(array<T> $elements): this;
         public function __toString(): string;
         public function add(T $element): bool;
         public function matching(Criteria $criteria): Collection;
         public function getIterator(): ArrayIterator;
+        public function clear(): void;
+        public function contains(T $element): bool;
+        public function isEmpty(): bool;
+        public function remove(arraykey $key): T;
+        public function removeElement(T $element): bool;
+        public function containsKey(arraykey $key): bool;
+        public function get(arraykey $key): T;
+        public function getKeys(): array<arraykey>;
+        public function getValues(): array<T>;
+        public function set(arraykey $key, T $value): void;
+        public function toArray(): array<T>;
+        public function first(): T;
+        public function last(): T;
+        public function key(): arraykey;
+        public function current(): T;
+        public function next(): arraykey;
+        public function exists(Closure $p): bool;
+        public function filter(Closure $p): Collection;
+        public function forAll(Closure $p): bool;
+        public function map(Closure $func): this;
+        public function partition(Closure $p): array<T>;
+        public function indexOf(T $element): arraykey;
+        public function slice(int $offset, ?int $length): array<T>;
+
+        public function count(): int;
+        public function offsetExists(arraykey $n): bool;
+        public function offsetGet(arraykey $n): T;
+        public function offsetSet(arraykey $n, T $element): void;
+        public function offsetUnset(arraykey $n): void;
     }
 
     /*
