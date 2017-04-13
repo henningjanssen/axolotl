@@ -1,16 +1,18 @@
 <?hh // strict
 
 use axolotl\entities\Module;
+use axolotl\util\_;
 
 class ModuleView extends PageView{
   public function __construct(
     array<Module> $modules
   ){
     parent::__construct("Modules");
+    $baseuri = strval(_::SETTINGS("system.base_uri"));
     $moduleList = <bootstrap:list-group>
       </bootstrap:list-group>;
     foreach($modules as $m){
-      $url = '/mdetails/'.urlencode($m->getVendor())
+      $url = "$baseuri/mdetails/".urlencode($m->getVendor())
         .'/'.urlencode($m->getName()).'/';
       $moduleList->appendChild(
         <bootstrap:list-group-item href={$url}>
@@ -31,6 +33,9 @@ class ModuleView extends PageView{
           Installed modules
         </bootstrap:panel:heading>
         <bootstrap:panel:body>
+          <bootstrap:button use="info"
+            href={"$baseuri/settings/modules/install"}
+          >Install new module</bootstrap:button>
           {$moduleList}
         </bootstrap:panel:body>
       </bootstrap:panel>);
