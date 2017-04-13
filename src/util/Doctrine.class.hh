@@ -16,6 +16,7 @@ use axolotl\exceptions\BrokenInstallationException;
 
 class Doctrine{
   private static ?Connection $customDriver = null;
+  private static ?EntityManager $entityManager = null;
 
   public static function setCustomDriver(Connection $driver): void{
     self::$customDriver = $driver;
@@ -24,6 +25,9 @@ class Doctrine{
   public static function getEntityManager(
     array<string> $entityPaths = array()
   ): EntityManager{
+    if(self::$entityManager !== null){
+      return self::$entityManager;
+    }
     try{
       $devMode = false;
       $entityPaths[] = realpath(__DIR__."/../entities");
@@ -36,10 +40,13 @@ class Doctrine{
       $annotationDriver->setFileExtension(".".$pathinfo['extension']);
       $config->setMetadataDriverImpl($annotationDriver);
       $config->setQueryCacheImpl($cache);
-      $config->setProxyDir(realpath(__DIR__.'/../proxies/'));
+      $config->setProxyDir(realpath(__DIR__.'/../../doctrine-proxies/'));
       $config->setProxyNamespace('axolotl\proxies');
       $config->setAutogenerateProxyClasses(!$devMode);
-      return EntityManager::create(self::$customDriver ?? $dbConf, $config);
+      self::$entityManager = EntityManager::create(
+        self::$customDriver ?? $dbConf, $config
+      );
+      return self::$entityManager;
     }
     catch(\Doctrine\DBAL\DBALException $dbalex){
       throw new BrokenInstallationException(
