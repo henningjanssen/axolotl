@@ -13,7 +13,7 @@ class LoginView extends PageView{
           <bootstrap:panel:heading>Login</bootstrap:panel:heading>
           <bootstrap:panel:body>
             <form
-              action={strval(_::SETTINGS("system.base_uri"))."login"} method="post">
+              action={strval(_::SETTINGS("system.base_uri"))."/login"} method="post">
               <fieldset class="form-group">
                 <label for="__ax_nick">Username or E-Mail</label>
                 <input type="text" class="form-control" name="__ax_nick"
