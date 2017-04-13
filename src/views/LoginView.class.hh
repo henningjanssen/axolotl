@@ -35,7 +35,7 @@ class LoginView extends PageView{
       $this->content->appendChild(
         <bootstrap:alert use="warning">
           The provided e-mail-adress/username and password-combination does not
-          match any user in the database (Login failed).
+          match any existing user (Login failed).
         </bootstrap:alert>
       );
     }
