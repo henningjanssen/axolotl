@@ -5,3 +5,5 @@ composer.phar
 composer.lock
 www.pid
 public/www.pid
+doctrine-proxies/
+modules/test.zip
