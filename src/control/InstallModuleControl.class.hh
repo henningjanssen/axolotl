@@ -3,11 +3,13 @@
 namespace axolotl\control;
 
 use \InstallModuleView;
+use \axolotl\entities\Module;
 use \axolotl\exceptions\BrokenModuleException;
 use \axolotl\module\ModuleControl;
 use \axolotl\util\_;
 use \axolotl\util\Doctrine;
 use \axolotl\util\Session;
+use \axolotl\util\UploadedFile;
 use \axolotl\util\UploadedZipFile;
 
 class InstallModuleControl extends LoggedInPageControl{
@@ -18,6 +20,7 @@ class InstallModuleControl extends LoggedInPageControl{
     if(strlen(strval(_::POST("__ax_modFile")))){ //strval(null) is an empty string
       // we have a file-upload
       try{
+        $installAttempt = true;
         $newModule = $this->installModule();
       }
       catch(BrokenModuleException $ex){
@@ -73,20 +76,22 @@ class InstallModuleControl extends LoggedInPageControl{
     );
     foreach($required as $req){
       $reqFile = $modPath.$req;
-      if(!in_array($req, $contents)){
-        throw new BrokenModuleException("Missing file `$reqFile`");
+      if(!in_array($reqFile, $contents)){
+        throw new BrokenModuleException("Missing file '$reqFile'");
       }
     }
 
     $modulesPath = realpath(__DIR__."/../../modules");
     $zip->extractTo($modulesPath);
-    $modinfo = json_decode("$modulesPath/{$modPath}modinfo.json");
+    $modinfo = json_decode(
+      file_get_contents("$modulesPath/{$modPath}modinfo.json"), true
+    );
     $module = Module::newInstance(
       $modinfo['vendor']['name'],
       $modinfo['module']['name'],
       $modinfo['module']['description'],
       $modPath,
-      new DateTime(),
+      new \DateTime(),
       Session::getCurrentUser()
     );
     require_once("$modulesPath/{$modPath}install.php");
@@ -101,9 +106,8 @@ class InstallModuleControl extends LoggedInPageControl{
         "Install-class `$classname` does implement ModuleControl"
       );
     }
-    $result = $install->install();
-    if($result !== null){
-      throw new BrokenModuleException("Installation failed: $result");
+    if(!$install->install()){
+      throw new BrokenModuleException("Installation failed");
     }
 
     $entityManager = Doctrine::getEntityManager();
