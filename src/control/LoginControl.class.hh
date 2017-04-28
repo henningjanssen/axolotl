@@ -35,6 +35,9 @@ class LoginControl extends PageControl{
         }
         else{
           _::SESSION("uid", $result->getID());
+          $result->setLastActivity();
+          $entityManager->persist($result);
+          $entityManager->flush();
         }
       }
     }
