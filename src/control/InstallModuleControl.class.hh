@@ -5,7 +5,7 @@ namespace axolotl\control;
 use \InstallModuleView;
 use \axolotl\entities\Module;
 use \axolotl\exceptions\BrokenModuleException;
-use \axolotl\module\ModuleControl;
+use \axolotl\module\ModuleControl as ModControlI;
 use \axolotl\util\_;
 use \axolotl\util\Doctrine;
 use \axolotl\util\Session;
@@ -101,7 +101,7 @@ class InstallModuleControl extends LoggedInPageControl{
     }
 
     $install = new $classname();
-    if(!($install instanceof ModuleControl)){
+    if(!($install instanceof ModControlI)){
       throw new BrokenModuleException(
         "Install-class `$classname` does not implement ModuleControl"
       );
