@@ -138,6 +138,10 @@ class Module{
   public function setRoutingInfoArray(array<RoutingInfo> $info): Module{
     return $this->setRoutingInfo(new ArrayCollection($info));
   }
+  public function addRoutingInfo(RoutingInfo $info){
+    $this->routingInfo->add($info);
+    return $this;
+  }
   public function getRoutingInfo(): DoctrineCollection<RoutingInfo>{
     return $this->routingInfo;
   }

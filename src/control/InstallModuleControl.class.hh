@@ -110,6 +110,17 @@ class InstallModuleControl extends LoggedInPageControl{
       throw new BrokenModuleException("Installation failed");
     }
 
+    $hasroot = false;
+    foreach($install->getRoutings() as $rout){
+      if($rout->getURI() === "/"){
+        $hasroot = true;
+      }
+      $module->addRoutingInfo($rout->setModule($module));
+    }
+    if(!$hasroot){
+      throw new BrokenModuleException("No handler for path '/' provided");
+    }
+
     $entityManager = Doctrine::getEntityManager();
     $entityManager->persist($module);
     $entityManager->flush();

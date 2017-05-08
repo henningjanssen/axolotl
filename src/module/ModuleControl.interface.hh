@@ -7,4 +7,5 @@ interface ModuleControl{
   public function uninstall(): bool;
   public function update(): bool;
   public function backup(): void;
+  public function getRoutings(): array<\axolotl\entities\RoutingInfo>;
 }
