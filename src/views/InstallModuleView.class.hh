@@ -5,24 +5,34 @@ use axolotl\util\_;
 
 class InstallModuleView extends PageView{
   public function __construct(
-    bool $attempt, ?Module $module, string $error = ""
+    bool $attempt, array<Module> $modules, array<string> $errors = array()
   ){
     parent::__construct("Install module");
     $baseuri = strval(_::SETTINGS("system.base_uri", ""));
     if($attempt){
-      $msg = $module !== null
+      $msg = count($errors) == 0
         ? "Modules successfully installed."
-        : "There were errors installing the module.<br/>$error";
-      $link = $module === null ? <x:frag/> :
-        <a href={$baseuri.'/'.urlencode($module->getVendor())
-            .'/'.urlencode($module->getName()).'/'}>
-          Try it out!
-        </a>;
+        : "There were errors installing the module.<br/>"
+          .implode("<br/>", $errors);
+      $modLinks = count($modules) === 0 ? <x:frag/>
+        : <bootstrap:list-group/>;
+      if(count($modules) > 0){
+        foreach($modules as $m){
+          $url = '/m/'.urlencode(strtolower($m->getVendor()))
+            .'/'.urlencode(strtolower($m->getName())).'/';
+          $modLinks->appendChild(
+            <bootstrap:list-group-item href={$url}>
+              {$m->getName()}
+            </bootstrap:list-group-item>
+          );
+        }
+      }
       $this->content->appendChild(
-        <bootstrap:alert use={$module !== null ? "success" : "danger"}>
-          {$msg}{$link}
+        <bootstrap:alert use={count($errors) === 0 ? "success" : "danger"}>
+          {$msg}
         </bootstrap:alert>
       );
+      $this->content->appendChild($modLinks);
     }
     $this->content->appendChild(
       <bootstrap:panel>
