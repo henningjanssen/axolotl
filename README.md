@@ -18,7 +18,7 @@ db.user | `string` | *empty string* | any string | only if db.socket is used | T
 system.base_uri | `string` | *empty string* | any string | yes | *coming soon* No trailing slashes
 system.title | `string` | `axolotl` | any string | yes | What is set in the title right of the `|`. If set to an empty string the `|` will not be displayed
 static_lock | `array` of `string` | `[]` | Array of paths relative to the static-directory | yes | Files inside the static-directory that should not be accessible (403)
-upload.chunksize | `int` | 1*1024*1024 = 1048576 | Any number greater than 0 | yes | Maximal size of chunks used for uploading files
+upload.chunksize | `int` | 1 * 1024 * 1024 = 1048576 | Any number greater than 0 | yes | Maximal size of chunks used for uploading files
 upload.simul | `int` | 3 | Any number greater or equal to 1 | yes | Maximum of simultaneous uploaded chunks
 vendor.company | `string` | *empty string* | any string | yes | The name of the company administrating the system
 vendor.mail | `string` | *empty string* | any mail-address | yes | The mail-address of the system-administrator
