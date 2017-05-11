@@ -16,7 +16,19 @@ class UploadedZipFile extends UploadedFile{
       $contents[] = $zip->getNameIndex($i);
     }
     $zip->close();
+    sort($contents);
     return $contents;
+  }
+
+  public function getFileFromName(string $name): string{
+    if(!$this->exists()){
+      throw new NonExistentFileException();
+    }
+    $zip = new \ZipArchive();
+    $zip->open($this->path);
+    $file = $zip->getFromName($name);
+    $zip->close();
+    return $file;
   }
 
   public function extractTo(string $path): void{
