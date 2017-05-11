@@ -31,8 +31,10 @@ class Session{
       );
       $entityManager->persist(self::$currentUser);
     }
+    invariant(self::$currentUser !== null, "Current user is null");
     self::$currentUser->setLastActivity();
     $entityManager->flush();
+    invariant(self::$currentUser !== null, "Current user is null");
     return self::$currentUser;
   }
 }
