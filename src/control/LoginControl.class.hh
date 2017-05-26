@@ -30,7 +30,7 @@ class LoginControl extends PageControl{
       }
       else{
         $result = $result[0];
-        if($result->getPassword() !== hash("sha256", _::POST("__ax_pw"))){
+        if(password_verify(strval(_::POST("__ax_pw")), $result->getPassword())){
           $loginFailed = true;
         }
         else{

@@ -19,7 +19,7 @@ class User{
   /** @Column(type="text", name="full_name") */
   protected string $fullName;
 
-  /** @Column(type="string", length=64) */
+  /** @Column(type="string", length=60) */
   protected string $password;
 
   /** @Column(type="text") */
@@ -117,15 +117,8 @@ class User{
   }
 
   public function setPassword(string $pw, bool $isHashed = true): User{
-    if($isHashed){
-      if(strlen($pw) !== 64){
-        throw new \axolotl\exceptions\InvalidArgumentException(
-          "Password hash has wrong length. Did you use sha256?"
-        );
-      }
-    }
-    else{
-      $pw = hash("sha256", $pw);
+    if(!$isHashed){
+      $pw = strval(password_hash($pw, PASSWORD_BCRYPT));
     }
     $this->password = $pw;
     return $this;
