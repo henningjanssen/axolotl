@@ -37,4 +37,11 @@ class Session{
     invariant(self::$currentUser !== null, "Current user is null");
     return self::$currentUser;
   }
+
+  public static function getCurrentUserID(): int{
+    if(!self::loggedIn()){
+      throw new NotLoggedInException();
+    }
+    return _::SESSION("uid");
+  }
 }
