@@ -14,6 +14,7 @@ use \axolotl\util\UploadedZipFile;
 
 type InstallModuleMetadata = shape(
   'path' => string,
+  'full_path' => string,
   'required_exist' => bool,
   'dependencies_exist' => bool,
   'is_update' => bool,
@@ -122,9 +123,10 @@ class InstallModuleControl extends LoggedInPageControl{
           // add metadata
           $metadata[$cont] = shape(
             'path' => $cont,
+            'full_path' => "$modroot/$cont",
             'required_exist' => $reqFilesExist,
             'dependencies_exist' => true,
-            'is_update' => is_dir("$modroot$cont"),
+            'is_update' => is_dir("$modroot/$cont"),
             'modinfo' => $modinfo
           );
         }
@@ -144,7 +146,10 @@ class InstallModuleControl extends LoggedInPageControl{
     );
 
     require_once(
-      "$modulesPath/{$modinfo['path']}{$modinfo['modinfo']['install']['file']}"
+      realpath(
+        "{$modinfo['full_path']}/"
+        ."{$modinfo['modinfo']['install']['file']}"
+      )
     );
     $classname = $modinfo['modinfo']['install']['class'];
     if(!class_exists($classname)){
