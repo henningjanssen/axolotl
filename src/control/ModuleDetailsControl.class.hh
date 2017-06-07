@@ -30,8 +30,7 @@ class ModuleDetailsControl extends LoggedInPageControl{
 			Log::error('ModuleDetailsView',
 				"Module not found. Query: `{$query->getSQL()}`"
 				.", vendor: `{$this->vars['vendor']}`"
-				.", module: `{$this->vars['module']}`",
-				Session::getCurrentUserID()
+				.", module: `{$this->vars['module']}`"
 			);
 		}
 		(new ModuleDetailsView($module))->render();
