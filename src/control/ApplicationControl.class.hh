@@ -30,12 +30,13 @@ class ApplicationControl{
         );
         $r->addRoute('GET', '/static/{path:.+}', "$ns\\StaticContentControl");
         $r->addRoute('GET', '/error/{errno:\d+}', "$ns\\ErrorControl");
-        $r->addRoute(['GET','POST'], '/module/{name}/{params:.+}', 'modroute');
-        $r->addRoute(['GET','POST'], '/user/edit/{id:\d+}', 'somehandler');
-        $r->addRoute('GET', '/user/list', 'somehandler');
-        $r->addRoute('GET', '/user/new', 'somehandler');
-        $r->addRoute('GET', '/user/show/{id:\d+}', 'somehandler');
+        //$r->addRoute(['GET','POST'], '/user/edit/{id:\d+}', 'somehandler');
+        //$r->addRoute('GET', '/user/list', 'somehandler');
+        //$r->addRoute('GET', '/user/new', 'somehandler');
+        //$r->addRoute('GET', '/user/show/{id:\d+}', 'somehandler');
         $r->addRoute('GET', '/about', "$ns\\AboutControl");
+
+        // Add routings for modules
         $modules = \axolotl\util\Doctrine::getEntityManager()
           ->getRepository(Module::class)
           ->findAll();
