@@ -21,6 +21,10 @@ class ApplicationControl{
         $r->addRoute(['GET', 'POST'],
           '/settings/modules/install', "$ns\\InstallModuleControl"
         );
+        $r->addRoute('GET',
+          '/settings/modules/details/{vendor}/{module}[/]',
+          "$ns\\ModuleDetailsControl"
+        );
         $r->addRoute(['GET', 'POST'],
           '/api/upload/{name:.+}', "$ns\\UploadControl"
         );

@@ -12,7 +12,7 @@ class ModuleView extends PageView{
     $moduleList = <bootstrap:list-group>
       </bootstrap:list-group>;
     foreach($modules as $m){
-      $url = "$baseuri/mdetails/".urlencode($m->getVendor())
+      $url = "$baseuri/settings/modules/details/".urlencode($m->getVendor())
         .'/'.urlencode($m->getName()).'/';
       $moduleList->appendChild(
         <bootstrap:list-group-item href={$url}>
