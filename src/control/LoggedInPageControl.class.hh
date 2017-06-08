@@ -11,5 +11,6 @@ abstract class LoggedInPageControl extends PageControl{
       throw new NotLoggedInException();
     }
     parent::__construct($vars);
+    Session::getCurrentUser();
   }
 }
