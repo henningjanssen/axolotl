@@ -5,6 +5,7 @@ namespace axolotl\control;
 use \LoginView;
 use \RedirectView;
 use axolotl\entities\User;
+use axolotl\exceptions\EntityNotFoundException;
 use axolotl\util\_;
 use axolotl\util\Doctrine;
 use axolotl\util\Session;
@@ -19,26 +20,21 @@ class LoginControl extends PageControl{
   public function execute(): void{
     $loginFailed = false;
     if(_::POST("__ax_login") !== null){
-      $querystr = "select u from axolotl\\entities\\User u"
-        ." where u.username = :user or u.email = :user";
-      $entityManager = Doctrine::getEntityManager();
-      $query = $entityManager->createQuery($querystr);
-      $query->setParameter('user', _::POST("__ax_nick"));
-      $result = $query->getResult();
-      if(count($result) !== 1){
-        $loginFailed = true;
-      }
-      else{
-        $result = $result[0];
-        if(password_verify(strval(_::POST("__ax_pw")), $result->getPassword())){
+      try{
+        $user = User::getByLogin(strval(_::POST("__ax_nick")));
+        if(!password_verify(strval(_::POST("__ax_pw")), $user->getPassword())){
           $loginFailed = true;
         }
         else{
-          _::SESSION("uid", $result->getID());
-          $result->setLastActivity();
-          $entityManager->persist($result);
+          _::SESSION("uid", $user->getID());
+          $entityManager = Doctrine::getEntityManager();
+          $user->setLastActivity();
+          $entityManager->persist($user);
           $entityManager->flush();
         }
+      }
+      catch(EntityNotFoundException $enfex){
+        $loginFailed = true;
       }
     }
     if(Session::loggedIn()){
