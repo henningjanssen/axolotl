@@ -16,14 +16,14 @@ class LoginView extends PageView{
               action={strval(_::SETTINGS("system.base_uri"))."/login"} method="post">
               <fieldset class="form-group">
                 <label for="__ax_nick">Username or E-Mail</label>
-                <input type="text" class="form-control" name="__ax_nick"
+                <input type="text" class="form-control" name="username"
                   placeholder="Username or e-mail" value={$presetUser}/>
                 <input type="hidden" class="form-control" name="__ax_login"
                   value="1"/>
               </fieldset>
               <fieldset class="form-group">
                 <label for="__ax_pw">Password</label>
-                <input type="password" class="form-control" name="__ax_pw"
+                <input type="password" class="form-control" name="password"
                   placeholder="password" value={$presetPW}/>
               </fieldset>
               <input type="submit" value="Login"/>

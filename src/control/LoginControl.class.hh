@@ -21,8 +21,8 @@ class LoginControl extends PageControl{
     $loginFailed = false;
     if(_::POST("__ax_login") !== null){
       try{
-        $user = User::getByLogin(strval(_::POST("__ax_nick")));
-        if(!password_verify(strval(_::POST("__ax_pw")), $user->getPassword())){
+        $user = User::getByLogin(strval(_::POST("username")));
+        if(!password_verify(strval(_::POST("password")), $user->getPassword())){
           $loginFailed = true;
         }
         else{
@@ -43,8 +43,8 @@ class LoginControl extends PageControl{
     else{
       (new LoginView(
         $loginFailed,
-        strval(_::POST("__ax_nick")) ?? "",
-        strval(_::POST("__ax_pw")) ?? ""
+        strval(_::POST("username")) ?? "",
+        strval(_::POST("password")) ?? ""
       ))->render();
     }
   }
