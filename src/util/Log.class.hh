@@ -32,10 +32,10 @@ class Log{
     self::log(LogLevel::DEBUG, $topic, $msg, $uid);
   }
   public static function error(string $topic, string $msg, int $uid = -1): void{
-    self::log(LogLevel::DEBUG, $topic, $msg, $uid);
+    self::log(LogLevel::ERROR, $topic, $msg, $uid);
   }
   public static function fatal(string $topic, string $msg, int $uid = -1): void{
-    self::log(LogLevel::DEBUG, $topic, $msg, $uid);
+    self::log(LogLevel::FATAL, $topic, $msg, $uid);
   }
   public static function info(string $topic, string $msg, int $uid = -1): void{
     self::log(LogLevel::INFO, $topic, $msg, $uid);
