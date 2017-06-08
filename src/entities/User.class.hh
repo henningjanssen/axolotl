@@ -2,7 +2,9 @@
 
 namespace axolotl\entities;
 
+use axolotl\exceptions\EntityNotFoundException;
 use axolotl\util\Doctrine;
+use axolotl\util\Log;
 
 /**
  * @Entity
