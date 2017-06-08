@@ -2,6 +2,8 @@
 
 namespace axolotl\entities;
 
+use axolotl\util\Doctrine;
+
 /**
  * @Entity
  * @Table(name="users")
@@ -69,6 +71,32 @@ class User{
     $user->setRegistration($registration);
     $user->setLastActivity($lastActivity);
     return $user;
+  }
+
+  public static function getByLogin(string $login): User{
+		$entityManager = Doctrine::getEntityManager();
+    $qb = $entityManager->createQueryBuilder();
+		$query = $qb->select('u')
+			->from(User::class, 'u')
+			->where(
+				$qb->expr()->orX(
+					$qb->expr()->eq('u.email', ':login'),
+					$qb->expr()->eq('u.username', ':login')
+				)
+			)
+			->setParameter('login', $login)
+			->getQuery();
+		try{
+			$user = $query->getSingleResult();
+      return $user;
+		}
+		catch(\Doctrine\ORM\NoResultException $nrex){
+			Log::error('User::getByLogin',
+				"User not found. Query: `{$query->getSQL()}`"
+				.", login: `{$login}`"
+			);
+      throw new EntityNotFoundException("User {$login} not found");
+		}
   }
 
   public function getID(): int{
