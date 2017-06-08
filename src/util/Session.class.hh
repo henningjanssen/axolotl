@@ -42,6 +42,6 @@ class Session{
     if(!self::loggedIn()){
       throw new NotLoggedInException();
     }
-    return _::SESSION("uid");
+    return intval(_::SESSION("uid"));
   }
 }
