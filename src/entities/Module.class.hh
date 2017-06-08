@@ -5,10 +5,13 @@ namespace axolotl\entities;
 use \axolotl\exceptions\InvalidArgumentException;
 use \Doctrine\Common\Collections\ArrayCollection;
 use \Doctrine\Common\Collections\Collection as DoctrineCollection;
+use \Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * @Entity
- * @Table(name="modules")
+ * @Table(name="modules", uniqueConstraints={
+ *  @UniqueConstraint(name="mod_id", columns={"vendor", "name"})
+ * })
  */
 class Module{
   /** @Id @Column(type="integer") @GeneratedValue */
