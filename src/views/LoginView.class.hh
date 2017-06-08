@@ -18,8 +18,6 @@ class LoginView extends PageView{
                 <label for="__ax_nick">Username or E-Mail</label>
                 <input type="text" class="form-control" name="username"
                   placeholder="Username or e-mail" value={$presetUser}/>
-                <input type="hidden" class="form-control" name="__ax_login"
-                  value="1"/>
               </fieldset>
               <fieldset class="form-group">
                 <label for="__ax_pw">Password</label>

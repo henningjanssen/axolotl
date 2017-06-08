@@ -19,7 +19,7 @@ class LoginControl extends PageControl{
 
   public function execute(): void{
     $loginFailed = false;
-    if(_::POST("__ax_login") !== null){
+    if(strlen(_::POST("username")) > 0){
       try{
         $user = User::getByLogin(strval(_::POST("username")));
         if(!password_verify(strval(_::POST("password")), $user->getPassword())){
