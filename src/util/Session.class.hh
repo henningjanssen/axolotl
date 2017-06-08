@@ -27,7 +27,7 @@ class Session{
     $entityManager = Doctrine::getEntityManager();
     if(self::$currentUser === null){
       self::$currentUser = $entityManager->find(
-        "\\axolotl\\entities\\User", _::SESSION("uid")
+        User::class, _::SESSION("uid")
       );
       $entityManager->persist(self::$currentUser);
     }
