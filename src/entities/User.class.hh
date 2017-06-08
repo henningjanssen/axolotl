@@ -13,7 +13,7 @@ class User{
   /** @Column(type="string", length=32, unique=true, nullable=false)*/
   protected string $username;
 
-  /** @Column(type="text") */
+  /** @Column(type="text", unique=true, nullable=false) */
   protected string $email;
 
   /** @Column(type="text", name="full_name") */
