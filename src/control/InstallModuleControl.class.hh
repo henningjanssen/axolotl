@@ -142,6 +142,7 @@ class InstallModuleControl extends LoggedInPageControl{
       throw new BrokenModuleException("Install-class does not exist");
     }
 
+    // UNSAFE
     $install = new $classname();
     if(!($install instanceof ModuleControl)){
       throw new BrokenModuleException(
