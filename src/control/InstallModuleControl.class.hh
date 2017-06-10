@@ -8,6 +8,7 @@ use \axolotl\exceptions\BrokenModuleException;
 use \axolotl\module\ModuleControl;
 use \axolotl\util\_;
 use \axolotl\util\Doctrine;
+use \axolotl\util\PathUtil;
 use \axolotl\util\Session;
 use \axolotl\util\UploadedFile;
 use \axolotl\util\UploadedZipFile;
@@ -48,7 +49,7 @@ class InstallModuleControl extends LoggedInPageControl{
       throw new BrokenModuleException("Not a zip-File");
     }
 
-    $modulesPath = realpath(__DIR__."/../../modules");
+    $modulesPath = PathUtil::MODULE_PATH;
     $modinfo = $this->getContentMetadata($zip, $modulesPath);
 
     $zip->extractTo($modulesPath);
@@ -67,22 +68,7 @@ class InstallModuleControl extends LoggedInPageControl{
           ."/{$info['modinfo']['module']['name']}: {$bmex->getMessage()}";
 
         // Delete the module-files
-        $delPath = "$modulesPath{$info['path']}";
-        $delIt = new RecursiveDirectoryIterator($delPath,
-          RecursiveDirectoryIterator::SKIP_DOTS
-        );
-        $delFiles = new RecursiveIteratorIterator($delIt,
-          RecursiveIteratorIterator::CHILD_FIRST
-        );
-        foreach($delFiles as $delf){
-          if($delf->isDir()){
-            rmdir($delf->getRealPath());
-          }
-          else{
-            unlink($delf->getRealPath());
-          }
-        }
-        rmdir($delPath);
+        PathUtil::deleteDirectory("$modulesPath{$info['path']}");
       }
     }
     $entityManager->flush();
