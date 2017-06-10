@@ -1,8 +1,12 @@
-<?hh // strict
+<?hh // partial
+// partial because of doctrine
 
 namespace axolotl\entities;
 
+use \axolotl\exceptions\EntityNotFoundException;
 use \axolotl\exceptions\InvalidArgumentException;
+use \axolotl\util\Doctrine;
+use \axolotl\util\Log;
 use \Doctrine\Common\Collections\ArrayCollection;
 use \Doctrine\Common\Collections\Collection as DoctrineCollection;
 use \Doctrine\ORM\Mapping\UniqueConstraint;
@@ -63,6 +67,34 @@ class Module{
     $module->setInstallationDate($installationDate);
     $module->setCreator($creator);
     return $module;
+  }
+
+  public static function getByName(string $vendor, string $name): Module{
+		$entityManager = Doctrine::getEntityManager();
+    $qb = $entityManager->createQueryBuilder();
+		$query = $qb->select('m')
+			->from(Module::class, 'm')
+			->where(
+				$qb->expr()->andX(
+					$qb->expr()->eq('m.vendor', ':vendor'),
+					$qb->expr()->eq('m.name', ':name')
+				)
+			)
+			->setParameter('vendor', $vendor)
+			->setParameter('name', $name)
+			->getQuery();
+		try{
+			$module = $query->getSingleResult();
+      return $module;
+		}
+		catch(\Doctrine\ORM\NoResultException $nrex){
+			Log::error('Module::getByName',
+				"Module not found. Query: `{$query->getSQL()}`"
+				.", vendor: `{$vendor}`"
+				.", module: `{$name}`"
+			);
+      throw new EntityNotFoundException("Module {$vendor}/{$name} not found");
+		}
   }
 
   public function getID(): int{
