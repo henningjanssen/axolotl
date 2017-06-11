@@ -2,7 +2,7 @@
 
 use \axolotl\util\_;
 
-class :fileupload extends :x:element{
+class :axolotl:xhp:fileupload extends :x:element{
   //attributes
   attribute
     string id @required,
