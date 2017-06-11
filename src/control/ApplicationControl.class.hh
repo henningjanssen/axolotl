@@ -25,6 +25,10 @@ class ApplicationControl{
           '/settings/modules/details/{vendor}/{module}[/]',
           "$ns\\ModuleDetailsControl"
         );
+        $r->addRoute('GET',
+          '/settings/modules/uninstall/{vendor}/{module}[/]',
+          "$ns\\RemoveModuleControl"
+        );
         $r->addRoute(['GET', 'POST'],
           '/api/upload/{name:.+}', "$ns\\UploadControl"
         );

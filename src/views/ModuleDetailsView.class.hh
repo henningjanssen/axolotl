@@ -36,6 +36,13 @@ class ModuleDetailsView extends PageView{
               Installation:
 							{$module->getInstallationDate()->format('d:m:Y H:i')}
             </bootstrap:list-group-item>
+						<bootstrap:list-group-item use="danger"
+							href={$this->baseuri."/settings/modules/uninstall/"
+								.$module->getVendor()."/".$module->getName()
+							}
+						>
+							Delete
+						</bootstrap:list-group-item>
           </bootstrap:list-group>
         </bootstrap:panel:body>
       </bootstrap:panel>
