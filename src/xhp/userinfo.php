@@ -5,14 +5,15 @@ use \axolotl\entities\User;
 class :axolotl:xhp:userinfo extends :x:element{
 	attribute
 		User user @required,
-		string dateFormat = "d.m.Y H:i";
+		string dateFormat = "d.m.Y H:i",
+		string title = "User";
 
 		children (:bootstrap:list-group-item*);
 
 		protected function render(): \XHPRoot{
 	    return <bootstrap:panel use="info">
         <bootstrap:panel:heading>
-          Installed by
+          {$this->:title}
         </bootstrap:panel:heading>
         <bootstrap:panel:body>
           <bootstrap:list-group>
