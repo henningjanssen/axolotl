@@ -52,7 +52,7 @@ class ModuleDetailsView extends PageView{
 		foreach($module->getRoutingInfo() as $ri){
 			$routings->appendChild(
 				<bootstrap:list-group-item>
-					{$ri->getPath()} {$ri->getMethodString()}: {$ri->getHandler()}
+					{$ri->getURI()} {$ri->getMethodString()}: {$ri->getHandler()}
 				</bootstrap:list-group-item>
 			);
 		}
