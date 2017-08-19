@@ -5,7 +5,7 @@ require_once '../vendor/autoload.php';
 $entityManager = \axolotl\util\Doctrine::getEntityManager();
 $user = new \axolotl\entities\User();
 $user->setUsername("admin");
-$user->setPassword(hash("sha256", "admin"));
+$user->setPassword(password_hash("admin", PASSWORD_BCRYPT));
 
 $entityManager->persist($user);
 $entityManager->flush();
