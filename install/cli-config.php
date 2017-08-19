@@ -1,5 +1,5 @@
 <?hh // partial
-  require_once realpath(__DIR__."/../src/util/Doctrine.class.hh");
+  require_once realpath(__DIR__."/../src/util/Doctrine.php");
 
   use axolotl\util\Doctrine;
   use Doctrine\ORM\Tools\Console\ConsoleRunner;
