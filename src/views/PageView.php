@@ -54,14 +54,14 @@ abstract class PageView extends View{
       $navbar->appendChild(
         <x:frag>
           <bootstrap:navigation:link href={$this->baseuri.'/home'}>
-            Home
+            {t('Home')}
           </bootstrap:navigation:link>
           <bootstrap:navigation:link href={$this->baseuri.'/about'}>
-            About
+            {t('About')}
           </bootstrap:navigation:link>
           <bootstrap:navigation:dropdown>
             <a href="#">
-              Settings
+              {t('Settings')}
               <bootstrap:caret/>
             </a>
             <bootstrap:dropdown:menu>
@@ -76,7 +76,7 @@ abstract class PageView extends View{
             </bootstrap:dropdown:menu>
           </bootstrap:navigation:dropdown>
           <bootstrap:navigation:link href={$this->baseuri.'/logout'}>
-            Logout
+            {t('Logout')}
           </bootstrap:navigation:link>
         </x:frag>
       );
@@ -84,7 +84,7 @@ abstract class PageView extends View{
     else{
       $navbar->appendChild(
         <bootstrap:navigation:link href={$this->baseuri.'/login'}>
-          Login
+          {t('Login')}
         </bootstrap:navigation:link>
       );
     }

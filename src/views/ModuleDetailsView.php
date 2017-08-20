@@ -5,10 +5,10 @@ use axolotl\util\_;
 
 class ModuleDetailsView extends PageView{
   public function __construct(?Module $module){
-    parent::__construct("Modules");
+    parent::__construct(t("Modules"));
 		if($module === null){
 			$this->content->appendChild(<bootstrap:alert use="danger">
-					This module does not exist or there were problems with the database
+					{t('This module does not exist or there were problems with the database')}
 				</bootstrap:alert>
 			);
 			return;
@@ -16,24 +16,24 @@ class ModuleDetailsView extends PageView{
     $this->content->appendChild(
       <bootstrap:panel use="info">
         <bootstrap:panel:heading>
-          Module-Information
+          {t('Module-Information')}
         </bootstrap:panel:heading>
         <bootstrap:panel:body>
           <bootstrap:list-group>
             <bootstrap:list-group-item>
-              Name: {$module->getName()}
+              {t('Name')}: {$module->getName()}
             </bootstrap:list-group-item>
             <bootstrap:list-group-item>
-              Vendor: {$module->getVendor()}
+              {t('Vendor')}: {$module->getVendor()}
             </bootstrap:list-group-item>
             <bootstrap:list-group-item>
-              Description: {$module->getDescription()}
+              {t('Description')}: {$module->getDescription()}
             </bootstrap:list-group-item>
             <bootstrap:list-group-item>
-              Path: {$module->getPath()}
+              {t('Path')}: {$module->getPath()}
             </bootstrap:list-group-item>
             <bootstrap:list-group-item>
-              Installation:
+              {t('Installation')}:
 							{$module->getInstallationDate()->format('d:m:Y H:i')}
             </bootstrap:list-group-item>
 						<bootstrap:list-group-item use="danger"
@@ -41,7 +41,7 @@ class ModuleDetailsView extends PageView{
 								.$module->getVendor()."/".$module->getName()
 							}
 						>
-							Delete
+							{t('Delete')}
 						</bootstrap:list-group-item>
           </bootstrap:list-group>
         </bootstrap:panel:body>
@@ -50,7 +50,7 @@ class ModuleDetailsView extends PageView{
 
 		// Installer
     $this->content->appendChild(
-			<axolotl:xhp:userinfo user={$module->getCreator()} title="Installed by"/>
+			<axolotl:xhp:userinfo user={$module->getCreator()} title={t('Installed by')}/>
     );
 
 		// Show routings
@@ -66,7 +66,7 @@ class ModuleDetailsView extends PageView{
 		$this->content->appendChild(
 			<bootstrap:panel use="info">
 				<bootstrap:panel:heading>
-					Routings
+					{t('Routings')}
 				</bootstrap:panel:heading>
 				<bootstrap:panel:body>
 					{$routings}

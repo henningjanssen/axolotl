@@ -7,7 +7,7 @@ class HomePageView extends PageView{
   public function __construct(
     User $user, array<Module> $modules
   ){
-    parent::__construct("Home");
+    parent::__construct(t("Home"));
     $this->content->appendChild(<axolotl:xhp:userinfo user={$user}/>);
     $moduleList = <bootstrap:list-group>
       </bootstrap:list-group>;
@@ -23,13 +23,13 @@ class HomePageView extends PageView{
     if(count($modules) === 0){
       $moduleList->appendChild(
         <bootstrap:list-group-item>
-          No modules installed
+          {t('No modules installed')}
         </bootstrap:list-group-item>
       );
     }
     $this->content->appendChild(<bootstrap:panel use="info">
         <bootstrap:panel:heading>
-          Installed modules
+          {t('Installed modules')}
         </bootstrap:panel:heading>
         <bootstrap:panel:body>
           {$moduleList}

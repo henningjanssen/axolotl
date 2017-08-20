@@ -34,7 +34,7 @@ class :axolotl:xhp:fileupload extends :x:element{
       <bootstrap:button-group>
         <bootstrap:button
           id={$this->:name."_upload_btn"} use="primary">
-          Choose file
+          {t('Choose file')}
           <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
         </bootstrap:button>
         <bootstrap:button

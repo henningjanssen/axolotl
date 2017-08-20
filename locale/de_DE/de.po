@@ -1,0 +1,135 @@
+msgid ""
+msgstr ""
+
+msgid "About"
+msgstr "Über"
+
+msgid "Vendor"
+msgstr "Verkäufer"
+
+msgid "Support E-Mail"
+msgstr "Unterstützung E-Mail"
+
+msgid "Support Phone"
+msgstr "Unterstützung Telefon"
+
+msgid "Website"
+msgstr "Webseite"
+
+msgid "About this project"
+msgstr "Über dieses Projekt"
+
+msgid "Project-Name"
+msgstr "Projektname"
+
+msgid "Project on Github"
+msgstr "Projekt auf Github"
+
+msgid "Home"
+msgstr "Zuhause"
+
+msgid "No modules installed"
+msgstr "Es wurden keine Module installiert"
+
+msgid "Installed modules"
+msgstr "Installierte Module"
+
+msgid "Install module"
+msgstr "Modul installieren"
+
+msgid "Modules successfully installed."
+msgstr "Module erfolgreich installiert."
+
+msgid "There were errors installing the module."
+msgstr "Es gab Fehler beim Installieren des Moduls."
+
+msgid "Install new module!"
+msgstr "Neues Modul installieren!"
+
+msgid ".zip containing the module"
+msgstr ".zip mit dem Modul"
+
+msgid ""
+msgstr ""
+
+msgid "Install!"
+msgstr "Installieren!"
+
+msgid "Login"
+msgstr "Anmeldung"
+
+msgid "Username or E-Mail"
+msgstr "Benutzername oder E-Mail-Adresse"
+
+msgid "Username or e-mail"
+msgstr "Benutzername oder E-Mail-Adresse"
+
+msgid "Password"
+msgstr "Passwort"
+
+msgid "password"
+msgstr "Passwort"
+
+msgid ""
+msgstr ""
+
+msgid "This site uses Cookies to store information on your computer."
+msgstr "Diese Seite verwendet Cookies, um Informationen auf Ihrem Computer zu speichern."
+
+msgid "Modules"
+msgstr "Module"
+
+msgid "This module does not exist or there were problems with the database"
+msgstr "Dieses Modul existiert nicht oder es gab Probleme mit der Datenbank"
+
+msgid "Module-Information"
+msgstr "Modul-Informationen"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Description"
+msgstr "Beschreibung"
+
+msgid "Path"
+msgstr "Pfad"
+
+msgid "Installation"
+msgstr "Installation"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Installed by"
+msgstr "Installiert durch"
+
+msgid "Routings"
+msgstr "Arbeitspläne"
+
+msgid "Install new module"
+msgstr "Neues Modul installieren"
+
+msgid "Choose file"
+msgstr "Datei wählen"
+
+msgid "User"
+msgstr "Benutzer"
+
+msgid "Username"
+msgstr "Benutzername"
+
+msgid "E-Mail"
+msgstr "Email"
+
+msgid "Full Name"
+msgstr "Vollständiger Name"
+
+msgid "Account-Note"
+msgstr "Konto-Hinweis"
+
+msgid "Registered"
+msgstr "Eingetragen"
+
+msgid "Last activity"
+msgstr "Letzte Aktivität"
+
