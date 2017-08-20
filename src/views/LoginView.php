@@ -15,7 +15,7 @@ class LoginView extends PageView{
             <form
               action={strval(_::SETTINGS("system.base_uri"))."/login"} method="post">
               <fieldset class="form-group">
-                <label for="__ax_nick">{t('Username or E-Mail')}</label>
+                <label for="__ax_nick">{t('Username or e-mail')}</label>
                 <input type="text" class="form-control" name="username"
                   placeholder={t('Username or e-mail')} value={$presetUser}/>
               </fieldset>

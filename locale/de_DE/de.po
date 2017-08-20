@@ -5,7 +5,7 @@ msgid "About"
 msgstr "Über"
 
 msgid "Vendor"
-msgstr "Verkäufer"
+msgstr "Anbieter"
 
 msgid "Support E-Mail"
 msgstr "Unterstützung E-Mail"
@@ -26,7 +26,7 @@ msgid "Project on Github"
 msgstr "Projekt auf Github"
 
 msgid "Home"
-msgstr "Zuhause"
+msgstr "Home"
 
 msgid "No modules installed"
 msgstr "Es wurden keine Module installiert"
@@ -49,17 +49,11 @@ msgstr "Neues Modul installieren!"
 msgid ".zip containing the module"
 msgstr ".zip mit dem Modul"
 
-msgid ""
-msgstr ""
-
 msgid "Install!"
 msgstr "Installieren!"
 
 msgid "Login"
 msgstr "Anmeldung"
-
-msgid "Username or E-Mail"
-msgstr "Benutzername oder E-Mail-Adresse"
 
 msgid "Username or e-mail"
 msgstr "Benutzername oder E-Mail-Adresse"
@@ -69,9 +63,6 @@ msgstr "Passwort"
 
 msgid "password"
 msgstr "Passwort"
-
-msgid ""
-msgstr ""
 
 msgid "This site uses Cookies to store information on your computer."
 msgstr "Diese Seite verwendet Cookies, um Informationen auf Ihrem Computer zu speichern."
@@ -104,7 +95,7 @@ msgid "Installed by"
 msgstr "Installiert durch"
 
 msgid "Routings"
-msgstr "Arbeitspläne"
+msgstr "Routen"
 
 msgid "Install new module"
 msgstr "Neues Modul installieren"
@@ -119,7 +110,7 @@ msgid "Username"
 msgstr "Benutzername"
 
 msgid "E-Mail"
-msgstr "Email"
+msgstr "E-Mail"
 
 msgid "Full Name"
 msgstr "Vollständiger Name"
@@ -128,8 +119,7 @@ msgid "Account-Note"
 msgstr "Konto-Hinweis"
 
 msgid "Registered"
-msgstr "Eingetragen"
+msgstr "Registriert"
 
 msgid "Last activity"
 msgstr "Letzte Aktivität"
-
