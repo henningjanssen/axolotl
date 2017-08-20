@@ -1,4 +1,4 @@
-<?hh
+<?hh // partial
 
 namespace axolotl\control;
 
@@ -27,6 +27,7 @@ class InstallModuleControl extends LoggedInPageControl{
     "modinfo.json"
   );
 
+  <<__Override>>
   public function execute(): void{
     $installAttempt = false;
     $newModules = array();
@@ -41,7 +42,7 @@ class InstallModuleControl extends LoggedInPageControl{
     (new InstallModuleView($installAttempt, $newModules, $errors))->render();
   }
 
-  public function installModules(): array{
+  private function installModules(): (array<Module>, array<string>) {
     $zip = new UploadedZipFile("__ax_modFile");
     $installAttempt = true;
     // file-existence is checked in getMimeType
@@ -73,7 +74,7 @@ class InstallModuleControl extends LoggedInPageControl{
     }
     $entityManager->flush();
 
-    return array($newMods, $errors);
+    return tuple($newMods, $errors);
   }
 
   private function getContentMetadata(
@@ -146,7 +147,7 @@ class InstallModuleControl extends LoggedInPageControl{
     $install = new $classname();
     if(!($install instanceof ModuleControl)){
       throw new BrokenModuleException(
-        "Install-class `$classname` does implement ModuleControl"
+        "Install-class `$classname` does not implement ModuleControl"
       );
     }
     $succ = $modinfo['is_update'] ? $install->update() : $install->install();
