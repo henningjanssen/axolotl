@@ -5,6 +5,7 @@ namespace axolotl\control;
 use axolotl\entities\Module;
 use axolotl\exceptions\NotLoggedInException;
 use axolotl\util\_;
+use axolotl\util\Doctrine;
 use \RedirectView;
 
 class ApplicationControl{
@@ -13,39 +14,38 @@ class ApplicationControl{
   public function execute(): void{
     $dispatcher = \FastRoute\simpleDispatcher(
       function(\FastRoute\RouteCollector $r){
-        $ns = "\\axolotl\\control";
-        $r->addRoute('GET', '[/[home]]',"$ns\\HomePageControl");
-        $r->addRoute(['GET','POST'], '/login', "$ns\\LoginControl");
-        $r->addRoute('GET', '/logout', "$ns\\LogoutControl");
-        $r->addRoute(['GET'], '/settings/modules', "$ns\\ModuleControl");
+        $r->addRoute('GET', '[/[home]]', HomePageControl::class);
+        $r->addRoute(['GET','POST'], '/login', LoginControl::class);
+        $r->addRoute('GET', '/logout', LogoutControl::class);
+        $r->addRoute(['GET'], '/settings/modules', ModuleControl::class);
         $r->addRoute(['GET', 'POST'],
-          '/settings/modules/install', "$ns\\InstallModuleControl"
+          '/settings/modules/install', InstallModuleControl::class
         );
         $r->addRoute('GET',
           '/settings/modules/details/{vendor}/{module}[/]',
-          "$ns\\ModuleDetailsControl"
+          ModuleDetailsControl::class
         );
         $r->addRoute('GET',
           '/settings/modules/uninstall/{vendor}/{module}[/]',
-          "$ns\\RemoveModuleControl"
+          RemoveModuleControl::class
         );
         $r->addRoute(['GET', 'POST'],
-          '/api/upload/{name:.+}', "$ns\\UploadControl"
+          '/api/upload/{name:.+}', UploadControl::class
         );
         $r->addRoute('GET',
           '/static/m/{vendor:.+}/{module:.+}/{path:.+}',
-          "$ns\\StaticContentControl"
+          StaticContentControl::class
         );
-        $r->addRoute('GET', '/static/{path:.+}', "$ns\\StaticContentControl");
-        $r->addRoute('GET', '/error/{errno:\d+}', "$ns\\ErrorControl");
+        $r->addRoute('GET', '/static/{path:.+}', StaticContentControl::class);
+        $r->addRoute('GET', '/error/{errno:\d+}', ErrorControl::class);
         //$r->addRoute(['GET','POST'], '/user/edit/{id:\d+}', 'somehandler');
         //$r->addRoute('GET', '/user/list', 'somehandler');
         //$r->addRoute('GET', '/user/new', 'somehandler');
         //$r->addRoute('GET', '/user/show/{id:\d+}', 'somehandler');
-        $r->addRoute('GET', '/about', "$ns\\AboutControl");
+        $r->addRoute('GET', '/about', AboutControl::class);
 
         // Add routings for modules
-        $modules = \axolotl\util\Doctrine::getEntityManager()
+        $modules = Doctrine::getEntityManager()
           ->getRepository(Module::class)
           ->findAll();
         foreach($modules as $mod){
