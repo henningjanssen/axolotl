@@ -33,8 +33,8 @@ var FileUpload = {
         .removeClass('glyphicon-pause')
         .addClass('glyphicon-play');
       $("#"+id+"_upload_progressbar")
-        .find('.progress-bar')
-        .attr('style', 'width:'+(r.progress()*100)+'%');
+        .attr('style', 'width:'+(r.progress()*100)+'%')
+        .attr('aria-valuenow', r.progress() * 100);
     });
     r.on('pause', function(){
       $("#"+id+"_upload_startbtn").find('.glyhpicon')
