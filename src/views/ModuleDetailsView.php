@@ -50,7 +50,7 @@ class ModuleDetailsView extends PageView{
 
 		// Installer
     $this->content->appendChild(
-			<axolotl:xhp:userinfo user={$module->getCreator()}, title="Installed by"/>
+			<axolotl:xhp:userinfo user={$module->getCreator()} title="Installed by"/>
     );
 
 		// Show routings
