@@ -6,9 +6,10 @@ use \Exception;
 
 class Translator {
   private static ?Translator $instance;
+  const string DIR = __DIR__.'/../../locale/';
 
   private function __construct(private string $locale) {
-    $dirit = new \DirectoryIterator(__DIR__.'/../../locale/' . $locale);
+    $dirit = new \DirectoryIterator(self::DIR . $locale);
     $mtime = $this->fetchMtime($dirit);
     $lastMTime = apc_fetch('__axl_translation_mtime_' . $locale);
     if ($lastMTime !== false && $lastMTime >= $mtime) {
@@ -58,6 +59,18 @@ class Translator {
     }
 
     return self::$instance;
+  }
+
+  public static function getSupportedLocales(): array<string> {
+    $dirit = new \DirectoryIterator(self::DIR);
+    $ret = [];
+    foreach ($dirit as $dir) {
+      if ($dir->isDir() && !$dir->isDot()) {
+        $ret[] = $dir->getFilename();
+      }
+    }
+
+    return $ret;
   }
 
   public function getLocale(): string {
