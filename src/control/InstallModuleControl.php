@@ -155,6 +155,10 @@ class InstallModuleControl extends LoggedInPageControl{
       throw new BrokenModuleException("Installation or update failed");
     }
 
+    foreach ($install->getRoutings($module) as $routing) {
+      $module->addRoutingInfo($routing);
+    }
+
     return $module;
   }
 }

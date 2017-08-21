@@ -33,7 +33,7 @@ class Module{
   /** @Column(type="text") */
   protected string $path;
 
-  /** @OneToMany(targetEntity="RoutingInfo", mappedBy="module") */
+  /** @OneToMany(targetEntity="RoutingInfo", mappedBy="module", cascade={"persist"}) */
   protected DoctrineCollection<RoutingInfo> $routingInfo;
 
   /** @Column(type="datetimetz", name="installed_at") */

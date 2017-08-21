@@ -4,6 +4,7 @@ namespace axolotl\util;
 
 class PathUtil{
 	const string MODULE_PATH = __DIR__.'/../../modules/';
+	const string ROOT = __DIR__ . '/../../';
 
 	public static function deleteDirectory(string $dir): void{
 		$delIt = new \RecursiveDirectoryIterator($dir,

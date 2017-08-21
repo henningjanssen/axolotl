@@ -3,6 +3,7 @@
 namespace axolotl\entities;
 
 use \axolotl\exceptions\InvalidArgumentException;
+use \axolotl\control\PageControl;
 
 /**
  * @Entity
@@ -21,7 +22,7 @@ class RoutingInfo{
   /** @Column(type="text") */
   protected string $handler;
 
-  /** @Columnd(type="simple_array") */
+  /** @Column(type="simple_array") */
   protected array<string> $methods;
 
   public function __construct(){
@@ -33,7 +34,7 @@ class RoutingInfo{
   }
 
   public static function newInstance(
-    Module $module, string $uri, string $handler,
+    Module $module, string $uri, classname<PageControl> $handler,
     array<string> $methods = array('GET')
   ): RoutingInfo{
     $info = new RoutingInfo();
@@ -70,7 +71,7 @@ class RoutingInfo{
     return $this->uri;
   }
 
-  public function setHandler(string $handler): RoutingInfo{
+  public function setHandler(classname<PageControl> $handler): RoutingInfo{
     if(strlen($handler) === 0){
       throw new InvalidArgumentException('Empty handler');
     }

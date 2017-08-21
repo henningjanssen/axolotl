@@ -7,11 +7,14 @@ use axolotl\exceptions\NotLoggedInException;
 use axolotl\util\_;
 use axolotl\util\Doctrine;
 use axolotl\util\Session;
+use axolotl\util\PathUtil;
 use axolotl\translation\Translator;
 use \RedirectView;
 
 class ApplicationControl{
-  public function __construct(private string $uri, private string $httpMethod){}
+  public function __construct(private string $uri, private string $httpMethod){
+    $this->initViewLoader();
+  }
 
   public function execute(): void{
     $dispatcher = \FastRoute\simpleDispatcher(
@@ -51,13 +54,14 @@ class ApplicationControl{
           ->getRepository(Module::class)
           ->findAll();
         foreach($modules as $mod){
-          foreach($mod->getRoutingInfo() as $i)
-          $r->addRoute(
-            $i->getMethodString(),
-            '/m/'.urlencode($mod->getVendor())
-              .'/'.urlencode($mod->getName()).$i->getURI(),
-            $i->getHandler()
-          );
+          foreach($mod->getRoutingInfo() as $i) {
+            $r->addRoute(
+              $i->getMethods(),
+              '/m/'.urlencode($mod->getVendor())
+                .'/'.urlencode($mod->getName()).$i->getURI(),
+              $i->getHandler()
+            );
+          }
         }
       }
     );
@@ -111,5 +115,25 @@ class ApplicationControl{
     }
 
     Translator::init($domain);
+  }
+
+  private function initViewLoader(): void {
+    spl_autoload_register(function($classname) {
+      $dirit = new \DirectoryIterator(realpath(PathUtil::MODULE_PATH));
+      foreach ($dirit as $vendors) {
+        if (!$vendors->isDir() || $vendors->isDot()) continue;
+        $vendorit = new \DirectoryIterator($vendors->getPathname());
+        foreach ($vendorit as $modules) {
+          if (!$modules->isDir() || $modules->isDot()) continue;
+          if (!is_dir($modules->getPathname() . '/views/')) continue;
+          $modulit = new \DirectoryIterator($modules->getPathname() . '/views/');
+          foreach ($modulit as $views) {
+            if ($views->getFilename() === $classname . '.php') {
+              require_once $views->getPathname();
+            }
+          }
+        }
+      }
+    });
   }
 }
