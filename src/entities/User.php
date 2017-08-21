@@ -193,12 +193,12 @@ class User{
     return $this->lastActivity;
   }
 
-  public function setLanguage(string $language): this {
+  public function setLanguage(string $language): User {
     $this->language = $language;
     return $this;
   }
 
-  public function getLanguage(): ?string {
-    return $this->language;
+  public function getLanguage(string $default = 'en'): string {
+    return $this->language ?? $default;
   }
 }
