@@ -2,6 +2,7 @@
 
 namespace axolotl\translation;
 
+use axolotl\util\Log;
 use \Exception;
 
 class Translator {
@@ -9,17 +10,21 @@ class Translator {
   const string DIR = __DIR__.'/../../locale/';
 
   private function __construct(private string $locale) {
-    $dirit = new \DirectoryIterator(self::DIR . $locale);
-    $mtime = $this->fetchMtime($dirit);
-    $lastMTime = apc_fetch('__axl_translation_mtime_' . $locale);
-    if ($lastMTime !== false && $lastMTime >= $mtime) {
-      return;
-    }
-    foreach ($dirit as $file) {
-      $this->initFile($file);
-    }
+    try {
+      $dirit = new \DirectoryIterator(self::DIR . $locale);
+      $mtime = $this->fetchMtime($dirit);
+      $lastMTime = apc_fetch('__axl_translation_mtime_' . $locale);
+      if ($lastMTime !== false && $lastMTime >= $mtime) {
+        return;
+      }
+      foreach ($dirit as $file) {
+        $this->initFile($file);
+      }
 
-    apc_store('__axl_translation_mtime_' . $locale, $mtime);
+      apc_store('__axl_translation_mtime_' . $locale, $mtime);
+    } catch (\UnexpectedValueException $e) {
+      Log::warning("Translation", sprintf("Missing translation '%s'.", $locale));
+    }
   }
 
   private function initFile(\SplFileInfo $fileInfo): void {
