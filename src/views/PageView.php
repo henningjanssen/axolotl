@@ -2,6 +2,7 @@
 
 use axolotl\util\_;
 use axolotl\util\Session;
+use axolotl\entities\Module;
 
 abstract class PageView extends View{
   protected :xhp $head;
@@ -104,5 +105,14 @@ abstract class PageView extends View{
         </html>
       </x:doctype>
     );
+  }
+
+  public function path(string $path, ?Module $module = null): string {
+    $prefix = $this->baseuri;
+    if ($module !== null) {
+      $prefix .= '/m/' . $module->getVendor() . '/' . $module->getName();
+    }
+
+    return $prefix . $path;
   }
 }

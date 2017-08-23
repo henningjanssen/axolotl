@@ -5,6 +5,7 @@ namespace axolotl\control;
 use \InstallModuleView;
 use \axolotl\entities\Module;
 use \axolotl\exceptions\BrokenModuleException;
+use \axolotl\exceptions\NonExistentFileException;
 use \axolotl\module\ModuleControl;
 use \axolotl\util\_;
 use \axolotl\util\Doctrine;
@@ -35,9 +36,13 @@ class InstallModuleControl extends LoggedInPageControl{
     if(strlen(strval(_::POST("__ax_modFile")))){ //strval(null) is an empty string
       // we have a file-upload
       $installAttempt = true;
-      list($newModules, $errors) = $this->installModules();
-      $file = new UploadedFile("__ax_modFile");
-      $file->delete();
+      try {
+        list($newModules, $errors) = $this->installModules();
+        $file = new UploadedFile("__ax_modFile");
+        $file->delete();
+      } catch (NonExistentFileException $e) {
+        $errors = [t('Uploaded file not found.')];
+      }
     }
     (new InstallModuleView($installAttempt, $newModules, $errors))->render();
   }
@@ -131,6 +136,17 @@ class InstallModuleControl extends LoggedInPageControl{
       new \DateTime(),
       Session::getCurrentUser()
     );
+
+    $existingModule = Doctrine::getEntityManager()
+      ->getRepository(Module::class)
+      ->findOneBy([
+        'vendor' => $module->getVendor(),
+        'name'   => $module->getName(),
+        ])
+    ;
+    if (null !== $existingModule) {
+      throw new BrokenModuleException("Module already installed.");
+    }
 
     require_once(
       realpath(
