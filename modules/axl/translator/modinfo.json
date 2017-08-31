@@ -1,0 +1,15 @@
+{
+  "vendor":{
+    "name":"AXL",
+    "website":"http://example.org"
+  },
+  "module":{
+    "name":"Translator",
+    "description":"Translate inside axolotl",
+    "website":"http://example.org"
+  },
+  "install":{
+    "class":"\\axl\\translator\\ModControl",
+    "file":"ModControl.php"
+  }
+}

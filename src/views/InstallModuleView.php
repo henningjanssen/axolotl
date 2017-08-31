@@ -12,8 +12,8 @@ class InstallModuleView extends PageView{
     if($attempt){
       $msg = count($errors) == 0
         ? t("Modules successfully installed.")
-        : t("There were errors installing the module.")."<br/>"
-          .implode("<br/>", $errors);
+        : t("There were errors installing the module.")."\n"
+          .implode("\n", $errors);
       $modLinks = count($modules) === 0 ? <x:frag/>
         : <bootstrap:list-group/>;
       if(count($modules) > 0){

@@ -12,8 +12,8 @@ class HomePageView extends PageView{
     $moduleList = <bootstrap:list-group>
       </bootstrap:list-group>;
     foreach($modules as $m){
-      $url = '/m/'.urlencode(strtolower($m->getVendor()))
-        .'/'.urlencode(strtolower($m->getName())).'/';
+      $url = 'settings/modules/details/'. urlencode($m->getVendor())
+        .'/'.urlencode($m->getName()).'/';
       $moduleList->appendChild(
         <bootstrap:list-group-item href={$url}>
           {$m->getName()}
