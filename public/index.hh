@@ -1,5 +1,6 @@
 <?hh // partial
 
+require_once __DIR__.'/../src/global_functions.php';
 require_once __DIR__.'/../vendor/autoload.php';
 
 use axolotl\control\ApplicationControl;

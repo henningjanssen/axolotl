@@ -40,6 +40,9 @@ class User{
   */
   protected array<Module> $installedModules;
 
+  /** @Column(type="string", length=5) */
+  protected ?string $language;
+
   //Needed for the hack typechecker
   public function __construct(){
     $this->id = -1;
@@ -55,6 +58,7 @@ class User{
       "@".time(), new \DateTimeZone("Europe/Berlin")
     );
     $this->installedModules = array();
+    $this->language = null;
   }
 
   //Not possible as a constructor as polymorfic method-overloading
@@ -187,5 +191,14 @@ class User{
   }
   public function getLastActivity(): \DateTime{
     return $this->lastActivity;
+  }
+
+  public function setLanguage(string $language): User {
+    $this->language = $language;
+    return $this;
+  }
+
+  public function getLanguage(string $default = 'en'): string {
+    return $this->language ?? $default;
   }
 }

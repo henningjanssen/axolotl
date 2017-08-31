@@ -6,26 +6,26 @@ class AboutView extends PageView{
   public function __construct(
     //
   ){
-    parent::__construct("About");
+    parent::__construct(t("About"));
     $vendorWebsite = strval(_::SETTINGS("vendor.website", ""));
     $this->content->appendChild(
       <bootstrap:panel use="info">
         <bootstrap:panel:heading>
-          Vendor
+          {t('Vendor')}
         </bootstrap:panel:heading>
         <bootstrap:panel:body>
           <bootstrap:list-group>
             <bootstrap:list-group-item>
-              Vendor: {_::SETTINGS("vendor.name", "")}
+              {t('Vendor')}: {_::SETTINGS("vendor.name", "")}
             </bootstrap:list-group-item>
             <bootstrap:list-group-item>
-              Support E-Mail: {_::SETTINGS("vendor.mail", "")}
+              {t('Support E-Mail')}: {_::SETTINGS("vendor.mail", "")}
             </bootstrap:list-group-item>
             <bootstrap:list-group-item>
-              Support Phone: {_::SETTINGS("vendor.phone", "")}
+              {t('Support Phone')}: {_::SETTINGS("vendor.phone", "")}
             </bootstrap:list-group-item>
             <bootstrap:list-group-item href={$vendorWebsite} target="_blank">
-              Website: {$vendorWebsite}
+              {t('Website')}: {$vendorWebsite}
             </bootstrap:list-group-item>
           </bootstrap:list-group>
         </bootstrap:panel:body>
@@ -34,17 +34,17 @@ class AboutView extends PageView{
     $this->content->appendChild(
       <bootstrap:panel use="info">
         <bootstrap:panel:heading>
-          About this project
+          {t('About this project')}
         </bootstrap:panel:heading>
         <bootstrap:panel:body>
           <bootstrap:list-group>
             <bootstrap:list-group-item>
-              Project-Name: axolotl
+              {t('Project-Name')}: axolotl
             </bootstrap:list-group-item>
             <bootstrap:list-group-item
               href="http://github.com/henningjanssen/axolotl" target="_blank"
             >
-              Project on Github: http://github.com/henningjanssen/axolotl
+              {t('Project on Github')}: http://github.com/henningjanssen/axolotl
             </bootstrap:list-group-item>
           </bootstrap:list-group>
         </bootstrap:panel:body>

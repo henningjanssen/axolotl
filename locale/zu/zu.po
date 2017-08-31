@@ -1,0 +1,135 @@
+msgid ""
+msgstr ""
+
+msgid "About"
+msgstr "Mayelana"
+
+msgid "Vendor"
+msgstr "Umthengisi"
+
+msgid "Support E-Mail"
+msgstr "Ukusekela i-E-Mail"
+
+msgid "Support Phone"
+msgstr "Ifoni yokusekela"
+
+msgid "Website"
+msgstr "Iwebhusayithi"
+
+msgid "About this project"
+msgstr "Mayelana nale phrojekthi"
+
+msgid "Project-Name"
+msgstr "Igama leProjekthi"
+
+msgid "Project on Github"
+msgstr "Iphrojekthi ku-Github"
+
+msgid "Home"
+msgstr "Ikhaya"
+
+msgid "No modules installed"
+msgstr "Awekho amamojula afakiwe"
+
+msgid "Installed modules"
+msgstr "Kufakiwe modules"
+
+msgid "Install module"
+msgstr "Faka module"
+
+msgid "Modules successfully installed."
+msgstr "Amamojula afakwe ngempumelelo."
+
+msgid "There were errors installing the module."
+msgstr "Kube nephutha lokufaka imodemu."
+
+msgid "Install new module!"
+msgstr "Faka module entsha!"
+
+msgid ".zip containing the module"
+msgstr ".zip ene-module"
+
+msgid ""
+msgstr ""
+
+msgid "Install!"
+msgstr "Faka!"
+
+msgid "Login"
+msgstr "Ngena ngemvume"
+
+msgid "Username or E-Mail"
+msgstr "Igama lomsebenzisi noma i-E-Mail"
+
+msgid "Username or e-mail"
+msgstr "Igama lomsebenzisi noma i-imeyili"
+
+msgid "Password"
+msgstr "Iphasiwedi"
+
+msgid "password"
+msgstr "Iphasiwedi"
+
+msgid ""
+msgstr ""
+
+msgid "This site uses Cookies to store information on your computer."
+msgstr "Leli sayithi isebenzisa amakhukhi ukugcina ulwazi kukhompyutha yakho."
+
+msgid "Modules"
+msgstr "Amamojula"
+
+msgid "This module does not exist or there were problems with the database"
+msgstr "Le module ayikho noma kwakukhona izinkinga nge database"
+
+msgid "Module-Information"
+msgstr "I-Module-Ulwazi"
+
+msgid "Name"
+msgstr "Igama"
+
+msgid "Description"
+msgstr "Incazelo"
+
+msgid "Path"
+msgstr "Indlela"
+
+msgid "Installation"
+msgstr "Ukufaka"
+
+msgid "Delete"
+msgstr "Susa"
+
+msgid "Installed by"
+msgstr "Kufakiwe by"
+
+msgid "Routings"
+msgstr "Ukuhamba"
+
+msgid "Install new module"
+msgstr "Faka module entsha"
+
+msgid "Choose file"
+msgstr "Khetha ifayela"
+
+msgid "User"
+msgstr "Umsebenzisi"
+
+msgid "Username"
+msgstr "Igama lomsebenzisi"
+
+msgid "E-Mail"
+msgstr "Imeyili"
+
+msgid "Full Name"
+msgstr "Igama eligcwele"
+
+msgid "Account-Note"
+msgstr "Inothi-I-Akhawunti"
+
+msgid "Registered"
+msgstr "Kubhaliswe"
+
+msgid "Last activity"
+msgstr "Umsebenzi wokugcina"
+

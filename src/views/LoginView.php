@@ -6,7 +6,7 @@ class LoginView extends PageView{
   public function __construct(
     bool $failedLogin = false, string $presetUser = "", string $presetPW = ""
   ){
-    parent::__construct("Login");
+    parent::__construct(t("Login"));
     $this->content =
       <x:frag>
         <bootstrap:panel use="primary">
@@ -15,14 +15,14 @@ class LoginView extends PageView{
             <form
               action={strval(_::SETTINGS("system.base_uri"))."/login"} method="post">
               <fieldset class="form-group">
-                <label for="__ax_nick">Username or E-Mail</label>
+                <label for="__ax_nick">{t('Username or e-mail')}</label>
                 <input type="text" class="form-control" name="username"
-                  placeholder="Username or e-mail" value={$presetUser}/>
+                  placeholder={t('Username or e-mail')} value={$presetUser}/>
               </fieldset>
               <fieldset class="form-group">
-                <label for="__ax_pw">Password</label>
+                <label for="__ax_pw">{t('Password')}</label>
                 <input type="password" class="form-control" name="password"
-                  placeholder="password" value={$presetPW}/>
+                  placeholder={t('password')} value={$presetPW}/>
               </fieldset>
               <input type="submit" value="Login"/>
             </form>
@@ -32,14 +32,14 @@ class LoginView extends PageView{
     if($failedLogin){
       $this->content->appendChild(
         <bootstrap:alert use="warning">
-          The provided e-mail-adress/username and password-combination does not
-          match any existing user (Login failed).
+          {t('The provided e-mail-adress/username and password-combination does not
+          match any existing user (Login failed).')}
         </bootstrap:alert>
       );
     }
     $this->content->appendChild(
       <bootstrap:alert use="info">
-        This site uses Cookies to store information on your computer.
+        {t('This site uses Cookies to store information on your computer.')}
       </bootstrap:alert>
     );
   }

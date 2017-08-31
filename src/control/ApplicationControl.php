@@ -6,6 +6,8 @@ use axolotl\entities\Module;
 use axolotl\exceptions\NotLoggedInException;
 use axolotl\util\_;
 use axolotl\util\Doctrine;
+use axolotl\util\Session;
+use axolotl\translation\Translator;
 use \RedirectView;
 
 class ApplicationControl{
@@ -73,6 +75,8 @@ class ApplicationControl{
     }
     $this->uri = rawurldecode($this->uri);
 
+    $this->initIntl();
+
     $routeInfo = $dispatcher->dispatch($this->httpMethod, $this->uri);
     switch($routeInfo[0]){
       case \FastRoute\Dispatcher::NOT_FOUND:
@@ -95,5 +99,17 @@ class ApplicationControl{
         }
       break;
     }
+  }
+
+  private function initIntl(): void {
+    $defaultDomain = 'en';
+    try {
+      $user = Session::getCurrentUser();
+      $domain = $user->getLanguage() ?? $defaultDomain;
+    } catch (NotLoggedInException $e) {
+      $domain = $defaultDomain;
+    }
+
+    Translator::init($domain);
   }
 }
