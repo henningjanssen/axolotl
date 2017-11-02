@@ -75,6 +75,8 @@ db.port | `int` | 0 | any valid portnumber | no | The port on which the sql-serv
 db.server | `string` | *empty string* | ? | no | ?
 
 ## Docker
+Currently the docker-image can be found at <https://hub.docker.com/r/henningj/axolotl/>.
+
 The docker container is built on top of [webdevops/apache:debian-8](https://hub.docker.com/r/webdevops/apache/) with the newest HHVM and postgresql 9.4 installed.
 
 We use the following file-structure (entries with a star* are volumes):
