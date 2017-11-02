@@ -1,13 +1,16 @@
 <?hh // strict
 
 use \axolotl\util\_;
+use \axolotl\util\AXLSettingsFile;
 
 class AboutView extends PageView{
   public function __construct(
     //
   ){
     parent::__construct(t("About"));
-    $vendorWebsite = strval(_::SETTINGS("vendor.website", ""));
+    $vendorWebsite = strval(
+      _::SETTINGS("vendor.website", "", AXLSettingsFile::APP)
+    );
     $this->content->appendChild(
       <bootstrap:panel use="info">
         <bootstrap:panel:heading>
@@ -16,13 +19,16 @@ class AboutView extends PageView{
         <bootstrap:panel:body>
           <bootstrap:list-group>
             <bootstrap:list-group-item>
-              {t('Vendor')}: {_::SETTINGS("vendor.name", "")}
+              {t('Vendor')}:
+              {_::SETTINGS("vendor.name", "", AXLSettingsFile::APP)}
             </bootstrap:list-group-item>
             <bootstrap:list-group-item>
-              {t('Support E-Mail')}: {_::SETTINGS("vendor.mail", "")}
+              {t('Support E-Mail')}:
+              {_::SETTINGS("vendor.mail", "", AXLSettingsFile::APP)}
             </bootstrap:list-group-item>
             <bootstrap:list-group-item>
-              {t('Support Phone')}: {_::SETTINGS("vendor.phone", "")}
+              {t('Support Phone')}:
+              {_::SETTINGS("vendor.phone", "", AXLSettingsFile::APP)}
             </bootstrap:list-group-item>
             <bootstrap:list-group-item href={$vendorWebsite} target="_blank">
               {t('Website')}: {$vendorWebsite}

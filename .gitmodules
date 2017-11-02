@@ -4,3 +4,6 @@
 [submodule "modules/axl/template"]
 	path = modules/axl/template
 	url = git@github.com:henningjanssen/axl-template.git
+[submodule "modules/axl/articular"]
+	path = modules/axl/articular
+	url = git@github.com:henningjanssen/axl-articular.git

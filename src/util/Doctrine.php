@@ -5,7 +5,7 @@
 
 namespace axolotl\util;
 
-require_once realpath(__DIR__.'/../../vendor/autoload.php');
+require_once realpath(__DIR__.'/../../vendor/hh_autoload.php');
 
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\Configuration;

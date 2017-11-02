@@ -4,6 +4,11 @@ namespace axolotl\util;
 
 use axolotl\exceptions\BrokenInstallationException;
 
+enum AXLSettingsFile: string{
+  APP = "appconfig.json";
+  SYS = "sysconfig.json";
+}
+
 class _{
   private static array<arraykey, mixed> $settings = array();
 
@@ -42,15 +47,22 @@ class _{
     return $_SESSION["axolotl"][$key] = $value;
   }
 
-  public static function SETTINGS(arraykey $key, mixed $stdval = null): mixed{
-    if(count(self::$settings) === 0){
-      self::reloadSettings();
+  public static function SETTINGS(
+    arraykey $key,
+    mixed $stdval = null,
+    AXLSettingsFile $file = AXLSettingsFile::SYS
+  ): mixed{
+    if(!is_array(self::$settings)
+      || !array_key_exists($file, self::$settings)
+      || count(self::$settings[$file]) === 0
+    ){
+      self::reloadSettings($file);
     }
     $keys = array($key);
     if(is_string($key) && strpos($key, ".") !== false){
       $keys = explode(".", $key);
     }
-    $val = self::$settings;
+    $val = self::$settings[$file];
     foreach($keys as $k){
       if(!is_array($val)){
         $val = $stdval;
@@ -65,16 +77,21 @@ class _{
     return $val;
   }
 
-  public static function reloadSettings(): void{
-    $configPath = realpath(__DIR__.'/../../config/config.json');
+  public static function reloadSettings(
+    AXLSettingsFile $file = AXLSettingsFile::SYS
+  ): void{
+    $configPath = realpath(__DIR__.'/../../config/'.$file);
     if(!file_exists($configPath)){
-      throw new BrokenInstallationException("config-file is missing");
+      throw new BrokenInstallationException("config-file {$file} is missing");
     }
-    self::$settings = json_decode(
+    self::$settings[$file] = json_decode(
       file_get_contents($configPath), true
     );
-    if(!is_array(self::$settings) || count(self::$settings) === 0){
-      throw new BrokenInstallationException("config-file is malformed or empty");
+    if(!is_array(self::$settings)
+      || !array_key_exists($file, self::$settings)
+      || count(self::$settings) === 0
+    ){
+      throw new BrokenInstallationException("config-file {$file} is malformed or empty");
     }
   }
 }

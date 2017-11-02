@@ -1,5 +1,5 @@
 <?hh // partial
-  require_once '../vendor/autoload.php';
+  require_once '../vendor/hh_autoload.php';
 
   $entityManager = \axolotl\util\Doctrine::getEntityManager();
   $tool = new \Doctrine\ORM\Tools\SchemaTool($entityManager);

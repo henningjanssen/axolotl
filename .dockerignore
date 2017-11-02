@@ -1,0 +1,9 @@
+.git
+.gitignore
+.gitmodules
+composer.lock
+composer.phar
+Dockerfile
+Makefile
+modules/*
+vendor/

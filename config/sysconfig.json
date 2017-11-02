@@ -1,0 +1,18 @@
+{
+    "system": {
+        "base_uri": "\/axl"
+    },
+    "db": {
+        "doctrine_driver": "pdo_pgsql",
+        "user": "axl",
+        "password": "axlpw42",
+        "name": "axolotl"
+    },
+    "static_lock": [
+        "index.hh",
+        "dev.ini",
+        "prod.ini",
+        "www.pid",
+        "server.sh"
+    ]
+}

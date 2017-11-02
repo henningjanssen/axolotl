@@ -7,3 +7,4 @@ www.pid
 public/www.pid
 doctrine-proxies/
 modules/test.zip
+supervisord.log

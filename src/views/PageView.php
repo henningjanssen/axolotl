@@ -1,6 +1,7 @@
 <?hh // strict
 
 use axolotl\util\_;
+use axolotl\util\AXLSettingsFile;
 use axolotl\util\Session;
 
 abstract class PageView extends View{
@@ -11,7 +12,9 @@ abstract class PageView extends View{
   protected string $baseuri;
 
   public function __construct(string $title = ""){
-    $vendor = strval(_::SETTINGS("system.title", "axolotl"));
+    $vendor = strval(
+      _::SETTINGS("system.title", "axolotl", AXLSettingsFile::APP)
+    );
     if(strlen($title) > 0 && strlen($vendor) > 0){
       $title .= " | ";
     }

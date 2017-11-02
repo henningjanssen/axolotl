@@ -9,7 +9,11 @@
       "url":"https://github.com/henningjanssen/xhp-bootstrap"
     }
   ],
+  "replace":{
+    "fredemmott/definition-finder":"*"
+  },
   "require":{
+    "facebook/definition-finder":"*",
     "doctrine/common":"dev-hack as 2.7.2",
     "doctrine/orm":"^2.5.0",
     "nikic/fast-route":"*",
