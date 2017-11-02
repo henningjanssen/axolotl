@@ -1,9 +1,3 @@
 [submodule "3rd-party/resumable.js"]
 	path = 3rd-party/resumable.js
 	url = git@github.com:23/resumable.js.git
-[submodule "modules/axl/template"]
-	path = modules/axl/template
-	url = git@github.com:henningjanssen/axl-template.git
-[submodule "modules/axl/articular"]
-	path = modules/axl/articular
-	url = git@github.com:henningjanssen/axl-articular.git
