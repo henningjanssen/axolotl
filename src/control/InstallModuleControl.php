@@ -134,7 +134,7 @@ class InstallModuleControl extends LoggedInPageControl{
 
     require_once(
       realpath(
-        "{$modinfo['full_path']}/"
+        "{$modinfo['full_path']}"
         ."{$modinfo['modinfo']['install']['file']}"
       )
     );
