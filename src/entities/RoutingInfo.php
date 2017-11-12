@@ -87,8 +87,11 @@ class RoutingInfo{
   }
 
   public function setMethods(array<string> $methods): RoutingInfo{
+    if(count($methods) == 0){
+      $methods = array('GET');
+    }
+    $allowed = array('GET', 'POST');
     foreach($methods as $m){
-      $allowed = array('GET', 'POST');
       if(array_search($m, $allowed) === FALSE){
         throw new InvalidArgumentException('Invalid method: '.$m);
       }
