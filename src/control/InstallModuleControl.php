@@ -154,6 +154,7 @@ class InstallModuleControl extends LoggedInPageControl{
     if(!$succ){
       throw new BrokenModuleException("Installation or update failed");
     }
+    $module->setRoutingInfoArray($install->getRoutings());
 
     return $module;
   }
