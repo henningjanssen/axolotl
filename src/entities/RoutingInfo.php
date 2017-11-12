@@ -27,7 +27,7 @@ class RoutingInfo{
   /** @Column(type="text") */
   protected string $handler;
 
-  /** @Columnd(type="simple_array") */
+  /** @Column(type="simple_array") */
   protected array<string> $methods;
 
   public function __construct(){
