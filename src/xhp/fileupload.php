@@ -50,7 +50,7 @@ class :axolotl:xhp:fileupload extends :x:element{
         </bootstrap:progress-bar>
       </bootstrap:progress-group>
     );
-    $baseuri = strval(_::SETTINGS('axolotl.base_uri', ''));
+    $baseuri = strval(_::SETTINGS('system.base_uri', ''));
 
     /* This variable is needed because XHP cannot handle curly braces inside a
      * script tag at the moment. hhvm/xhp-js causes linter-errors in
