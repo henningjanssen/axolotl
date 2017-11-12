@@ -12,7 +12,13 @@ class RoutingInfo{
   /** @Id @Column(type="integer") @GeneratedValue */
   protected int $id;
 
-  /** @ManyToOne(targetEntity="Module", inversedBy="routingInfo") */
+  /**
+   * @ManyToOne(
+   *  targetEntity="Module",
+   *  inversedBy="routingInfo",
+   *  cascade="persist"
+   * )
+   */
   protected Module $module;
 
   /** @Column(type="text") */
@@ -33,11 +39,10 @@ class RoutingInfo{
   }
 
   public static function newInstance(
-    Module $module, string $uri, string $handler,
+    string $uri, string $handler,
     array<string> $methods = array('GET')
   ): RoutingInfo{
     $info = new RoutingInfo();
-    $info->setModule($module);
     $info->setURI($uri);
     $info->setHandler($handler);
     $info->setMethods($methods);

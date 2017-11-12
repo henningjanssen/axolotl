@@ -33,7 +33,14 @@ class Module{
   /** @Column(type="text") */
   protected string $path;
 
-  /** @OneToMany(targetEntity="RoutingInfo", mappedBy="module") */
+  /**
+   * @OneToMany(
+   *  targetEntity="RoutingInfo",
+   *  mappedBy="module",
+   *  cascade={"persist", "remove"},
+   *  orphanRemoval=true
+   * )
+   */
   protected DoctrineCollection<RoutingInfo> $routingInfo;
 
   /** @Column(type="datetimetz", name="installed_at") */
@@ -161,8 +168,8 @@ class Module{
     foreach($info as $i){
       if($i->getURI() === '/'){
         $hasRoot = true;
-        break;
       }
+      $i->setModule($this);
     }
     if(!$hasRoot){
       throw new InvalidArgumentException('Module does not provide root');
@@ -174,6 +181,7 @@ class Module{
     return $this->setRoutingInfo(new ArrayCollection($info));
   }
   public function addRoutingInfo(RoutingInfo $info): Module{
+    $info->setModule($this);
     $this->routingInfo->add($info);
     return $this;
   }
