@@ -51,13 +51,14 @@ class ApplicationControl{
           ->getRepository(Module::class)
           ->findAll();
         foreach($modules as $mod){
-          foreach($mod->getRoutingInfo() as $i)
-          $r->addRoute(
-            $i->getMethodString(),
-            '/m/'.urlencode($mod->getVendor())
-              .'/'.urlencode($mod->getName()).$i->getURI(),
-            $i->getHandler()
-          );
+          foreach($mod->getRoutingInfo() as $i){
+            $r->addRoute(
+              $i->getMethods(),
+              '/m/'.urlencode($mod->getVendor())
+                .'/'.urlencode($mod->getName()).$i->getURI(),
+              $i->getHandler()
+            );
+          }
         }
       }
     );
