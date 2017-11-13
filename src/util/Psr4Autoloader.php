@@ -63,6 +63,7 @@ class Psr4Autoloader{
    * failure.
    */
   public function loadClass(string $class): mixed{
+    $class = '\\'.trim($class, '\\');
     // the current namespace prefix
     $prefix = $class;
 
@@ -71,7 +72,7 @@ class Psr4Autoloader{
     while (false !== $pos = strrpos($prefix, '\\')) {
 
       // retain the trailing namespace separator in the prefix
-      $prefix = substr($class, 0, $pos + 1);
+      $prefix = substr($class, 0, $pos+1);
 
       // the rest is the relative class name
       $relative_class = substr($class, $pos + 1);
