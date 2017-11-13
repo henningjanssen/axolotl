@@ -49,8 +49,13 @@ RUN chmod +x doctrine.sh
 USER postgres
 RUN /etc/init.d/postgresql start\
   && psql -daxolotl -f ./install.sql\
-  && psql -daxolotl -c "grant all on all tables in schema public to axl with grant option;"\
-  && psql -daxolotl -c "grant all on all sequences in schema public to axl with grant option;"\
+  && psql -daxolotl -c "alter database axolotl owner to axl;;"\
+  && psql -daxolotl -c "alter table modules owner to axl;"\
+  && psql -daxolotl -c "alter table routinginfo owner to axl;"\
+  && psql -daxolotl -c "alter table users owner to axl;"\
+  && psql -daxolotl -c "alter sequence modules_id_seq owner to axl;"\
+  && psql -daxolotl -c "alter sequence routinginfo_id_seq owner to axl;"\
+  && psql -daxolotl -c "alter sequence users_id_seq owner to axl;"\
   && hhvm ./create-admin.hh\
   && /etc/init.d/postgresql stop
 
