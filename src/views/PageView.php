@@ -2,6 +2,7 @@
 
 use axolotl\util\_;
 use axolotl\util\AXLSettingsFile;
+use axolotl\util\Doctrine;
 use axolotl\util\Session;
 
 abstract class PageView extends View{
@@ -75,12 +76,41 @@ abstract class PageView extends View{
       </bootstrap:navbar>;
 
     if(Session::loggedIn()){
+      $em = Doctrine::getEntityManager();
+      $modules = $em
+        ->getRepository(\axolotl\entities\Module::class)
+        ->findBy(array(), array('name' => 'ASC', 'vendor' => 'ASC'));
+      $moduleDD = <bootstrap:dropdown:menu/>;
+      foreach($modules as $m){
+        $moduleDD->appendChild(
+          <bootstrap:dropdown:item
+            href={"{$this->baseuri}/m/{$m->getVendor()}/{$m->getName()}/"}
+          >
+            <a href={"{$this->baseuri}/m/{$m->getVendor()}/{$m->getName()}/"}>
+              {$m->getName()}
+            </a>
+          </bootstrap:dropdown:item>
+        );
+      }
+      if(count($modules) === 0){
+        $moduleDD->appendChild(
+          <bootstrap:dropdown:item>
+            No modules installed
+          </bootstrap:dropdown:item>
+        );
+      }
+      $moduleDD = <bootstrap:navigation:dropdown>
+        <a href="#">Modules<bootstrap:caret/></a>
+        {$moduleDD}
+      </bootstrap:navigation:dropdown>;
+
       $navbar->appendChild(
         <x:frag>
           <bootstrap:navigation:link href={$this->baseuri.'/home'}>
             {t('Home')}
           </bootstrap:navigation:link>
           {$this->modulenav}
+          {$moduleDD}
           <bootstrap:navigation:link href={$this->baseuri.'/about'}>
             {t('About')}
           </bootstrap:navigation:link>
