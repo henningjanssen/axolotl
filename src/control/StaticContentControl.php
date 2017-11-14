@@ -21,10 +21,7 @@ class StaticContentControl extends PageControl{
         .$module->getPath()
         ."/static";
     }
-    Log::debug("Static", $inpath);
-    Log::debug("Static", $path);
     $fullpath = realpath(__DIR__."/../../$inpath/$path");
-    Log::debug("Static", $fullpath);
     if(!file_exists($fullpath)){
       (new RedirectView("/error/404"))->render();
       return;
