@@ -6,9 +6,9 @@ use axolotl\util\Session;
 
 abstract class PageView extends View{
   protected :xhp $head;
-  protected :xhp $precontent; //navbar, etc
   protected :xhp $content;
   protected :xhp $postcontent; //footer, etc.
+  protected :xhp $modulenav;
   protected string $baseuri;
 
   public function __construct(string $title = ""){
@@ -40,9 +40,30 @@ abstract class PageView extends View{
         <script src={"{$this->baseuri}/static/3rd-party/resumable.js"}/>
         <script src={"{$this->baseuri}/static/js/fileupload.js"}/>
       </head>;
-    $this->precontent = $this->getPrecontent();
+    $this->modulenav = <x:frag/>;
     $this->content = <x:frag/>;
     $this->postcontent = <x:frag/>;
+  }
+
+  final protected function setModuleNavigation(array<string, string> $navs): void{
+    if(count($navs) === 0){
+      return;
+    }
+    $modulesubnav = <bootstrap:dropdown:menu>
+        </bootstrap:dropdown:menu>;
+    foreach($navs as $name => $url){
+      $modulesubnav->appendChild(
+        <bootstrap:dropdown:item
+          href={$this->baseuri.$url}
+        >
+          <a href={$this->baseuri.$url}>{$name}</a>
+        </bootstrap:dropdown:item>
+      );
+    }
+    $this->modulenav = <bootstrap:navigation:dropdown>
+      <a href="#">{'This Module'}<bootstrap:caret/></a>
+      {$modulesubnav}
+    </bootstrap:navigation:dropdown>;
   }
 
   final private function getPrecontent(): :xhp{
@@ -54,11 +75,13 @@ abstract class PageView extends View{
       </bootstrap:navbar>;
 
     if(Session::loggedIn()){
+      \axolotl\util\Log::debug("Nav", print_r($this->modulenav, true));
       $navbar->appendChild(
         <x:frag>
           <bootstrap:navigation:link href={$this->baseuri.'/home'}>
             {t('Home')}
           </bootstrap:navigation:link>
+          {$this->modulenav}
           <bootstrap:navigation:link href={$this->baseuri.'/about'}>
             {t('About')}
           </bootstrap:navigation:link>
@@ -100,7 +123,7 @@ abstract class PageView extends View{
         <html>
           {$this->head}
           <body>
-            {$this->precontent}
+            {$this->getPrecontent()}
             {$this->content}
             {$this->postcontent}
           </body>
