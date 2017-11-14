@@ -75,7 +75,6 @@ abstract class PageView extends View{
       </bootstrap:navbar>;
 
     if(Session::loggedIn()){
-      \axolotl\util\Log::debug("Nav", print_r($this->modulenav, true));
       $navbar->appendChild(
         <x:frag>
           <bootstrap:navigation:link href={$this->baseuri.'/home'}>
