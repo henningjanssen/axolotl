@@ -1,7 +1,8 @@
-<?hh // strict
+<?hh // partial
 
 namespace axolotl\control;
 
+use \axolotl\entities\Module;
 use \axolotl\util\_;
 use \axolotl\util\Log;
 use \StaticContentView;
@@ -14,14 +15,16 @@ class StaticContentControl extends PageControl{
     $mime = $this->getMimeType($ext);
 
     $inpath = "public";
-    if(in_array('vendor', $this->vars)){
+    if(array_key_exists('vendor', $this->vars)){
+      $module = Module::getByName($this->vars['vendor'], $this->vars['module']);
       $inpath = "modules/"
-        .strval($this->vars['vendor'])
-        ."/"
-        .strval($this->vars['module'])
+        .$module->getPath()
         ."/static";
     }
+    Log::debug("Static", $inpath);
+    Log::debug("Static", $path);
     $fullpath = realpath(__DIR__."/../../$inpath/$path");
+    Log::debug("Static", $fullpath);
     if(!file_exists($fullpath)){
       (new RedirectView("/error/404"))->render();
       return;
