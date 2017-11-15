@@ -40,6 +40,7 @@ abstract class PageView extends View{
         <!-- stuff for fileuploads -->
         <script src={"{$this->baseuri}/static/3rd-party/resumable.js"}/>
         <script src={"{$this->baseuri}/static/js/fileupload.js"}/>
+        <script>var baseuri = '{$this->baseuri}';</script>
       </head>;
     $this->modulenav = <x:frag/>;
     $this->content = <x:frag/>;
