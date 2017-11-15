@@ -22,6 +22,10 @@ class UploadedFile{
     return $this->filename;
   }
 
+  public function getPath(): string{
+    return $this->path;
+  }
+
   public function getExtension(): string{
     $dotpos = strrpos($this->filename, ".");
     $ext = "";
