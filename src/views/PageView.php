@@ -111,9 +111,6 @@ abstract class PageView extends View{
           </bootstrap:navigation:link>
           {$this->modulenav}
           {$moduleDD}
-          <bootstrap:navigation:link href={$this->baseuri.'/about'}>
-            {t('About')}
-          </bootstrap:navigation:link>
           <bootstrap:navigation:dropdown>
             <a href="#">
               {t('Settings')}
@@ -127,6 +124,10 @@ abstract class PageView extends View{
                 //is also present on their docs
                 //Does produce slightly different layout (space above entry)-->
                 <a href={$this->baseuri.'/settings/modules'}>Modules</a>
+              </bootstrap:dropdown:item>
+              <bootstrap:dropdown:divider/>
+              <bootstrap:dropdown:item href={$this->baseuri.'/about'}>
+                <a href={$this->baseuri.'/about'}>About</a>
               </bootstrap:dropdown:item>
             </bootstrap:dropdown:menu>
           </bootstrap:navigation:dropdown>
