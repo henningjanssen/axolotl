@@ -61,7 +61,9 @@ class InstallModuleControl extends LoggedInPageControl{
       try{
         $module = $this->installMod($info);
         $newMods[] = $module;
-        $entityManager->persist($module);
+        if(!$info['is_update']){
+          $entityManager->persist($module);
+        }
       }
       catch(BrokenModuleException $bmex){
         // There were errors installing the module
@@ -131,6 +133,13 @@ class InstallModuleControl extends LoggedInPageControl{
       new \DateTime(),
       Session::getCurrentUser()
     );
+    if($modinfo['is_update']){
+      $module = Module::getByName(
+        $modinfo['modinfo']['vendor']['name'],
+        $modinfo['modinfo']['module']['name']
+      );
+      $module->setDescription($modinfo['modinfo']['module']['description']);
+    }
 
     require_once(
       realpath(

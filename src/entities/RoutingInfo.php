@@ -15,11 +15,10 @@ class RoutingInfo{
   /**
    * @ManyToOne(
    *  targetEntity="Module",
-   *  inversedBy="routingInfo",
-   *  cascade="persist"
+   *  inversedBy="routingInfo"
    * )
    */
-  protected Module $module;
+  protected ?Module $module;
 
   /** @Column(type="text") */
   protected string $uri;
@@ -53,11 +52,16 @@ class RoutingInfo{
     return $this->id;
   }
 
-  public function setModule(Module $module): RoutingInfo{
+  public function setModule(?Module $module): RoutingInfo{
     $this->module = $module;
     return $this;
   }
   public function getModule(): Module{
+    if($this->module === null){
+      throw new \axolotl\exceptions\BrokenModuleException(
+        "Module does not exist"
+      );
+    }
     return $this->module;
   }
 

@@ -164,6 +164,9 @@ class Module{
   }
 
   public function setRoutingInfo(DoctrineCollection<RoutingInfo> $info): Module{
+    foreach($this->routingInfo as $ri){
+      $ri->setModule(null);
+    }
     $hasRoot = false;
     foreach($info as $i){
       if($i->getURI() === '/'){
