@@ -11,7 +11,7 @@ $al->addNamespace('', __DIR__.'/src/hhi');
 
 // add /modules/*/*/view(s)
 $modPath = __DIR__."/modules";
-$rootsubdirs = array("view", "views");
+$rootsubdirs = array("view", "views", "vendor");
 foreach(scandir($modPath) as $bd){
   if(!is_dir("$modPath/$bd") || $bd[0] == '.'){
     continue;
