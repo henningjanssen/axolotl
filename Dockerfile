@@ -8,9 +8,9 @@ ENV APACHE_WEBMASTER webmaster@localhost
 ENV APACHE_AXL_SUBDOMAIN /axl/
 
 # install hhvm
-RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e7281be7a449\
-  && echo deb http://dl.hhvm.com/debian jessie main | tee /etc/apt/sources.list.d/hhvm.list
-RUN apt-get -qq update && apt-get -y -qq install hhvm-dbg git && update-rc.d hhvm defaults
+RUN apt-get update && apt-get install -y apt-transport-https software-properties-common
+RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xB4112585D386EB94 && add-apt-repository https://dl.hhvm.com/debian
+RUN apt-get -qq update && apt-get -y -qq install hhvm-dev git && update-rc.d hhvm defaults
 RUN touch /system-data/hhvm.log && chmod 666 /system-data/hhvm.log
 
 # install postgresql
