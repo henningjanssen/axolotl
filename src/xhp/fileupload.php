@@ -57,6 +57,14 @@ class :axolotl:xhp:fileupload extends :x:element{
      * facebook/xhp-lib somehow. So this is a workaround until I find a
      * better one or the bugs get fixed.
      */
+    $accept = "";
+    if(strlen($this->:accept) > 0){
+      $accept = str_replace(
+        array(";", " ", "*"), array(",", "", ""), $this->:accept
+      );
+      $accept = str_replace(',', '","', $accept);
+      $accept = '"'.$accept.'"';
+    }
     $script = "
       FileUpload.register(
         \"{$this->:name}\",
@@ -65,7 +73,7 @@ class :axolotl:xhp:fileupload extends :x:element{
           chunkSize: ".strval(_::SETTINGS('upload.chunksize', 1*1024*1024)).",
           forceChunkSize: true,
           simultaneousUploads: ".strval(_::SETTINGS('upload.simul', 3)).",
-          fileType: [\"".str_replace(";", ", ", $this->:accept)."\"],
+          fileType: [{$accept}],
           query: {upload_token: \"{$this->:name}\"}
         },
         ".($this->:drop?"true":"false")."

@@ -154,9 +154,11 @@ abstract class PageView extends View{
         <html>
           {$this->head}
           <body>
-            {$this->getPrecontent()}
-            {$this->content}
-            {$this->postcontent}
+              {$this->getPrecontent()}
+              <div style="width:90%; margin:0 auto;">
+              {$this->content}
+              {$this->postcontent}
+              </div>
           </body>
         </html>
       </x:doctype>

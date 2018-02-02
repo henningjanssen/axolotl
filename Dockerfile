@@ -9,8 +9,8 @@ ENV APACHE_AXL_SUBDOMAIN /axl/
 
 # install hhvm
 RUN apt-get update && apt-get install -y apt-transport-https software-properties-common
-RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xB4112585D386EB94 && add-apt-repository https://dl.hhvm.com/debian
-RUN apt-get -qq update && apt-get -y -qq install hhvm-dev git && update-rc.d hhvm defaults
+RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xB4112585D386EB94 && add-apt-repository https://dl.hhvm.com/debian # && echo deb http://dl.hhvm.com/debian jessie-lts-3.18 main >> /etc/apt/sources.list.d/hhvm.list
+RUN apt-get -qq update && apt-get -y -qq install hhvm git && update-rc.d hhvm defaults
 RUN touch /system-data/hhvm.log && chmod 666 /system-data/hhvm.log
 
 # install postgresql
@@ -41,7 +41,7 @@ RUN chmod +x ./getcomposer.sh && ./getcomposer.sh
 RUN chown 1000:1000 /axl -R
 USER application
 RUN hhvm ./composer.phar config --global --auth github-oauth.github.com efcc64ce5081ce9c76c0c9bdd760ad90b2d6170c
-RUN hhvm ./composer.phar update && hhvm ./vendor/bin/hh-autoload
+RUN hhvm ./composer.phar update || cat /tmp/stacktrace.7.log && /tmp/stacktrace.455.log && hhvm ./vendor/bin/hh-autoload
 
 # Create database
 WORKDIR /axl/install
