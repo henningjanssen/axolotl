@@ -1,11 +1,11 @@
-<?hh // strict
+<?php
 
 namespace axolotl\util;
 
 use \axolotl\exceptions\NonExistentFileException;
 
 class UploadedZipFile extends UploadedFile{
-  public function listContents(): array<string>{
+  public function listContents(): array{
     if(!$this->exists()){
       throw new NonExistentFileException();
     }

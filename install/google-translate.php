@@ -1,4 +1,4 @@
-<?hh
+<?php
 
 function getIds(string $file): array<string> {
   $fo = new \SplFileObject($file, 'r');

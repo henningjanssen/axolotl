@@ -1,4 +1,4 @@
-<?hh // partial
+<?php
 
 namespace axolotl\control;
 
@@ -11,7 +11,10 @@ use axolotl\translation\Translator;
 use \RedirectView;
 
 class ApplicationControl{
-  public function __construct(private string $uri, private string $httpMethod){}
+  public function __construct(string $uri, string $httpMethod){
+    $this->uri = $uri;
+    $this->httpMethod = $httpMethod;
+  }
 
   public function execute(): void{
     $dispatcher = \FastRoute\simpleDispatcher(

@@ -1,4 +1,4 @@
-<?hh // strict
+<?php
 
 use axolotl\entities\Module;
 use axolotl\util\_;

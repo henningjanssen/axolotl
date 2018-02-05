@@ -1,4 +1,4 @@
-<?hh
+<?php
 
 $apacheConfig = '/system-data/apache-vhost.conf';
 $axlSubDomain = getenv('APACHE_AXL_SUBDOMAIN');

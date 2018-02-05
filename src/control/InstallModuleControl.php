@@ -1,4 +1,4 @@
-<?hh // partial
+<?php
 
 namespace axolotl\control;
 
@@ -13,21 +13,11 @@ use \axolotl\util\Session;
 use \axolotl\util\UploadedFile;
 use \axolotl\util\UploadedZipFile;
 
-type InstallModuleMetadata = shape(
-  'path' => string,
-  'full_path' => string,
-  'required_exist' => bool,
-  'dependencies_exist' => bool,
-  'is_update' => bool,
-  'modinfo' => array
-);
-
 class InstallModuleControl extends LoggedInPageControl{
-  private array<string> $modRequiredFiles = array(
+  private array $modRequiredFiles = array(
     "modinfo.json"
   );
 
-  <<__Override>>
   public function execute(): void{
     $installAttempt = false;
     $newModules = array();
@@ -42,7 +32,7 @@ class InstallModuleControl extends LoggedInPageControl{
     (new InstallModuleView($installAttempt, $newModules, $errors))->render();
   }
 
-  private function installModules(): (array<Module>, array<string>) {
+  private function installModules(): (array, array) {
     $zip = new UploadedZipFile("__ax_modFile");
     $installAttempt = true;
     // file-existence is checked in getMimeType
@@ -81,7 +71,7 @@ class InstallModuleControl extends LoggedInPageControl{
 
   private function getContentMetadata(
     UploadedZipFile $zip, string $modroot
-  ): array<string, InstallModuleMetadata>{
+  ): array{
     $contents = $zip->listContents();
     $metadata = array();
     foreach($contents as $cont){
@@ -110,7 +100,7 @@ class InstallModuleControl extends LoggedInPageControl{
           }
 
           // add metadata
-          $metadata[$cont] = shape(
+          $metadata[$cont] = array(
             'path' => $cont,
             'full_path' => "$modroot/$cont",
             'required_exist' => $reqFilesExist,
@@ -152,7 +142,6 @@ class InstallModuleControl extends LoggedInPageControl{
       throw new BrokenModuleException("Install-class does not exist");
     }
 
-    // UNSAFE
     $install = new $classname();
     if(!($install instanceof ModuleControl)){
       throw new BrokenModuleException(

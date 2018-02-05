@@ -1,16 +1,14 @@
-<?hh // partial
+<?php
 
 namespace axolotl\util;
 
 use axolotl\exceptions\BrokenInstallationException;
 
-enum AXLSettingsFile: string{
-  APP = "appconfig.json";
-  SYS = "sysconfig.json";
-}
-
 class _{
-  private static array<arraykey, mixed> $settings = array();
+  const SETTINGS_APP = "appconfig.json";
+  const SETTINGS_SYS = "sysconfig.json";
+
+  private static $settings = array();
 
   public static function FILE(
     string $file, string $key, mixed $default = null
@@ -50,7 +48,7 @@ class _{
   public static function SETTINGS(
     arraykey $key,
     mixed $stdval = null,
-    AXLSettingsFile $file = AXLSettingsFile::SYS
+    string $file = _::SETTINGS_SYS
   ): mixed{
     if(!is_array(self::$settings)
       || !array_key_exists($file, self::$settings)
@@ -78,7 +76,7 @@ class _{
   }
 
   public static function reloadSettings(
-    AXLSettingsFile $file = AXLSettingsFile::SYS
+    string $file = _::SETTINGS_SYS
   ): void{
     $configPath = realpath(__DIR__.'/../../config/'.$file);
     if(!file_exists($configPath)){

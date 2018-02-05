@@ -1,4 +1,4 @@
-<?hh // strict
+<?php
 
 namespace axolotl\util;
 
@@ -6,7 +6,7 @@ use \axolotl\entities\User;
 use \axolotl\exceptions\NotLoggedInException;
 
 class Session{
-  private static ?User $currentUser = null;
+  private static $currentUser = null;
 
   public static function loggedIn(): bool{
     return _::SESSION("uid") !== null;

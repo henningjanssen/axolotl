@@ -1,8 +1,9 @@
-<?hh // strict
+<?php
 
 // Not extending PageView as no HTML-content has to be sent
 class ErrorView extends View{
-  public function __construct(private int $errno){
+  public function __construct(int $errno){
+    $this->errno = $errno
     $this->setHTTPStatusCode($this->errno);
   }
 

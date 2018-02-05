@@ -1,11 +1,11 @@
-<?hh // strict
+<?php
 
 use axolotl\entities\Module;
 use axolotl\entities\User;
 
 class HomePageView extends PageView{
   public function __construct(
-    User $user, array<Module> $modules
+    User $user, array $modules
   ){
     parent::__construct(t("Home"));
     $this->content->appendChild(<axolotl:xhp:userinfo user={$user}/>);

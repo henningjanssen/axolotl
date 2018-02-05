@@ -1,4 +1,4 @@
-<?hh // strict
+<?php
 
 use axolotl\util\_;
 use axolotl\util\AXLSettingsFile;
@@ -6,15 +6,15 @@ use axolotl\util\Doctrine;
 use axolotl\util\Session;
 
 abstract class PageView extends View{
-  protected :xhp $head;
-  protected :xhp $content;
-  protected :xhp $postcontent; //footer, etc.
-  protected :xhp $modulenav;
+  protected $head;
+  protected $content;
+  protected $postcontent; //footer, etc.
+  protected $modulenav;
   protected string $baseuri;
 
   public function __construct(string $title = ""){
     $vendor = strval(
-      _::SETTINGS("system.title", "axolotl", AXLSettingsFile::APP)
+      _::SETTINGS("system.title", "axolotl", _::SETTINGS_APP)
     );
     if(strlen($title) > 0 && strlen($vendor) > 0){
       $title .= " | ";
@@ -47,7 +47,7 @@ abstract class PageView extends View{
     $this->postcontent = <x:frag/>;
   }
 
-  final protected function setModuleNavigation(array<string, string> $navs): void{
+  final protected function setModuleNavigation(array $navs): void{
     if(count($navs) === 0){
       return;
     }

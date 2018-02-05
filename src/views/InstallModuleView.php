@@ -1,11 +1,11 @@
-<?hh // strict
+<?php
 
 use axolotl\entities\Module;
 use axolotl\util\_;
 
 class InstallModuleView extends PageView{
   public function __construct(
-    bool $attempt, array<Module> $modules, array<string> $errors = array()
+    bool $attempt, array $modules, array $errors = array()
   ){
     parent::__construct(t("Install module"));
     $baseuri = strval(_::SETTINGS("system.base_uri", ""));

@@ -1,10 +1,10 @@
-<?hh // strict
+<?php
 
 namespace axolotl\control;
 
 abstract class PageControl{
-  protected array<string, string> $vars;
-  public function __construct(array<string, string> $vars){
+  protected array $vars;
+  public function __construct(array $vars){
     $this->vars = $vars;
   }
 

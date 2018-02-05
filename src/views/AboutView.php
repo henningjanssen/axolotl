@@ -1,4 +1,4 @@
-<?hh // strict
+<?php
 
 use \axolotl\util\_;
 use \axolotl\util\AXLSettingsFile;
@@ -9,7 +9,7 @@ class AboutView extends PageView{
   ){
     parent::__construct(t("About"));
     $vendorWebsite = strval(
-      _::SETTINGS("vendor.website", "", AXLSettingsFile::APP)
+      _::SETTINGS("vendor.website", "", _::SETTINGS_APP)
     );
     $this->content->appendChild(
       <bootstrap:panel use="info">
@@ -20,15 +20,15 @@ class AboutView extends PageView{
           <bootstrap:list-group>
             <bootstrap:list-group-item>
               {t('Vendor')}:
-              {_::SETTINGS("vendor.name", "", AXLSettingsFile::APP)}
+              {_::SETTINGS("vendor.name", "", _::SETTINGS_APP)}
             </bootstrap:list-group-item>
             <bootstrap:list-group-item>
               {t('Support E-Mail')}:
-              {_::SETTINGS("vendor.mail", "", AXLSettingsFile::APP)}
+              {_::SETTINGS("vendor.mail", "", _::SETTINGS_APP)}
             </bootstrap:list-group-item>
             <bootstrap:list-group-item>
               {t('Support Phone')}:
-              {_::SETTINGS("vendor.phone", "", AXLSettingsFile::APP)}
+              {_::SETTINGS("vendor.phone", "", _::SETTINGS_APP)}
             </bootstrap:list-group-item>
             <bootstrap:list-group-item href={$vendorWebsite} target="_blank">
               {t('Website')}: {$vendorWebsite}

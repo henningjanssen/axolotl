@@ -1,4 +1,4 @@
-<?hh // partial
+<?php
 
 namespace axolotl\entities;
 
@@ -12,36 +12,36 @@ use axolotl\util\Log;
  */
 class User{
   /** @Id @Column(type="integer") @GeneratedValue */
-  protected int $id;
+  protected $id;
 
   /** @Column(type="string", length=32, unique=true, nullable=false)*/
-  protected string $username;
+  protected $username;
 
   /** @Column(type="text", unique=true, nullable=false) */
-  protected string $email;
+  protected $email;
 
   /** @Column(type="text", name="full_name") */
-  protected string $fullName;
+  protected $fullName;
 
   /** @Column(type="string", length=60) */
-  protected string $password;
+  protected $password;
 
   /** @Column(type="text") */
-  protected string $note;
+  protected $note;
 
   /** @Column(type="datetimetz") */
-  protected \DateTime $registration;
+  protected $registration;
 
   /** @Column(type="datetimetz", name="last_activity") */
-  protected \DateTime $lastActivity;
+  protected $lastActivity;
 
   /**
   * @OneToMany(targetEntity="Module", mappedBy="creator")
   */
-  protected array<Module> $installedModules;
+  protected $installedModules;
 
   /** @Column(type="string", length=5) */
-  protected ?string $language;
+  protected $language;
 
   //Needed for the hack typechecker
   public function __construct(){

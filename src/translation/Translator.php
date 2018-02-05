@@ -1,4 +1,4 @@
-<?hh // strict
+<?php
 
 namespace axolotl\translation;
 
@@ -6,10 +6,11 @@ use axolotl\util\Log;
 use \Exception;
 
 class Translator {
-  private static ?Translator $instance;
-  const string DIR = __DIR__.'/../../locale/';
+  private static $instance;
+  const DIR = __DIR__.'/../../locale/';
 
-  private function __construct(private string $locale) {
+  private function __construct(string $locale) {
+    $this->locale = $locale;
     try {
       $dirit = new \DirectoryIterator(self::DIR . $locale);
       $mtime = $this->fetchMtime($dirit);
@@ -66,7 +67,7 @@ class Translator {
     return self::$instance;
   }
 
-  public static function getSupportedLocales(): array<string> {
+  public static function getSupportedLocales(): array {
     $dirit = new \DirectoryIterator(self::DIR);
     $ret = [];
     foreach ($dirit as $dir) {

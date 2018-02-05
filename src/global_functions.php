@@ -1,4 +1,4 @@
-<?hh // strict
+<?php
 
 function t(string $msg): string {
   return \axolotl\translation\Translator::get()->translate($msg);

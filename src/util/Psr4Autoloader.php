@@ -1,4 +1,4 @@
-<?hh // partial
+<?php
 
 namespace axolotl\util;
 
@@ -11,7 +11,7 @@ class Psr4Autoloader{
    *
    * @var array
    */
-  protected array<string, array<string>> $prefixes = array();
+  protected $prefixes = array();
 
   /**
    * Register loader with SPL autoloader stack.

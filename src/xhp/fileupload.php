@@ -1,4 +1,4 @@
-<?hh // strict
+<?php
 
 use \axolotl\util\_;
 

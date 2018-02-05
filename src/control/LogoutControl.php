@@ -1,4 +1,4 @@
-<?hh // strict
+<?php
 
 namespace axolotl\control;
 

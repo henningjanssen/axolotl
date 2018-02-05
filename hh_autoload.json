@@ -1,4 +1,0 @@
-{
-  "roots":["src/", "modules/"],
-  "parser":"definition-finder"
-}

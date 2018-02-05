@@ -1,4 +1,4 @@
-<?hh // strict
+<?php
 
 abstract class View{
   protected function setHeader(string $header): void{

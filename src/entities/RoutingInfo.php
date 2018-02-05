@@ -1,4 +1,4 @@
-<?hh // strict
+<?php
 
 namespace axolotl\entities;
 
@@ -10,7 +10,7 @@ use \axolotl\exceptions\InvalidArgumentException;
  */
 class RoutingInfo{
   /** @Id @Column(type="integer") @GeneratedValue */
-  protected int $id;
+  protected $id;
 
   /**
    * @ManyToOne(
@@ -18,16 +18,16 @@ class RoutingInfo{
    *  inversedBy="routingInfo"
    * )
    */
-  protected ?Module $module;
+  protected $module;
 
   /** @Column(type="text") */
-  protected string $uri;
+  protected $uri;
 
   /** @Column(type="text") */
-  protected string $handler;
+  protected $handler;
 
   /** @Column(type="simple_array") */
-  protected array<string> $methods;
+  protected $methods;
 
   public function __construct(){
     $this->id = -1;
@@ -39,7 +39,7 @@ class RoutingInfo{
 
   public static function newInstance(
     string $uri, string $handler,
-    array<string> $methods = array('GET')
+    array $methods = array('GET')
   ): RoutingInfo{
     $info = new RoutingInfo();
     $info->setURI($uri);
@@ -65,7 +65,7 @@ class RoutingInfo{
     return $this->module;
   }
 
-  public function setURI(string $uri): this{
+  public function setURI(string $uri): self{
     if(strlen($uri) === 0){
       throw new InvalidArgumentException('Empty uri');
     }
@@ -90,7 +90,7 @@ class RoutingInfo{
     return $this->handler;
   }
 
-  public function setMethods(array<string> $methods): RoutingInfo{
+  public function setMethods(array $methods): RoutingInfo{
     if(count($methods) == 0){
       $methods = array('GET');
     }
@@ -103,7 +103,7 @@ class RoutingInfo{
     $this->methods = $methods;
     return $this;
   }
-  public function getMethods(): array<string>{
+  public function getMethods(): array{
     return $this->methods;
   }
   public function getMethodString(): string{

@@ -1,4 +1,4 @@
-<?hh // partial
+<?php
 
 namespace axolotl\control;
 
