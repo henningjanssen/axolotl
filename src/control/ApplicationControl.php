@@ -8,7 +8,7 @@ use axolotl\util\_;
 use axolotl\util\Doctrine;
 use axolotl\util\Session;
 use axolotl\translation\Translator;
-use \RedirectView;
+use axolotl\view\RedirectView;
 
 class ApplicationControl{
   public function __construct(string $uri, string $httpMethod){

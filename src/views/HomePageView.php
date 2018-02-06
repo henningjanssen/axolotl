@@ -1,5 +1,7 @@
 <?php
 
+namespace \axolotl\view;
+
 use axolotl\entities\Module;
 use axolotl\entities\User;
 
@@ -7,33 +9,18 @@ class HomePageView extends PageView{
   public function __construct(
     User $user, array $modules
   ){
-    parent::__construct(t("Home"));
-    $this->content->appendChild(<axolotl:xhp:userinfo user={$user}/>);
-    $moduleList = <bootstrap:list-group>
-      </bootstrap:list-group>;
-    foreach($modules as $m){
-      $url = '/m/'.urlencode(strtolower($m->getVendor()))
-        .'/'.urlencode(strtolower($m->getName())).'/';
-      $moduleList->appendChild(
-        <bootstrap:list-group-item href={$url}>
-          {$m->getName()}
-        </bootstrap:list-group-item>
-      );
-    }
-    if(count($modules) === 0){
-      $moduleList->appendChild(
-        <bootstrap:list-group-item>
-          {t('No modules installed')}
-        </bootstrap:list-group-item>
-      );
-    }
-    $this->content->appendChild(<bootstrap:panel use="info">
-        <bootstrap:panel:heading>
-          {t('Installed modules')}
-        </bootstrap:panel:heading>
-        <bootstrap:panel:body>
-          {$moduleList}
-        </bootstrap:panel:body>
-      </bootstrap:panel>);
+    parent::__construct("home.title");
+    $dateFormat = "d.m.Y H:i";
+    $this->setTemplateFile()
+    $this->setVars(array(
+      "user" => array(
+        "username" => $user->getUsername(),
+        "mail" => $user->getEmail(),
+        "name" => $user->getFullName(),
+        "note" => $user->getNote(),
+        "registered" => $user->getRegistration()->format($dateFormat),
+        "lastactivity" => $user->getLastActivity()->format($dateFormat)
+      )
+    ));
   }
 }

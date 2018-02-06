@@ -1,0 +1,111 @@
+<html>
+  <head>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex,nofollow"/>
+
+    {% if title.i18n %}
+    <title data-i18n="[prepend]{{title.value}}"> | AXL<title>
+    {% else %}
+    <title>{% if title %}{{title.value}} | {% endif %}AXL</title>
+    {% endif %}
+
+    <base href="{{baseuri}}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+    {% endblock %}
+  </head>
+  <body id="approot">
+    <!-- navigation -->
+    <div class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="home">AXL</a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+       <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item"><a href="home" class="nav-link" data-i18n="navigation.home"></a></li>
+
+          {% if loggedin %}
+            {% if modulenav %}
+            <!-- module-navigation -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarSettingsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-i18n="navigation.module"></a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {% for item in modulenav %}
+                  <a class="dropdown-item" href="{{item.link}}">{{item.name}}</a>
+                {% endfor %}
+              </div>
+            </li>
+            {% endif %}
+
+            <!-- modules -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarSettingsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-i18n="navigation.modules"></a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {% for item in modulelist %}
+                  <a class="dropdown-item" href="{{item.link}}">{{item.name}}</a>
+                {% else %}
+                  <span class="dropdown-item" data-i18n="navigation.nomodules"></span>
+                {% endfor %}
+              </div>
+            </li>
+
+            <!-- settings -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarSettingsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-i18n="navigation.settings"></a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="settings/modules" data-i18n="navigation.modules"></a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="about" data-i18n="navigation.about"></a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a href="logout" class="nav-link" data-i18n="navigation.logout"></a>
+            </li>
+
+          {% else %}
+            <li class="nav-item">
+              <a href="login" class="nav-link" data-i18n="navigation.login"></a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+
+    <!-- content -->
+    <div class="container-fluid">
+      {% block content %}
+      {% endblock %}
+    </div>
+
+    {% block jsincludes %}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script src="static/3rd-party/jquery-i18next.min.js"></script>
+
+    <!-- stuff for fileuploads -->
+    <script src="static/3rd-party/resumable.js"/>
+    <script src="static/js/fileupload.js"/>
+
+    <script>
+      jqueryI18next.init(i18nextInstance, $, {
+        tName: 't', // --> appends $.t = i18next.t
+        i18nName: 'i18n', // --> appends $.i18n = i18next
+        handleName: 'localize', // --> appends $(selector).localize(opts);
+        selectorAttr: 'data-i18n', // selector for translating elements
+        targetAttr: 'i18n-target', // data-() attribute to grab target element to translate (if diffrent then itself)
+        optionsAttr: 'i18n-options', // data-() attribute that contains options, will load/set if useOptionsAttr = true
+        useOptionsAttr: false, // see optionsAttr
+        parseDefaultValueFromContent: true // parses default values from content ele.val or ele.text
+      });
+      $("#approot").localize();
+    </script>
+    {% endblock %}
+  </body>
+</html>

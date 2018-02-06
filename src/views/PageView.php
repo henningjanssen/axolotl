@@ -1,167 +1,111 @@
 <?php
 
+namespace \axolotl\view;
+
 use axolotl\util\_;
 use axolotl\util\AXLSettingsFile;
 use axolotl\util\Doctrine;
 use axolotl\util\Session;
 
 abstract class PageView extends View{
-  protected $head;
-  protected $content;
-  protected $postcontent; //footer, etc.
-  protected $modulenav;
-  protected string $baseuri;
+  protected $baseuri;
+  protected $modulelist = array();
+  protected $modulenav = array();
+  protected $templateAdditionalPath = array();
+  protected $templateFile;
+  protected $title = "";
+  protected $i18nTitle = false;
+  protected $vars = array();
 
-  public function __construct(string $title = ""){
-    $vendor = strval(
-      _::SETTINGS("system.title", "axolotl", _::SETTINGS_APP)
-    );
-    if(strlen($title) > 0 && strlen($vendor) > 0){
-      $title .= " | ";
-    }
-    if(strlen($vendor) > 0){
-      $title .= $vendor;
-    }
+  public function __construct(string $title = "", bool $i18nTitle = false){
     $this->baseuri = strval(_::SETTINGS("system.base_uri", ""));
-    $this->head =
-      <head>
-        <meta charset="utf-8"/>
-        <meta name="robots" content="noindex,nofollow"/>
-        <title>{$title}</title>
-        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-        <link
-          rel="stylesheet"
-          href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
-        />
-        <script src="//code.jquery.com/jquery-1.11.0.min.js"/>
-        <script
-          src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"
-        />
-        <!-- stuff for fileuploads -->
-        <script src={"{$this->baseuri}/static/3rd-party/resumable.js"}/>
-        <script src={"{$this->baseuri}/static/js/fileupload.js"}/>
-        <script>var baseuri = '{$this->baseuri}';</script>
-      </head>;
-    $this->modulenav = <x:frag/>;
-    $this->content = <x:frag/>;
-    $this->postcontent = <x:frag/>;
-  }
+    $this->tempalteDir = realpath(__DIR__.'/../../templates');
 
-  final protected function setModuleNavigation(array $navs): void{
-    if(count($navs) === 0){
-      return;
-    }
-    $modulesubnav = <bootstrap:dropdown:menu>
-        </bootstrap:dropdown:menu>;
-    foreach($navs as $name => $url){
-      $modulesubnav->appendChild(
-        <bootstrap:dropdown:item
-          href={$this->baseuri.$url}
-        >
-          <a href={$this->baseuri.$url}>{$name}</a>
-        </bootstrap:dropdown:item>
-      );
-    }
-    $this->modulenav = <bootstrap:navigation:dropdown>
-      <a href="#">{'This Module'}<bootstrap:caret/></a>
-      {$modulesubnav}
-    </bootstrap:navigation:dropdown>;
-  }
-
-  final private function getPrecontent(): :xhp{
-    $navbar =
-      <bootstrap:navbar>
-        <bootstrap:navbar:brand href="#">
-          AXL
-        </bootstrap:navbar:brand>
-      </bootstrap:navbar>;
+    $this->setTitle($title, $i18nTitle);
 
     if(Session::loggedIn()){
       $em = Doctrine::getEntityManager();
       $modules = $em
         ->getRepository(\axolotl\entities\Module::class)
         ->findBy(array(), array('name' => 'ASC', 'vendor' => 'ASC'));
-      $moduleDD = <bootstrap:dropdown:menu/>;
       foreach($modules as $m){
-        $moduleDD->appendChild(
-          <bootstrap:dropdown:item
-            href={"{$this->baseuri}/m/{$m->getVendor()}/{$m->getName()}/"}
-          >
-            <a href={"{$this->baseuri}/m/{$m->getVendor()}/{$m->getName()}/"}>
-              {$m->getName()}
-            </a>
-          </bootstrap:dropdown:item>
+        $this->modulelist[] = (
+          'link' => "m/{$m->getVendor()}/{$m->getName()}/",
+          'name' => $m->getName()
         );
       }
-      if(count($modules) === 0){
-        $moduleDD->appendChild(
-          <bootstrap:dropdown:item>
-            No modules installed
-          </bootstrap:dropdown:item>
-        );
-      }
-      $moduleDD = <bootstrap:navigation:dropdown>
-        <a href="#">Modules<bootstrap:caret/></a>
-        {$moduleDD}
-      </bootstrap:navigation:dropdown>;
+    }
+  }
 
-      $navbar->appendChild(
-        <x:frag>
-          <bootstrap:navigation:link href={$this->baseuri.'/home'}>
-            {t('Home')}
-          </bootstrap:navigation:link>
-          {$this->modulenav}
-          {$moduleDD}
-          <bootstrap:navigation:dropdown>
-            <a href="#">
-              {t('Settings')}
-              <bootstrap:caret/>
-            </a>
-            <bootstrap:dropdown:menu>
-              <bootstrap:dropdown:item
-                href={$this->baseuri.'/settings/modules'}
-              >
-                <!--//Normally not needed. Bug in xhp-bootstrap, which
-                //is also present on their docs
-                //Does produce slightly different layout (space above entry)-->
-                <a href={$this->baseuri.'/settings/modules'}>Modules</a>
-              </bootstrap:dropdown:item>
-              <bootstrap:dropdown:divider/>
-              <bootstrap:dropdown:item href={$this->baseuri.'/about'}>
-                <a href={$this->baseuri.'/about'}>About</a>
-              </bootstrap:dropdown:item>
-            </bootstrap:dropdown:menu>
-          </bootstrap:navigation:dropdown>
-          <bootstrap:navigation:link href={$this->baseuri.'/logout'}>
-            {t('Logout')}
-          </bootstrap:navigation:link>
-        </x:frag>
+  final protected function addTemplateDirectory(string|array $dir){
+    if(is_array($dir)){
+      foreach($dir as $d){
+        $this->addTemplateDirectory($d);
+      }
+      return;
+    }
+    $this->$templateAdditionalPath[] = $dir;
+  }
+
+  final protected function setModuleNavigation(array $navs): void{
+    if(count($navs) === 0){
+      $this->modulesnav = array();
+      return;
+    }
+    $this->modulenav = array();
+    foreach($navs as $name => $url){
+      $this->modulenav[] = array(
+        'link' => $url,
+        'name' => $name
       );
     }
-    else{
-      $navbar->appendChild(
-        <bootstrap:navigation:link href={$this->baseuri.'/login'}>
-          {t('Login')}
-        </bootstrap:navigation:link>
-      );
+  }
+
+  final protected function setTemplateFile(string $file): void{
+    if(strlen($dir) === 0){
+      return;
     }
-    return $navbar;
+    $this->templateFile = $file;
+  }
+
+  final protected function setTitle(string $title, bool $i18n = false): void{
+    $this->title = array(
+      'i18n' => strlen($title) > 0 ? $i18n : false,
+      'value' => $title
+    );
+  }
+
+  final protected function setVars(array $vars): void{
+    $this->vars = $vars;
   }
 
   final public function render(): void{
-    print(
-      <x:doctype>
-        <html>
-          {$this->head}
-          <body>
-              {$this->getPrecontent()}
-              <div style="width:90%; margin:0 auto;">
-              {$this->content}
-              {$this->postcontent}
-              </div>
-          </body>
-        </html>
-      </x:doctype>
+    $templvars = array(
+      'baseuri' => $this->baseuri,
+      'loggedin' => Session::loggedIn(),
+      'modulelist' => $this->modulelist,
+      'modulenav' => $this->modulenav,
+      'title' => $this->title,
+      'upload' => array(
+        'chunkSize' => _::SETTINGS('upload.chunksize', 1*1024*1024),
+        'simul' => _::SETTINGS('upload.simul', 3)
+      )
     );
+    $templvars = array_merge(
+      $templvars,
+      $this->vars
+    );
+
+    $twigLoader = new \Twig_Loader_Filesystem(
+      realpath(__DIR__.'/../../templates/')
+    );
+    foreach($this->$templateAdditionalPath as $p){
+      $twigLoader->addPath($p);
+    }
+    $twig = new \Twig_Environment($loader, array(
+      'cache' => __DIR__.'/../../cache/twig/'.$this->templateDir
+    ));
+    $template = $twig->load($this->templateFile);
+    print($template->render($vars));
   }
 }

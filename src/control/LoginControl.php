@@ -2,8 +2,8 @@
 
 namespace axolotl\control;
 
-use \LoginView;
-use \RedirectView;
+use axolotl\view\LoginView;
+use axolotl\view\RedirectView;
 use axolotl\entities\User;
 use axolotl\exceptions\EntityNotFoundException;
 use axolotl\util\_;

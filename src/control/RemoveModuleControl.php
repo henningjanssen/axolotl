@@ -2,7 +2,7 @@
 
 namespace axolotl\control;
 
-use \RedirectView;
+use axolotl\view\RedirectView;
 use axolotl\entities\Module;
 use axolotl\exceptions\EntityNotFoundException;
 use axolotl\util\Doctrine;

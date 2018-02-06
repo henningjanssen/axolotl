@@ -2,7 +2,7 @@
 
 namespace axolotl\control;
 
-use \InstallModuleView;
+use \axolotl\view\InstallModuleView;
 use \axolotl\entities\Module;
 use \axolotl\exceptions\BrokenModuleException;
 use \axolotl\module\ModuleControl;
@@ -19,17 +19,15 @@ class InstallModuleControl extends LoggedInPageControl{
   );
 
   public function execute(): void{
-    $installAttempt = false;
     $newModules = array();
     $errors = array();
     if(strlen(strval(_::POST("__ax_modFile")))){ //strval(null) is an empty string
       // we have a file-upload
-      $installAttempt = true;
       list($newModules, $errors) = $this->installModules();
       $file = new UploadedFile("__ax_modFile");
       $file->delete();
     }
-    (new InstallModuleView($installAttempt, $newModules, $errors))->render();
+    (new InstallModuleView($newModules, $errors))->render();
   }
 
   private function installModules(): (array, array) {

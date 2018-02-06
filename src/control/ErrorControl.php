@@ -2,7 +2,7 @@
 
 namespace axolotl\control;
 
-use \ErrorView;
+use axolotl\view\ErrorView;
 
 class ErrorControl extends PageControl{
   public function execute(): void{

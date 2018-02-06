@@ -1,5 +1,7 @@
 <?php
 
+namespace \axolotl\view;
+
 use axolotl\util\_;
 
 // Not extending PageView as no HTML-content has to be sent

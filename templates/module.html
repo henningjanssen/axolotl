@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<ul class="list-group list-group-flush">
+  {% for item in modulelist %}
+  <li class="list-group-item"><a href="{{item.link}}">{{item.name}}</a></li>
+  {% else %}
+  <li class="list-group-item" data-i18n="navigation.nomodules"></li>
+  {% endfor %}
+</ul>
+{% endblock %}

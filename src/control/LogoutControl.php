@@ -2,7 +2,7 @@
 
 namespace axolotl\control;
 
-use \RedirectView;
+use axolotl\view\RedirectView;
 use axolotl\util\Session;
 
 class LogoutControl extends PageControl{

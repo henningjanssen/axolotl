@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header" data-i18n="about.vendor"></div>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td data-i18n="common.credentials.name"></td>
+        <td>{{vendor.name}}</td>
+      </tr>
+      <tr>
+        <td data-i18n="common.credentials.mail"></td>
+        <td>{{vendor.mail}}</td>
+      </tr>
+      <tr>
+        <td data-i18n="common.credentials.phone"></td>
+        <td>{{vendor.phone}}</td>
+      </tr>
+      <tr>
+        <td data-i18n="common.credentials.website"></td>
+        <td>{{vendor.website}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="card">
+  <div class="card-header" data-i18n="about.project"></div>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td data-i18n="common.credentials.name"></td>
+        <td>axolotl</td>
+      </tr>
+      <tr>
+        <td data-i18n="about.version"></td>
+        <td>{{axl.version}}</td>
+      </tr>
+      <tr>
+        <td data-i18n="common.credentials.website"></td>
+        <td><a href="https://github.com/henningjanssen/axolotl" target="_blank">https://github.com/henningjanssen/axolotl</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{% endblock %}

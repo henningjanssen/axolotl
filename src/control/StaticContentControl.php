@@ -5,8 +5,8 @@ namespace axolotl\control;
 use \axolotl\entities\Module;
 use \axolotl\util\_;
 use \axolotl\util\Log;
-use \StaticContentView;
-use \RedirectView;
+use \axolotl\view\StaticContentView;
+use \axolotl\view\RedirectView;
 
 class StaticContentControl extends PageControl{
   public function execute(): void{

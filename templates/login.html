@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if failedlogin %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert" data-i18n="login.failed"></div>
+{% endif %}
+<form action="login" method="POST">
+  <div class="form-group">
+    <label for="__ax_nick" i18n-data="login.nick"></label>
+    <input id="__ax_nick" type="text" class="form-control" name="username" value="{{user}}"/>
+  </div>
+  <div class="form-group">
+    <label for="__ax_pw" i18n-data="common.credentials.password"></label>
+    <input type="password" class="form-control" name="password" id="__ax_pw" value="{{pw}}"/>
+  </div>
+  <button type="submit" class="btn btn-primary" data-i18n="common.submit"></button>
+</form>
+<div class="alert alert-info" role="alert" data-i18n="login.cookies"></div>
+{% endblock %}

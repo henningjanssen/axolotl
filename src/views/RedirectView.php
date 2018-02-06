@@ -1,5 +1,7 @@
 <?php
 
+namespace \axolotl\view;
+
 use axolotl\util\_;
 
 class RedirectView extends PageView{

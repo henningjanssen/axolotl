@@ -3,7 +3,7 @@
 namespace axolotl\control;
 
 use \axolotl\util\_;
-use \UploadView;
+use \axolotl\view\UploadView;
 
 use \Dilab\Network\SimpleRequest;
 use \Dilab\Network\SimpleResponse;

@@ -2,7 +2,7 @@
 
 namespace axolotl\control;
 
-use \HomePageView;
+use axolotl\view\HomePageView;
 use axolotl\util\_;
 use axolotl\util\Doctrine;
 use axolotl\util\Session;
