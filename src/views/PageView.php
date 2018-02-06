@@ -29,7 +29,7 @@ abstract class PageView extends View{
         ->getRepository(\axolotl\entities\Module::class)
         ->findBy(array(), array('name' => 'ASC', 'vendor' => 'ASC'));
       foreach($modules as $m){
-        $this->modulelist[] = (
+        $this->modulelist[] = array(
           'link' => "m/{$m->getVendor()}/{$m->getName()}/",
           'name' => $m->getName()
         );
@@ -37,7 +37,7 @@ abstract class PageView extends View{
     }
   }
 
-  final protected function addTemplateDirectory(string|array $dir){
+  final protected function addTemplateDirectory(mixed $dir){
     if(is_array($dir)){
       foreach($dir as $d){
         $this->addTemplateDirectory($d);

@@ -11,7 +11,7 @@ class HomePageView extends PageView{
   ){
     parent::__construct("home.title");
     $dateFormat = "d.m.Y H:i";
-    $this->setTemplateFile()
+    $this->setTemplateFile();
     $this->setVars(array(
       "user" => array(
         "username" => $user->getUsername(),

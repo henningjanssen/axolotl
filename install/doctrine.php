@@ -1,4 +1,4 @@
-<?hh // partial
+<?php
   require_once __DIR__.'../axl-autoload.php';
 
   $entityManager = \axolotl\util\Doctrine::getEntityManager();

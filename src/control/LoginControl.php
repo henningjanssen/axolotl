@@ -11,7 +11,7 @@ use axolotl\util\Doctrine;
 use axolotl\util\Session;
 
 class LoginControl extends PageControl{
-  private string $redirect = "/";
+  private $redirect = "/";
   public function __construct(array $vars, string $redirect = "/"){
     parent::__construct($vars);
     $this->redirect = $redirect;

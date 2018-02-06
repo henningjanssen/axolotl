@@ -17,7 +17,7 @@ class InstallModuleView extends PageView{
         'link' => '/m/'.urlencode(strtolower($m->getVendor()))
           .'/'.urlencode(strtolower($m->getName())).'/',
         'name' => $m->getName()
-      )
+      );
     }
 
     $this->setTemplateFile('installmodule.html');
@@ -25,6 +25,5 @@ class InstallModuleView extends PageView{
       'errors' => $errors,
       'installedmodules' => $mods
     ));
-    }
   }
 }

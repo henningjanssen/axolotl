@@ -3,7 +3,7 @@
 namespace axolotl\control;
 
 abstract class PageControl{
-  protected array $vars;
+  protected $vars;
   public function __construct(array $vars){
     $this->vars = $vars;
   }

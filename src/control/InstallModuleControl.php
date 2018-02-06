@@ -14,7 +14,7 @@ use \axolotl\util\UploadedFile;
 use \axolotl\util\UploadedZipFile;
 
 class InstallModuleControl extends LoggedInPageControl{
-  private array $modRequiredFiles = array(
+  private $modRequiredFiles = array(
     "modinfo.json"
   );
 
@@ -30,7 +30,7 @@ class InstallModuleControl extends LoggedInPageControl{
     (new InstallModuleView($newModules, $errors))->render();
   }
 
-  private function installModules(): (array, array) {
+  private function installModules(): array {
     $zip = new UploadedZipFile("__ax_modFile");
     $installAttempt = true;
     // file-existence is checked in getMimeType

@@ -1,4 +1,4 @@
-<?hh // partial
+<?php
   require_once realpath(__DIR__."/../src/util/Doctrine.php");
 
   use axolotl\util\Doctrine;

@@ -20,7 +20,7 @@ class RemoveModuleControl extends LoggedInPageControl{
 			require_once(
 				"$modulesPath{$module->getPath()}/{$modInfo['install']['file']}"
 			);
-			$modC = new ($modInfo['install']['class'])();
+			$modC = new $modInfo['install']['class']();
 			$modC->uninstall();
 		}
 		$entityManager = Doctrine::getEntityManager();

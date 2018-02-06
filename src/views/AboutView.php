@@ -13,7 +13,7 @@ class AboutView extends PageView{
     $vendorWebsite = strval(
       _::SETTINGS("vendor.website", "", _::SETTINGS_APP)
     );
-    $this->setTemplateFile('about.html')
+    $this->setTemplateFile('about.html');
     $this->setVars(array(
       'vendor' => _::SETTINGS("vendor", array(), _::SETTINGS_APP),
       'axl' => array(

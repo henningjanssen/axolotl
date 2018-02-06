@@ -1,6 +1,6 @@
 <?php
 
-function getIds(string $file): array<string> {
+function getIds(string $file): array {
   $fo = new \SplFileObject($file, 'r');
   $ret = [];
   while (!$fo->eof()) {
