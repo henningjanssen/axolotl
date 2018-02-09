@@ -37,14 +37,8 @@ abstract class PageView extends View{
     }
   }
 
-  final protected function addTemplateDirectory(mixed $dir){
-    if(is_array($dir)){
-      foreach($dir as $d){
-        $this->addTemplateDirectory($d);
-      }
-      return;
-    }
-    $this->$templateAdditionalPath[] = $dir;
+  final protected function addTemplateDirectory(string $ns, string $dir){
+    $this->$templateAdditionalPath[$ns] = $dir;
   }
 
   final protected function setModuleNavigation(array $navs): void{
@@ -99,8 +93,8 @@ abstract class PageView extends View{
     $twigLoader = new \Twig_Loader_Filesystem(
       realpath(__DIR__.'/../../templates/')
     );
-    foreach($this->$templateAdditionalPath as $p){
-      $twigLoader->addPath($p);
+    foreach($this->$templateAdditionalPath as $ns => $p){
+      $twigLoader->addPath($p, $ns);
     }
     $twig = new \Twig_Environment($loader, array(
       'cache' => __DIR__.'/../../cache/twig/'.$this->templateDir
