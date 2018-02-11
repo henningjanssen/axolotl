@@ -1,6 +1,6 @@
 {
     "system": {
-        "base_uri": "\/axl"
+        "base_uri": "/axl"
     },
     "db": {
         "doctrine_driver": "pdo_sqlite",

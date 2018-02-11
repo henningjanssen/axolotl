@@ -10,7 +10,7 @@ if(file_exists($apacheConfig)){
   $webmaster = getenv('APACHE_WEBMASTER');
   $axlDomain = $axlSubDomain;
   $fcontents = str_replace(
-    array("webmaster@localhost", "/AXL_DOMAIN/"),
+    array("webmaster@localhost", "/AXL_DOMAIN"),
     array($webmaster, $axlDomain),
     $fcontents
   );
@@ -21,9 +21,7 @@ $axlConf = '/axl/config/sysconfig.json';
 if(file_exists($axlConf)){
   $fcontents = file_get_contents($axlConf);
   $jsonf = json_decode($fcontents, true);
-  $jsonf['system']['base_uri'] = stripcslashes(
-    substr($axlSubDomain, 0, -1)
-  );
-  $fcontents = json_encode($jsonf, JSON_PRETTY_PRINT);
+  $jsonf['system']['base_uri'] = stripcslashes($axlSubDomain);
+  $fcontents = json_encode($jsonf, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
   file_put_contents($axlConf, $fcontents);
 }
