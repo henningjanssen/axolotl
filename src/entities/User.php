@@ -173,7 +173,6 @@ class User{
     if($reg === null){
       $reg = new \DateTime("@".time(), new \DateTimeZone("Europe/Berlin"));
     }
-    invariant($reg !== null, "User::setRegistration: \$reg is null");
     $this->registration = $reg;
     return $this;
   }
@@ -185,7 +184,6 @@ class User{
     if($la === null){
       $la = new \DateTime("@".time(), new \DateTimeZone("Europe/Berlin"));
     }
-    invariant($la !== null, "User::setLastActivity: \$la is null");
     $this->lastActivity = $la;
     return $this;
   }
