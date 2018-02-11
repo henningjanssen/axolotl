@@ -1,6 +1,6 @@
 <?php
 
-namespace \axolotl\view;
+namespace axolotl\view;
 
 abstract class View{
   protected function setHeader(string $header): void{

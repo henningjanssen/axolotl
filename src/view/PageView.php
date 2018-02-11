@@ -1,6 +1,6 @@
 <?php
 
-namespace \axolotl\view;
+namespace axolotl\view;
 
 use axolotl\util\_;
 use axolotl\util\AXLSettingsFile;

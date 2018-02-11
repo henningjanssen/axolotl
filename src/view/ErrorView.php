@@ -1,6 +1,6 @@
 <?php
 
-namespace \axolotl\view;
+namespace axolotl\view;
 
 // Not extending PageView as no HTML-content has to be sent
 class ErrorView extends PageView{
