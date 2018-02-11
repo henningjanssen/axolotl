@@ -2,8 +2,8 @@
 
 $apacheConfig = '/system-data/apache-vhost.conf';
 $axlSubDomain = getenv('APACHE_AXL_SUBDOMAIN');
-if($axlSubDomain[strlen($axlSubDomain)-1] !== '/'){
-  $axlSubDomain = "$axlSubDomain/";
+if($axlSubDomain[strlen($axlSubDomain)-1] === '/'){
+  $axlSubDomain = substr($axlSubDomain, 0, -1);
 }
 if(file_exists($apacheConfig)){
   $fcontents = file_get_contents($apacheConfig);
