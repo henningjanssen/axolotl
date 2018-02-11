@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'../axl-autoload.php';
+require_once __DIR__.'/../axl-autoload.php';
 
 $entityManager = \axolotl\util\Doctrine::getEntityManager();
 $user = new \axolotl\entities\User();

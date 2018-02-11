@@ -62,7 +62,7 @@ class Psr4Autoloader{
    * @return mixed The mapped file name on success, or boolean false on
    * failure.
    */
-  public function loadClass(string $class): mixed{
+  public function loadClass(string $class){
     $class = '\\'.trim($class, '\\');
     // the current namespace prefix
     $prefix = $class;
@@ -102,7 +102,7 @@ class Psr4Autoloader{
    */
   protected function loadMappedFile(
     string $prefix, string $relative_class
-  ): mixed{
+  ){
     // are there any base directories for this namespace prefix?
     if (!array_key_exists($prefix, $this->prefixes)){
       $relative_class = "$prefix\\$relative_class";

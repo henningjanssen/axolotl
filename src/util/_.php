@@ -11,31 +11,31 @@ class _{
   private static $settings = array();
 
   public static function FILE(
-    string $file, string $key, mixed $default = null
-  ): mixed{
+    string $file, string $key, $default = null
+  ){
     if(!isset($_FILES[$file])){
       return $default ?? null;
     }
     return $_FILES[$file][$key] ?? $default ?? null;
   }
 
-  public static function GET(arraykey $key): mixed{
+  public static function GET(string $key): ?string{
     return $_GET[$key] ?? null;
   }
 
-  public static function INI(string $key): mixed{
+  public static function INI(string $key){
     return ini_get($key);
   }
 
-  public static function POST(arraykey $key): mixed{
+  public static function POST(string $key): ?string{
     return $_POST[$key] ?? null;
   }
 
-  public static function SERVER(arraykey $key): mixed{
+  public static function SERVER(string $key): ?string{
     return $_SERVER[$key] ?? null;
   }
 
-  public static function SESSION(arraykey $key, mixed $value = null): mixed{
+  public static function SESSION(string $key, $value = null){
     if(session_status() !== 2){
       session_start();
     }
@@ -46,10 +46,10 @@ class _{
   }
 
   public static function SETTINGS(
-    arraykey $key,
-    mixed $stdval = null,
+    string $key,
+    $stdval = null,
     string $file = _::SETTINGS_SYS
-  ): mixed{
+  ){
     if(!is_array(self::$settings)
       || !array_key_exists($file, self::$settings)
       || count(self::$settings[$file]) === 0

@@ -5,9 +5,7 @@ require_once __DIR__.'/src/util/Psr4Autoloader.php';
 
 $al = new \axolotl\util\Psr4Autoloader();
 $al->addNamespace('axolotl', __DIR__.'/src');
-$al->addNamespace('', __DIR__.'/src/views');
 $al->addNamespace('', __DIR__.'/modules');
-$al->addNamespace('', __DIR__.'/src/hhi');
 
 // add /modules/*/*/view(s)
 $modPath = __DIR__."/modules";
