@@ -9,7 +9,7 @@ class LoginView extends PageView{
     bool $failedLogin = false, string $presetUser = "", string $presetPW = ""
   ){
     parent::__construct("login.title", true);
-    $this->setTemplateFile('Login.html');
+    $this->setTemplateFile('login.html');
     $this->setVars(array(
       'user' => $presetUser,
       'pw' => $presetPW,

@@ -56,7 +56,7 @@ abstract class PageView extends View{
   }
 
   final protected function setTemplateFile(string $file): void{
-    if(strlen($dir) === 0){
+    if(strlen($file) === 0){
       return;
     }
     $this->templateFile = $file;
@@ -93,13 +93,13 @@ abstract class PageView extends View{
     $twigLoader = new \Twig_Loader_Filesystem(
       realpath(__DIR__.'/../../templates/')
     );
-    foreach($this->$templateAdditionalPath as $ns => $p){
+    foreach($this->templateAdditionalPath as $ns => $p){
       $twigLoader->addPath($p, $ns);
     }
-    $twig = new \Twig_Environment($loader, array(
-      'cache' => __DIR__.'/../../cache/twig/'.$this->templateDir
+    $twig = new \Twig_Environment($twigLoader, array(
+      'cache' => realpath(__DIR__.'/../../cache/twig/')
     ));
     $template = $twig->load($this->templateFile);
-    print($template->render($vars));
+    print($template->render($templvars));
   }
 }
