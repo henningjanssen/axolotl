@@ -9,7 +9,6 @@ class ModuleView extends PageView{
   public function __construct(
     array $modules
   ){
-    parent::__construct("module.title", true);
-    $this->setTemplateFile("module.html");
+    parent::__construct("module.html", "module.title", true);
   }
 }

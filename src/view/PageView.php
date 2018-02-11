@@ -17,11 +17,14 @@ abstract class PageView extends View{
   protected $i18nTitle = false;
   protected $vars = array();
 
-  public function __construct(string $title = "", bool $i18nTitle = false){
+  public function __construct(
+    string $file, string $title = "", bool $i18nTitle = false
+  ){
     $this->baseuri = strval(_::SETTINGS("system.base_uri", ""));
     $this->tempalteDir = realpath(__DIR__.'/../../templates');
 
     $this->setTitle($title, $i18nTitle);
+    $this->setTemplateFile($file);
 
     if(Session::loggedIn()){
       $em = Doctrine::getEntityManager();

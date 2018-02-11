@@ -7,9 +7,7 @@ use axolotl\util\_;
 
 class ModuleDetailsView extends PageView{
   public function __construct(?Module $module){
-    parent::__construct("moduledetails.title", true);
-
-    $this->setTemplateFile('moduledetails.html');
+    parent::__construct("moduledetails.html", "moduledetails.title", true);
 
     $routings = array();
 		foreach($module->getRoutingInfo() as $ri){

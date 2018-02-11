@@ -9,7 +9,7 @@ class InstallModuleView extends PageView{
   public function __construct(
     array $modules = array(), array $errors = array()
   ){
-    parent::__construct("installmodule.title", true);
+    parent::__construct('installmodule.html', "installmodule.title", true);
 
     $mods = array();
     foreach($momdules as $m){
@@ -20,7 +20,6 @@ class InstallModuleView extends PageView{
       );
     }
 
-    $this->setTemplateFile('installmodule.html');
     $this->setVars(array(
       'errors' => $errors,
       'installedmodules' => $mods
