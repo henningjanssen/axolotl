@@ -12,7 +12,7 @@ class Log{
   const LEVEL_OTHER = "other";
 
   public static function log(
-    LogLevel $lvl, string $topic, string $msg, int $uid = -1
+    string $lvl, string $topic, string $msg, int $uid = -1
   ): void {
     if($uid == -1 && Session::loggedIn()){
       $uid = Session::getCurrentUserID();
