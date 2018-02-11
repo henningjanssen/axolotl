@@ -1,10 +1,10 @@
 *~
 logs/*.log
 vendor/
+cache/*
 composer.phar
 composer.lock
 www.pid
 public/www.pid
-doctrine-proxies/
 modules/test.zip
 supervisord.log
