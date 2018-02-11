@@ -39,7 +39,7 @@ class Doctrine{
       $annotationDriver->setFileExtension(".".$pathinfo['extension']);
       $config->setMetadataDriverImpl($annotationDriver);
       $config->setQueryCacheImpl($cache);
-      $config->setProxyDir(realpath(__DIR__.'/../../doctrine-proxies/'));
+      $config->setProxyDir(realpath(__DIR__.'/../../cache/doctrine-proxies/'));
       $config->setProxyNamespace('axolotl\proxies');
       $config->setAutogenerateProxyClasses(!$devMode);
       self::$entityManager = EntityManager::create(
