@@ -11,4 +11,4 @@ RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule (.*) - [L,END]
 
 RewriteCond "{$REQUEST_FILENAME}" !-f
-RewriteRule ^(.*)$ index.hh [L,END]
+RewriteRule ^(.*)$ index.php [L,END]
