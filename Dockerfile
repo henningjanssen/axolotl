@@ -1,33 +1,38 @@
-FROM php:7.0-apache
+FROM php:7.2-apache
 
 # System-stuff
-RUN apt-get update && apt-get install -y git libzip-dev && apt-get clean
+RUN apt-get update && apt-get install -y git libzip-dev wget && apt-get clean
 RUN pecl install zip
+RUN a2enmod ssl rewrite
+RUN chown www-data /var/www
 RUN mkdir /system-data
 ENV APACHE_WEBMASTER webmaster@localhost
 ENV APACHE_AXL_SUBDOMAIN /axl/
 
 RUN mkdir /letsencrypt
-RUN openssl req -x509 -newkey rsa:4096 -keyout /system-data/cert-key.pem -out /system-data/cert.pem -nodes -days 365 -subj "/C=/ST=/L=/O=/OU=/CN=localhost"
+RUN openssl req -x509 -newkey rsa:4096 -keyout /system-data/cert-key.pem -out /system-data/cert.pem -nodes -days 365 -subj "/C=XX/ST=XX/L=XX/O=XX/OU=XX/CN=localhost"
 COPY ./docker/* /system-data/
-RUN rm /opt/docker/etc/httpd/vhost.conf && ln -s /system-data/apache-vhost.conf /opt/docker/etc/httpd/vhost.conf
+RUN rm /etc/apache2/sites-available/* /etc/apache2/sites-enabled/* -f && ln -s /system-data/apache-vhost.conf /etc/apache2/sites-available/000-default.conf && ln -s /system-data/apache-vhost.conf /etc/apache2/sites-enabled/000-default.conf
+RUN ln -s /system-data/php.ini /usr/local/etc/php/
 RUN chmod +x /system-data/entrypoint.sh
 
-RUN ln -s /system-data/supervisor-services.conf /opt/docker/etc/supervisor.d/services.conf
+# website-directory
+RUN mkdir /app && chown -R www-data:www-data /app
 
 # Copy source and install dependencies
-RUN mkdir /axl
+RUN mkdir /axl && chown -R www-data:www-data /axl
 WORKDIR /axl
-COPY . /axl
+USER www-data
+COPY --chown=www-data:www-data . /axl
 RUN chmod +x ./getcomposer.sh && ./getcomposer.sh
-RUN chown 1000:1000 /axl -R
-RUN php ./composer.phar config --global --auth github-oauth.github.com efcc64ce5081ce9c76c0c9bdd760ad90b2d6170c
 RUN php ./composer.phar update
 
 # Create database
 WORKDIR /axl/install
+RUN chmod +x ./doctrine.sh && php ./doctrine.php && php ./create-admin.php
 
 # Clean up
+USER root
 WORKDIR /system-data
 RUN rm /axl/install -rf
 RUN rm /axl/docker -rf
