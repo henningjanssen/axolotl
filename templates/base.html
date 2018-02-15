@@ -13,8 +13,8 @@
     <base href="{{baseuri}}/"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+    <link rel="stylesheet" href="static/3rd-party/bootstrap.min.css">
+    <link href="static/3rd-party/material-icons.css" rel="stylesheet">
     {% endblock %}
     <script>window.axlBase = "{{baseuri}}";</script>
   </head>
@@ -84,14 +84,14 @@
     </div>
 
     {% block jsincludes %}
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="static/3rd-party/jquery-3.2.1.slim.min.js"></script>
+    <script src="static/3rd-party/popper.min.js"></script>
+    <script src="static/3rd-party/bootstrap.min.js"></script>
 
     <script src="static/3rd-party/jquery-i18next.min.js"></script>
     <script src="static/3rd-party/i18next-lngdetector.min.js"></script>
     <script src="static/3rd-party/i18next-xhr-backend.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/2.0.22/i18next.min.js"></script>
+    <script src="static/3rd-party/i18next.min.js"></script>
 
     <!-- stuff for fileuploads -->
     <script src="static/3rd-party/resumable.js"></script>
