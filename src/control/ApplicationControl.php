@@ -7,7 +7,6 @@ use axolotl\exceptions\NotLoggedInException;
 use axolotl\util\_;
 use axolotl\util\Doctrine;
 use axolotl\util\Session;
-use axolotl\translation\Translator;
 use axolotl\view\RedirectView;
 
 class ApplicationControl{
@@ -113,7 +112,5 @@ class ApplicationControl{
     } catch (NotLoggedInException $e) {
       $domain = $defaultDomain;
     }
-
-    Translator::init($domain);
   }
 }
