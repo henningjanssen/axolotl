@@ -61,6 +61,7 @@
   "navigation":{
     "about": "About",
     "home": "Home",
+    "login": "Login",
     "logout": "Logout",
     "nomodulenav": "No links",
     "nomodules": "No modules installed",
