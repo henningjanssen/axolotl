@@ -43,7 +43,8 @@
     "title": "Login"
   },
   "module":{
-    "title": "Modules"
+    "title": "Modules",
+    "installmodules": "Install new modules"
   },
   "moduledetails":{
     "delete": "Delete",

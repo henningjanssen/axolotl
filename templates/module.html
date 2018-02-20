@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
+<a class="btn btn-primary" href="settings/modules/install" data-i18n="module.installmodules"></a><br/><br/>
+
 <ul class="list-group list-group-flush">
   {% for item in modulelist %}
   <li class="list-group-item"><a href="{{item.link}}">{{item.name}}</a></li>
