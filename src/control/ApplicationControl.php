@@ -47,6 +47,7 @@ class ApplicationControl{
         //$r->addRoute('GET', '/user/new', 'somehandler');
         //$r->addRoute('GET', '/user/show/{id:\d+}', 'somehandler');
         $r->addRoute('GET', '/about', AboutControl::class);
+        $r->addRoute('GET', '/i18n/{ns}/{lang}[/]', LocalesControl::class);
 
         // Add routings for modules
         $modules = Doctrine::getEntityManager()

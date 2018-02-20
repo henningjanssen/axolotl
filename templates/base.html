@@ -107,10 +107,13 @@
           debug: true,
           fallbackLng: 'en',
           load: 'languageOnly',
-          ns: 'translation',
-          defaultNS: 'translation',
+          ns: 'axolotl',
+          defaultNS: 'axolotl',
           backend:{
-            loadPath: (lng, ns) => axlBase+'/locale/'+lng+'/'+ns+'.json'
+            {% verbatim %}
+            loadPath: axlBase+'/i18n/{{ns}}/{{lng}}',
+            {% endverbatim %}
+            withCredentials: true
           },
           detection:{
             order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag'],
