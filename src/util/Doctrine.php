@@ -1,11 +1,10 @@
-<?hh // partial
-//Needs partial-mode as Doctrine is a php-framework
+<?php
 
 //http://doctrine-orm.readthedocs.io/projects/doctrine-orm/en/latest/reference/advanced-configuration.html
 
 namespace axolotl\util;
 
-require_once realpath(__DIR__.'/../../vendor/hh_autoload.php');
+require_once realpath(__DIR__.'/../../axl-autoload.php');
 
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\Configuration;
@@ -15,15 +14,15 @@ use Doctrine\ORM\Tools\Setup;
 use axolotl\exceptions\BrokenInstallationException;
 
 class Doctrine{
-  private static ?Connection $customDriver = null;
-  private static ?EntityManager $entityManager = null;
+  private static $customDriver = null;
+  private static $entityManager = null;
 
   public static function setCustomDriver(Connection $driver): void{
     self::$customDriver = $driver;
   }
 
   public static function getEntityManager(
-    array<string> $entityPaths = array()
+    array $entityPaths = array()
   ): EntityManager{
     if(self::$entityManager !== null){
       return self::$entityManager;
@@ -40,7 +39,7 @@ class Doctrine{
       $annotationDriver->setFileExtension(".".$pathinfo['extension']);
       $config->setMetadataDriverImpl($annotationDriver);
       $config->setQueryCacheImpl($cache);
-      $config->setProxyDir(realpath(__DIR__.'/../../doctrine-proxies/'));
+      $config->setProxyDir(realpath(__DIR__.'/../../cache/doctrine-proxies/'));
       $config->setProxyNamespace('axolotl\proxies');
       $config->setAutogenerateProxyClasses(!$devMode);
       self::$entityManager = EntityManager::create(
@@ -57,7 +56,7 @@ class Doctrine{
     }
   }
 
-  private static function getDBSettings(): array<arraykey,mixed>{
+  private static function getDBSettings(): array{
     $conf = array(
       "driver" => _::SETTINGS("db.doctrine_driver")
     );

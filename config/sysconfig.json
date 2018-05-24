@@ -1,12 +1,10 @@
 {
     "system": {
-        "base_uri": "\/axl"
+        "base_uri": "/axl"
     },
     "db": {
-        "doctrine_driver": "pdo_pgsql",
-        "user": "axl",
-        "password": "axlpw42",
-        "name": "axolotl"
+        "doctrine_driver": "pdo_sqlite",
+        "path": "/var/www/html/axl/cache/axl.sqlite"
     },
     "static_lock": [
         "index.hh",

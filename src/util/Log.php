@@ -1,20 +1,18 @@
-<?hh // strict
+<?php
 
 namespace axolotl\util;
 
-enum LogLevel: string{
-  DEBUG = "debug";
-  ERROR = "error";
-  FATAL = "fatal";
-  INFO = "info";
-  WARNING = "warning";
-  UNKNOWN = "unknown";
-  OTHER = "other"; //nobody knows the difference...
-};
-
 class Log{
+  const LEVEL_DEBUG = "debug";
+  const LEVEL_ERROR = "error";
+  const LEVEL_FATAL = "fatal";
+  const LEVEL_INFO = "info";
+  const LEVEL_WARNING = "warning";
+  const LEVEL_UNKNOWN = "unknown";
+  const LEVEL_OTHER = "other";
+
   public static function log(
-    LogLevel $lvl, string $topic, string $msg, int $uid = -1
+    string $lvl, string $topic, string $msg, int $uid = -1
   ): void {
     if($uid == -1 && Session::loggedIn()){
       $uid = Session::getCurrentUserID();
@@ -29,18 +27,18 @@ class Log{
   }
 
   public static function debug(string $topic, string $msg, int $uid = -1): void{
-    self::log(LogLevel::DEBUG, $topic, $msg, $uid);
+    self::log(self::LEVEL_DEBUG, $topic, $msg, $uid);
   }
   public static function error(string $topic, string $msg, int $uid = -1): void{
-    self::log(LogLevel::ERROR, $topic, $msg, $uid);
+    self::log(self::LEVEL_ERROR, $topic, $msg, $uid);
   }
   public static function fatal(string $topic, string $msg, int $uid = -1): void{
-    self::log(LogLevel::FATAL, $topic, $msg, $uid);
+    self::log(self::LEVEL_FATAL, $topic, $msg, $uid);
   }
   public static function info(string $topic, string $msg, int $uid = -1): void{
-    self::log(LogLevel::INFO, $topic, $msg, $uid);
+    self::log(self::LEVEL_INFO, $topic, $msg, $uid);
   }
   public static function warning(string $topic, string $msg, int $uid=-1): void{
-    self::log(LogLevel::WARNING, $topic, $msg, $uid);
+    self::log(self::LEVEL_WARNING, $topic, $msg, $uid);
   }
 }

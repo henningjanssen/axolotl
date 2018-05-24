@@ -1,12 +1,12 @@
-<?hh // partial
+<?php
 
 namespace axolotl\control;
 
 use \axolotl\entities\Module;
 use \axolotl\util\_;
 use \axolotl\util\Log;
-use \StaticContentView;
-use \RedirectView;
+use \axolotl\view\StaticContentView;
+use \axolotl\view\RedirectView;
 
 class StaticContentControl extends PageControl{
   public function execute(): void{
@@ -57,7 +57,7 @@ class StaticContentControl extends PageControl{
       return "";
     }
 
-    return substr($path, $dotpos);
+    return substr($path, $dotpos+1);
   }
 
   public function getMimeType(string $extension): string{
@@ -66,19 +66,21 @@ class StaticContentControl extends PageControl{
 
     // TODO: make this more generic, outsource, add more mime-types
     $mimes = array(
-      "zip" => "application/zip",
-      "jpeg" => "image/jpeg",
-      "html" => "text/html",
       "css" => "text/css",
+      "html" => "text/html",
       "gif" => "image/gif",
+      "jpeg" => "image/jpeg",
+      "jpg" => "image/jpeg",
+      "js" => "application/javascript",
+      "map" => "application/json",
       "mp3" => "audio/mpeg",
       "png" => "image/png",
       "tif" => "image/tiff",
-      "jpg" => "image/jpeg",
       "tiff" => "image/tiff",
-      "txt" => "text/plain"
+      "txt" => "text/plain",
+      "zip" => "application/zip"
     );
-    if(in_array($extension, $mimes)){
+    if(array_key_exists($extension, $mimes)){
       return $mimes[$extension];
     }
     return "text/plain"; // TODO: default?

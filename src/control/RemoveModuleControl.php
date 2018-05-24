@@ -1,8 +1,8 @@
-<?hh
+<?php
 
 namespace axolotl\control;
 
-use \RedirectView;
+use axolotl\view\RedirectView;
 use axolotl\entities\Module;
 use axolotl\exceptions\EntityNotFoundException;
 use axolotl\util\Doctrine;
@@ -20,7 +20,7 @@ class RemoveModuleControl extends LoggedInPageControl{
 			require_once(
 				"$modulesPath{$module->getPath()}/{$modInfo['install']['file']}"
 			);
-			$modC = new ($modInfo['install']['class'])();
+			$modC = new $modInfo['install']['class']();
 			$modC->uninstall();
 		}
 		$entityManager = Doctrine::getEntityManager();

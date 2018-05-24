@@ -1,5 +1,4 @@
-<?hh // partial
-// partial because of doctrine
+<?php
 
 namespace axolotl\entities;
 
@@ -19,19 +18,19 @@ use \Doctrine\ORM\Mapping\UniqueConstraint;
  */
 class Module{
   /** @Id @Column(type="integer") @GeneratedValue */
-  protected int $id;
+  protected $id;
 
   /** @Column(type="text") */
-  protected string $vendor;
+  protected $vendor;
 
   /** @Column(type="text") */
-  protected string $name;
+  protected $name;
 
   /** @Column(type="text") */
-  protected string $description;
+  protected $description;
 
   /** @Column(type="text") */
-  protected string $path;
+  protected $path;
 
   /**
    * @OneToMany(
@@ -41,13 +40,13 @@ class Module{
    *  orphanRemoval=true
    * )
    */
-  protected DoctrineCollection<RoutingInfo> $routingInfo;
+  protected $routingInfo;
 
   /** @Column(type="datetimetz", name="installed_at") */
-  protected \DateTime $installationDate;
+  protected $installationDate;
 
   /** @ManyToOne(targetEntity="User", inversedBy="installedModules") */
-  protected User $creator;
+  protected $creator;
 
   public function __construct(){
     $this->id = -1;
@@ -153,9 +152,6 @@ class Module{
         'now', new \DateTimeZone("Europe/Berlin")
       );
     }
-    invariant(
-      $installationDate !== null, "Module::setInstallDate: installDate is null"
-    );
     $this->installationDate = $installationDate;
     return $this;
   }
@@ -163,7 +159,7 @@ class Module{
     return $this->installationDate;
   }
 
-  public function setRoutingInfo(DoctrineCollection<RoutingInfo> $info): Module{
+  public function setRoutingInfo(DoctrineCollection $info): Module{
     foreach($this->routingInfo as $ri){
       $ri->setModule(null);
     }
@@ -180,7 +176,7 @@ class Module{
     $this->routingInfo = $info;
     return $this;
   }
-  public function setRoutingInfoArray(array<RoutingInfo> $info): Module{
+  public function setRoutingInfoArray(array $info): Module{
     return $this->setRoutingInfo(new ArrayCollection($info));
   }
   public function addRoutingInfo(RoutingInfo $info): Module{
@@ -188,10 +184,10 @@ class Module{
     $this->routingInfo->add($info);
     return $this;
   }
-  public function getRoutingInfo(): DoctrineCollection<RoutingInfo>{
+  public function getRoutingInfo(): DoctrineCollection{
     return $this->routingInfo;
   }
-  public function getRoutingInfoArray(): array<mixed>{
+  public function getRoutingInfoArray(): array{
     return $this->routingInfo->toArray();
   }
 

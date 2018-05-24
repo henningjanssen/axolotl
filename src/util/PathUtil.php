@@ -1,9 +1,9 @@
-<?hh // strict
+<?php
 
 namespace axolotl\util;
 
 class PathUtil{
-	const string MODULE_PATH = __DIR__.'/../../modules/';
+	const MODULE_PATH = __DIR__.'/../../modules/';
 
 	public static function deleteDirectory(string $dir): void{
 		$delIt = new \RecursiveDirectoryIterator($dir,

@@ -1,74 +1,45 @@
-FROM webdevops/apache:debian-8
+FROM php:7.2-apache
 
 # System-stuff
-USER root
-RUN addgroup application --gid 1000 && adduser application --disabled-password --gecos "" --uid 1000 --gid 1000
+RUN apt-get update && apt-get install -y git libzip-dev wget && apt-get clean
+RUN pecl install zip
+RUN a2enmod ssl rewrite
+RUN chown www-data /var/www
 RUN mkdir /system-data
 ENV APACHE_WEBMASTER webmaster@localhost
 ENV APACHE_AXL_SUBDOMAIN /axl/
 
-# install hhvm
-RUN apt-get update && apt-get install -y apt-transport-https software-properties-common
-RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xB4112585D386EB94 && add-apt-repository https://dl.hhvm.com/debian
-RUN apt-get -qq update && apt-get -y -qq install hhvm-dev git && update-rc.d hhvm defaults
-RUN touch /system-data/hhvm.log && chmod 666 /system-data/hhvm.log
-
-# install postgresql
-RUN apt-get -y -qq install postgresql postgresql-common postgresql-client
-RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/9.4/main/pg_hba.conf
-RUN echo "listen_addresses='*'" >> /etc/postgresql/9.4/main/postgresql.conf
-RUN rm -rf /var/lib/postgresql/data && ln -s /system-data/postgresql /var/lib/postgresql/data
-USER postgres
-RUN /etc/init.d/postgresql start\
-  && psql -c "create user axl with login password 'axlpw42' createdb;"\
-  && psql -c "create database axolotl with owner axl encoding 'UTF8' template template0;"\
-  && /etc/init.d/postgresql stop
-
-USER root
 RUN mkdir /letsencrypt
-RUN openssl req -x509 -newkey rsa:4096 -keyout /system-data/cert-key.pem -out /system-data/cert.pem -nodes -days 365 -subj "/C=/ST=/L=/O=/OU=/CN=localhost"
+RUN openssl req -x509 -newkey rsa:4096 -keyout /system-data/cert-key.pem -out /system-data/cert.pem -nodes -days 365 -subj "/C=XX/ST=XX/L=XX/O=XX/OU=XX/CN=localhost"
 COPY ./docker/* /system-data/
-RUN rm /opt/docker/etc/httpd/vhost.conf && ln -s /system-data/apache-vhost.conf /opt/docker/etc/httpd/vhost.conf
+RUN rm /etc/apache2/sites-available/* /etc/apache2/sites-enabled/* -f && ln -s /system-data/apache-vhost.conf /etc/apache2/sites-available/000-default.conf && ln -s /system-data/apache-vhost.conf /etc/apache2/sites-enabled/000-default.conf
+RUN ln -s /system-data/php.ini /usr/local/etc/php/
 RUN chmod +x /system-data/entrypoint.sh
 
-RUN ln -s /system-data/supervisor-services.conf /opt/docker/etc/supervisor.d/services.conf
+# website-directory
+RUN mkdir /app && chown -R www-data /app
 
 # Copy source and install dependencies
-RUN mkdir /axl
+RUN mkdir /axl && chown -R www-data /axl
 WORKDIR /axl
-COPY . /axl
+USER www-data
+COPY --chown=www-data . /axl
+RUN mkdir -p /axl/cache/doctrine-proxies /axl/cache/twig /axl/logs /axl/modules /axl/tmp /axl/uploads
 RUN chmod +x ./getcomposer.sh && ./getcomposer.sh
-RUN chown 1000:1000 /axl -R
-USER application
-RUN hhvm ./composer.phar config --global --auth github-oauth.github.com efcc64ce5081ce9c76c0c9bdd760ad90b2d6170c
-RUN hhvm ./composer.phar update && hhvm ./vendor/bin/hh-autoload
+RUN php ./composer.phar update
 
 # Create database
 WORKDIR /axl/install
-RUN chmod +x doctrine.sh
-USER postgres
-RUN /etc/init.d/postgresql start\
-  && psql -daxolotl -f ./install.sql\
-  && psql -daxolotl -c "alter database axolotl owner to axl;;"\
-  && psql -daxolotl -c "alter table modules owner to axl;"\
-  && psql -daxolotl -c "alter table routinginfo owner to axl;"\
-  && psql -daxolotl -c "alter table users owner to axl;"\
-  && psql -daxolotl -c "alter sequence modules_id_seq owner to axl;"\
-  && psql -daxolotl -c "alter sequence routinginfo_id_seq owner to axl;"\
-  && psql -daxolotl -c "alter sequence users_id_seq owner to axl;"\
-  && hhvm ./create-admin.hh\
-  && /etc/init.d/postgresql stop
+RUN chmod +x ./doctrine.sh && php ./doctrine.php && php ./create-admin.php
 
 # Clean up
-WORKDIR /system-data
 USER root
+WORKDIR /system-data
 RUN rm /axl/install -rf
 RUN rm /axl/docker -rf
 RUN apt-get clean
 
-
-#VOLUME ["/system-data/apache-vhost.conf", "/system-data/postgresql/", "/axl/", "/axl/modules/", "/app/"]
-VOLUME ["/system-data/postgresql/", "/axl/", "/axl/modules/", "/app/", "/letsencrypt"]
+VOLUME ["/axl/modules/", "/app/", "/letsencrypt"]
 
 # Setup
 CMD ["/system-data/entrypoint.sh"]

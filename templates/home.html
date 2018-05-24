@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header" data-i18n="common.user"></div>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td data-i18n="common.credentials.username"></td>
+        <td>{{user.username}}</td>
+      </tr>
+      <tr>
+        <td data-i18n="common.credentials.mail"></td>
+        <td>{{user.mail}}</td>
+      </tr>
+      <tr>
+        <td data-i18n="common.credentials.name"></td>
+        <td>{{user.name}}</td>
+      </tr>
+      <tr>
+        <td data-i18n="home.note"></td>
+        <td>{{user.note}}</td>
+      </tr>
+      <tr>
+        <td data-i18n="home.registered"></td>
+        <td>{{user.registered}}</td>
+      </tr>
+      <tr>
+        <td data-i18n="home.lastactivity"></td>
+        <td>{{user.lastactivity}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<br/>
+<div class="card">
+  <div class="card-header" data-i18n="home.installedmodules"></div>
+    <ul class="list-group list-group-flush">
+      {% for item in modulelist %}
+      <li class="list-group-item"><a href="{{item.link}}">{{item.name}}</a></li>
+      {% else %}
+      <li class="list-group-item" data-i18n="navigation.nomodules"></li>
+      {% endfor %}
+    </ul>
+  </table>
+</div>
+{% endblock %}

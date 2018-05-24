@@ -1,0 +1,136 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex,nofollow"/>
+
+    {% if title.i18n %}
+    <title data-i18n="[prepend]{{title.value}}"> | AXL</title>
+    {% else %}
+    <title>{% if title %}{{title.value}} | {% endif %}AXL</title>
+    {% endif %}
+
+    <base href="{{baseuri}}/"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="static/3rd-party/bootstrap.min.css">
+    <link href="static/3rd-party/material-icons.css" rel="stylesheet">
+    {% block head %}
+    {% endblock %}
+    <script>window.axlBase = "{{baseuri}}";</script>
+  </head>
+  <body id="approot">
+    <!-- navigation -->
+    <div class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="home">AXL</a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+       <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          {% if loggedin %}
+            <li class="nav-item"><a href="home" class="nav-link" data-i18n="navigation.home"></a></li>
+            {% if modulenav %}
+            <!-- module-navigation -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarSettingsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-i18n="navigation.module"></a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {% for item in modulenav %}
+                  <a class="dropdown-item" href="{{item.link}}">{{item.name}}</a>
+                {% endfor %}
+              </div>
+            </li>
+            {% endif %}
+
+            <!-- modules -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarSettingsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-i18n="navigation.modules"></a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {% for item in modulelist %}
+                  <a class="dropdown-item" href="{{item.link}}">{{item.name}}</a>
+                {% else %}
+                  <span class="dropdown-item" data-i18n="navigation.nomodules"></span>
+                {% endfor %}
+              </div>
+            </li>
+
+            <!-- settings -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarSettingsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-i18n="navigation.settings"></a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="settings/modules" data-i18n="navigation.modules"></a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="about" data-i18n="navigation.about"></a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a href="logout" class="nav-link" data-i18n="navigation.logout"></a>
+            </li>
+
+          {% else %}
+            <li class="nav-item">
+              <a href="login" class="nav-link" data-i18n="navigation.login"></a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+
+    <!-- stuff for fileuploads -->
+    <script src="static/3rd-party/jquery-3.2.1.slim.min.js"></script>
+    <script src="static/3rd-party/resumable.js"></script>
+    <script src="static/js/fileupload.js"></script>
+    <!-- content -->
+    <div class="container-fluid" style="margin-top: 10px;">
+      {% block content %}
+      {% endblock %}
+    </div>
+
+    {% block jsincludes %}
+    <script src="static/3rd-party/popper.min.js"></script>
+    <script src="static/3rd-party/bootstrap.min.js"></script>
+
+    <script src="static/3rd-party/jquery-i18next.min.js"></script>
+    <script src="static/3rd-party/i18next-lngdetector.min.js"></script>
+    <script src="static/3rd-party/i18next-xhr-backend.min.js"></script>
+    <script src="static/3rd-party/i18next.min.js"></script>
+
+    <script type="text/javascript">
+      i18next
+        .use(i18nextXHRBackend)
+        .use(i18nextBrowserLanguageDetector)
+        .init({
+          load: ['en'],
+          lng: 'en',
+          debug: true,
+          fallbackLng: 'en',
+          load: 'languageOnly',
+          {% if i18nMod %}
+          ns: ['axolotl', '{{i18nMod}}'],
+          {% else %}
+          ns: 'axolotl',
+          {% endif %}
+          defaultNS: 'axolotl',
+          backend:{
+            {% verbatim %}
+            loadPath: axlBase+'/i18n/{{ns}}/{{lng}}',
+            {% endverbatim %}
+            withCredentials: true
+          },
+          detection:{
+            order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag'],
+            lookupQuerystring: 'lng',
+            lookupCookie: 'i18next',
+            lookupLocalStorage: 'i18nextLng',
+            caches: ['localStorage', 'cookie'],
+          }
+        }, function(err, t){
+          jqueryI18next.init(i18next, $);
+          $("head").localize();
+          $("#approot").localize();
+      });
+    </script>
+    {% endblock %}
+  </body>
+</html>

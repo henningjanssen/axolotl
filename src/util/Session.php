@@ -1,4 +1,4 @@
-<?hh // strict
+<?php
 
 namespace axolotl\util;
 
@@ -6,7 +6,7 @@ use \axolotl\entities\User;
 use \axolotl\exceptions\NotLoggedInException;
 
 class Session{
-  private static ?User $currentUser = null;
+  private static $currentUser = null;
 
   public static function loggedIn(): bool{
     return _::SESSION("uid") !== null;
@@ -31,10 +31,8 @@ class Session{
       );
       $entityManager->persist(self::$currentUser);
     }
-    invariant(self::$currentUser !== null, "Current user is null");
     self::$currentUser->setLastActivity();
     $entityManager->flush();
-    invariant(self::$currentUser !== null, "Current user is null");
     return self::$currentUser;
   }
 

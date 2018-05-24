@@ -1,8 +1,8 @@
-<?hh // strict
+<?php
 
 namespace axolotl\control;
 
-use \ModuleView;
+use axolotl\view\ModuleView;
 use axolotl\util\_;
 use axolotl\util\Doctrine;
 

@@ -1,8 +1,8 @@
-<?hh // strict
+<?php
 
 namespace axolotl\control;
 
-use \ModuleDetailsView;
+use axolotl\view\ModuleDetailsView;
 use axolotl\entities\Module;
 
 class ModuleDetailsControl extends LoggedInPageControl{

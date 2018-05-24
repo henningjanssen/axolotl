@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header" data-i18n="moduledetails.moduleinfo"></div>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td data-i18n="moduledetails.modulename"></td>
+        <td>{{module.name}}</td>
+      </tr>
+      <tr>
+        <td data-i18n="moduledetails.vendor"></td>
+        <td>{{module.vendor}}</td>
+      </tr>
+      <tr>
+        <td data-i18n="moduledetails.description"></td>
+        <td>{{module.description}}</td>
+      </tr>
+      <tr>
+        <td data-i18n="moduledetails.path"></td>
+        <td><a href="{{baseuri}}/m/{{module.path}}">{{module.path}}</a></td>
+      </tr>
+      <tr>
+        <td data-i18n="moduledetails.installdate"></td>
+        <td>{{module.installdate}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <a role="button" class="btn btn-danger" data-i18n="moduledetails.delete" href="settings/modules/uninstall/{{module.vendor}}/{{module.name}}"></a>
+</div>
+<br/>
+<div class="card">
+  <div class="card-header" data-i18n="moduledetails.installer"></div>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td data-i18n="common.credentials.username"></td>
+        <td>{{user.username}}</td>
+      </tr>
+      <tr>
+        <td data-i18n="common.credentials.mail"></td>
+        <td>{{user.mail}}</td>
+      </tr>
+      <tr>
+        <td data-i18n="common.credentials.name"></td>
+        <td>{{user.name}}</td>
+      </tr>
+      <tr>
+        <td data-i18n="home.note"></td>
+        <td>{{user.note}}</td>
+      </tr>
+      <tr>
+        <td data-i18n="home.registered"></td>
+        <td>{{user.registered}}</td>
+      </tr>
+      <tr>
+        <td data-i18n="home.lastactivity"></td>
+        <td>{{user.lastactivity}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<br/>
+<div class="card">
+  <div class="card-header" data-i18n="moduledetails.routings"></div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th data-i18n="moduledetails.uri"></th>
+        <th data-i18n="moduledetails.methods"></th>
+        <th data-i18n="moduledetails.handler"></th>
+      </tr>
+    </thread>
+    <tbody>
+      {% for r in routings %}
+      <tr>
+        <td>{{r.uri}}</td>
+        <td>{{r.methods}}</td>
+        <td>{{r.handler}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

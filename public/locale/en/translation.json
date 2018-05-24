@@ -1,0 +1,76 @@
+{
+  "about":{
+    "title": "About",
+    "project": "Project",
+    "vendor": "Vendor",
+    "version": "Version"
+  },
+  "common":{
+    "user": "User",
+    "credentials":{
+      "mail": "Mail",
+      "name": "Name",
+      "password": "Password",
+      "phone": "Phone",
+      "username": "Username",
+      "website": "Website"
+    },
+    "submit": "Submit",
+    "save": "Save"
+  },
+  "components":{
+    "fileupload":{
+      "choosefile": "Choose file"
+    }
+  },
+  "home":{
+    "installedmodules": "Installed modules",
+    "lastactivity": "Last activity",
+    "note": "Note",
+    "registered": "Registered",
+    "title": "Home"
+  },
+  "installmodule":{
+    "errors": "Errors",
+    "install": "Install!",
+    "installedmodules": "Newly installed modules",
+    "title": "Install module",
+    "zipfile": ".zip containing the module"
+  },
+  "login":{
+    "cookies": "This page uses cookies.",
+    "failed": "Username or password is incorrect. Login failed.",
+    "nick": "Username or e-mail",
+    "title": "Login"
+  },
+  "module":{
+    "title": "Modules",
+    "installmodules": "Install new modules"
+  },
+  "moduledetails":{
+    "delete": "Delete",
+    "description": "Description",
+    "handler": "Handler",
+    "installdate": "Installed on",
+    "installer": "Installed by",
+    "methods": "Methods",
+    "moduleinfo": "Module info",
+    "modulename": "Name",
+    "path": "Path",
+    "routings": "Routings",
+    "title":"Module details",
+    "uri": "URI",
+    "vendor": "Vendor"
+  },
+  "navigation":{
+    "about": "About",
+    "home": "Home",
+    "login": "Login",
+    "logout": "Logout",
+    "nomodulenav": "No links",
+    "nomodules": "No modules installed",
+    "module": "Current module",
+    "modules": "Modules",
+    "settings": "Settings"
+  }
+}

@@ -1,36 +1,15 @@
 {
-  "repositories":[
-    {
-      "type":"vcs",
-      "url":"https://github.com/henningjanssen/common"
-    },
-    {
-      "type":"vcs",
-      "url":"https://github.com/henningjanssen/xhp-bootstrap"
-    }
-  ],
-  "replace":{
-    "fredemmott/definition-finder":"*"
-  },
   "require":{
-    "facebook/definition-finder":"*",
-    "doctrine/common":"dev-hack as 2.7.2",
-    "doctrine/orm":"^2.5.0",
+    "doctrine/orm":"~2.6",
     "nikic/fast-route":"*",
-    "hackpack/hackunit":"*",
-    "facebook/xhp-lib":"2.x",
-    "hhvm/xhp-bootstrap":"dev-master",
     "dilab/resumable.php": "^0.1.3",
-    "monolog/monolog": "^1.22",
-    "php-console/php-console": "^3.1"
+    "twig/twig": "~2.0",
+    "monolog/monolog": "*"
   },
   "autoload":{
     "psr-4":{
       "axolotl\\":"src/",
-      "":["modules/", "src/views/"]
-    },
-    "classmap":[
-      "src/xhp/"
-    ]
+      "":["modules/"]
+    }
   }
 }

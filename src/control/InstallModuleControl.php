@@ -1,8 +1,8 @@
-<?hh // partial
+<?php
 
 namespace axolotl\control;
 
-use \InstallModuleView;
+use \axolotl\view\InstallModuleView;
 use \axolotl\entities\Module;
 use \axolotl\exceptions\BrokenModuleException;
 use \axolotl\module\ModuleControl;
@@ -13,36 +13,24 @@ use \axolotl\util\Session;
 use \axolotl\util\UploadedFile;
 use \axolotl\util\UploadedZipFile;
 
-type InstallModuleMetadata = shape(
-  'path' => string,
-  'full_path' => string,
-  'required_exist' => bool,
-  'dependencies_exist' => bool,
-  'is_update' => bool,
-  'modinfo' => array
-);
-
 class InstallModuleControl extends LoggedInPageControl{
-  private array<string> $modRequiredFiles = array(
+  private $modRequiredFiles = array(
     "modinfo.json"
   );
 
-  <<__Override>>
   public function execute(): void{
-    $installAttempt = false;
     $newModules = array();
     $errors = array();
     if(strlen(strval(_::POST("__ax_modFile")))){ //strval(null) is an empty string
       // we have a file-upload
-      $installAttempt = true;
       list($newModules, $errors) = $this->installModules();
       $file = new UploadedFile("__ax_modFile");
       $file->delete();
     }
-    (new InstallModuleView($installAttempt, $newModules, $errors))->render();
+    (new InstallModuleView($newModules, $errors))->render();
   }
 
-  private function installModules(): (array<Module>, array<string>) {
+  private function installModules(): array {
     $zip = new UploadedZipFile("__ax_modFile");
     $installAttempt = true;
     // file-existence is checked in getMimeType
@@ -59,7 +47,7 @@ class InstallModuleControl extends LoggedInPageControl{
     $newMods = array();
     foreach($modinfo as $info){
       try{
-        $module = $this->installMod($info);
+        list($module, $info) = $this->installMod($info);
         $newMods[] = $module;
         if(!$info['is_update']){
           $entityManager->persist($module);
@@ -76,12 +64,12 @@ class InstallModuleControl extends LoggedInPageControl{
     }
     $entityManager->flush();
 
-    return tuple($newMods, $errors);
+    return array($newMods, $errors);
   }
 
   private function getContentMetadata(
     UploadedZipFile $zip, string $modroot
-  ): array<string, InstallModuleMetadata>{
+  ): array{
     $contents = $zip->listContents();
     $metadata = array();
     foreach($contents as $cont){
@@ -110,12 +98,12 @@ class InstallModuleControl extends LoggedInPageControl{
           }
 
           // add metadata
-          $metadata[$cont] = shape(
+          $metadata[$cont] = array(
             'path' => $cont,
             'full_path' => "$modroot/$cont",
             'required_exist' => $reqFilesExist,
             'dependencies_exist' => true,
-            'is_update' => is_dir("$modroot/$cont"),
+            'is_update' => false,//is_dir("$modroot/$cont"),
             'modinfo' => $modinfo
           );
         }
@@ -124,7 +112,7 @@ class InstallModuleControl extends LoggedInPageControl{
     return $metadata;
   }
 
-  private function installMod(InstallModuleMetadata $modinfo): Module{
+  private function installMod(array $modinfo): array{
     $module = Module::newInstance(
       $modinfo['modinfo']['vendor']['name'],
       $modinfo['modinfo']['module']['name'],
@@ -134,11 +122,16 @@ class InstallModuleControl extends LoggedInPageControl{
       Session::getCurrentUser()
     );
     if($modinfo['is_update']){
-      $module = Module::getByName(
-        $modinfo['modinfo']['vendor']['name'],
-        $modinfo['modinfo']['module']['name']
-      );
-      $module->setDescription($modinfo['modinfo']['module']['description']);
+      try{
+        $module = Module::getByName(
+          $modinfo['modinfo']['vendor']['name'],
+          $modinfo['modinfo']['module']['name']
+        );
+        $module->setDescription($modinfo['modinfo']['module']['description']);
+      }
+      catch(axolotl\exceptions\EntityNotFoundException $ex){
+        $modinfo['is_update'] = false;
+      }
     }
 
     require_once(
@@ -152,7 +145,6 @@ class InstallModuleControl extends LoggedInPageControl{
       throw new BrokenModuleException("Install-class does not exist");
     }
 
-    // UNSAFE
     $install = new $classname();
     if(!($install instanceof ModuleControl)){
       throw new BrokenModuleException(
@@ -165,6 +157,6 @@ class InstallModuleControl extends LoggedInPageControl{
     }
     $module->setRoutingInfoArray($install->getRoutings());
 
-    return $module;
+    return array($module, $modinfo);
   }
 }

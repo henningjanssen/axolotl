@@ -1,4 +1,4 @@
-<?hh // strict
+<?php
 
 namespace axolotl\util;
 
@@ -7,9 +7,10 @@ use \axolotl\exceptions\NonExistentFileException;
 use \axolotl\exceptions\InvalidArgumentException;
 
 class UploadedFile{
-  protected string $filename;
-  protected string $path;
-  public function __construct(protected string $inputname){
+  protected $filename;
+  protected $path;
+  public function __construct(string $inputname){
+    $this->inputname = $inputname;
     $this->filename = strval(_::POST($inputname));
     $this->path = realpath(__DIR__."/../../uploads/".$this->filename);
   }

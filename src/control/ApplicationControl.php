@@ -1,4 +1,4 @@
-<?hh // partial
+<?php
 
 namespace axolotl\control;
 
@@ -7,11 +7,13 @@ use axolotl\exceptions\NotLoggedInException;
 use axolotl\util\_;
 use axolotl\util\Doctrine;
 use axolotl\util\Session;
-use axolotl\translation\Translator;
-use \RedirectView;
+use axolotl\view\RedirectView;
 
 class ApplicationControl{
-  public function __construct(private string $uri, private string $httpMethod){}
+  public function __construct(string $uri, string $httpMethod){
+    $this->uri = $uri;
+    $this->httpMethod = $httpMethod;
+  }
 
   public function execute(): void{
     $dispatcher = \FastRoute\simpleDispatcher(
@@ -45,6 +47,7 @@ class ApplicationControl{
         //$r->addRoute('GET', '/user/new', 'somehandler');
         //$r->addRoute('GET', '/user/show/{id:\d+}', 'somehandler');
         $r->addRoute('GET', '/about', AboutControl::class);
+        $r->addRoute('GET', '/i18n/{ns}/{lang}[/]', LocalesControl::class);
 
         // Add routings for modules
         $modules = Doctrine::getEntityManager()
@@ -93,10 +96,10 @@ class ApplicationControl{
         $handler = $routeInfo[1];
         $vars = $routeInfo[2];
         try{
-          (new $handler($vars))->execute();
+          (new $handler($vars, $this->httpMethod))->execute();
         }
         catch(NotLoggedInException $nliex){
-          (new LoginControl($vars, $this->uri))->execute();
+          (new LoginControl($vars, $this->httpMethod, $this->uri))->execute();
         }
       break;
     }
@@ -110,7 +113,5 @@ class ApplicationControl{
     } catch (NotLoggedInException $e) {
       $domain = $defaultDomain;
     }
-
-    Translator::init($domain);
   }
 }

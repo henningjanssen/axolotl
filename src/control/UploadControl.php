@@ -1,10 +1,9 @@
-<?hh // partial
-// We need the partial mode for the use of dilab/resumable.php
+<?php
 
 namespace axolotl\control;
 
 use \axolotl\util\_;
-use \UploadView;
+use \axolotl\view\UploadView;
 
 use \Dilab\Network\SimpleRequest;
 use \Dilab\Network\SimpleResponse;

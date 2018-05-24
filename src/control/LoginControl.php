@@ -1,9 +1,9 @@
-<?hh // strict
+<?php
 
 namespace axolotl\control;
 
-use \LoginView;
-use \RedirectView;
+use axolotl\view\LoginView;
+use axolotl\view\RedirectView;
 use axolotl\entities\User;
 use axolotl\exceptions\EntityNotFoundException;
 use axolotl\util\_;
@@ -11,9 +11,9 @@ use axolotl\util\Doctrine;
 use axolotl\util\Session;
 
 class LoginControl extends PageControl{
-  private string $redirect = "/";
-  public function __construct(array<string, string> $vars, string $redirect = "/"){
-    parent::__construct($vars);
+  private $redirect = "/";
+  public function __construct(array $vars, string $httpMethod, string $redirect = "/"){
+    parent::__construct($vars, $httpMethod);
     $this->redirect = $redirect;
   }
 
