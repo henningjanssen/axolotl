@@ -25,7 +25,7 @@ class ModuleDetailsView extends PageView{
         'vendor' => $module->getVendor(),
         'description' => $module->getDescription(),
         'path' => $module->getPath(),
-        'installdate' => $module->getInstallationDate()->format('d:m:Y H:i')
+        'installdate' => $module->getInstallationDate()->format('d.m.Y H:i')
       ),
       "routings" => $routings,
       "user" => array(

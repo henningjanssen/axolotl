@@ -15,7 +15,8 @@
       "username": "Username",
       "website": "Website"
     },
-    "submit": "Submit"
+    "submit": "Submit",
+    "save": "Save"
   },
   "components":{
     "fileupload":{
@@ -50,10 +51,12 @@
     "delete": "Delete",
     "description": "Description",
     "handler": "Handler",
+    "installdate": "Installed on",
     "installer": "Installed by",
     "methods": "Methods",
     "moduleinfo": "Module info",
     "modulename": "Name",
+    "path": "Path",
     "routings": "Routings",
     "title":"Module details",
     "uri": "URI",

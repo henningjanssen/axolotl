@@ -3,7 +3,8 @@
     "doctrine/orm":"~2.6",
     "nikic/fast-route":"*",
     "dilab/resumable.php": "^0.1.3",
-    "twig/twig": "~2.0"
+    "twig/twig": "~2.0",
+    "monolog/monolog": "*"
   },
   "autoload":{
     "psr-4":{

@@ -12,7 +12,7 @@ class InstallModuleView extends PageView{
     parent::__construct('installmodule.html', "installmodule.title", true);
 
     $mods = array();
-    foreach($momdules as $m){
+    foreach($modules as $m){
       $mods[] = array(
         'link' => '/m/'.urlencode(strtolower($m->getVendor()))
           .'/'.urlencode(strtolower($m->getName())).'/',

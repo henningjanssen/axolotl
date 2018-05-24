@@ -41,7 +41,7 @@ abstract class PageView extends View{
   }
 
   final protected function addTemplateDirectory(string $ns, string $dir){
-    $this->$templateAdditionalPath[$ns] = $dir;
+    $this->templateAdditionalPath[$ns] = $dir;
   }
 
   final protected function setModuleNavigation(array $navs): void{
@@ -76,7 +76,13 @@ abstract class PageView extends View{
     $this->vars = $vars;
   }
 
+  protected function preRender(): void{
+    // this function is called before rendering and can be used by modules
+    // to inject variable into $this->vars
+  }
+
   final public function render(): void{
+    $this->preRender();
     $templvars = array(
       'baseuri' => $this->baseuri,
       'loggedin' => Session::loggedIn(),
@@ -84,7 +90,7 @@ abstract class PageView extends View{
       'modulenav' => $this->modulenav,
       'title' => $this->title,
       'upload' => array(
-        'chunkSize' => _::SETTINGS('upload.chunksize', 1*1024*1024),
+        'chunksize' => _::SETTINGS('upload.chunksize', 1*1024*1024),
         'simul' => _::SETTINGS('upload.simul', 3)
       )
     );

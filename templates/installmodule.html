@@ -8,6 +8,7 @@
   <p>{{e}}</p>
   {% if not loop.last %}
   <hr/>
+  {% endif %}
   {% endfor %}
 </div>
 {% endif %}
@@ -25,7 +26,7 @@
 
 <form class="form" action="settings/modules/install" method="POST" enctype="multipart/form-data">
   <label for="__ax_modFile" data-i18n="installmodule.zipfile"></label>
-  {% include 'components/fileupload.html' with {'funame': '__ax_modFile', 'fuid': '__ax_modFile', 'fuaccept': 'zip'}} %}
+  {% include 'components/fileupload.html' with {'funame': '__ax_modFile', 'fuid': '__ax_modFile', 'fuaccept': '"zip"'} %}
   <button type="submit" class="btn btn-primary float-right" data-i18n="installmodule.install"></button>
 </form>
 {% endblock %}

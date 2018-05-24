@@ -19,7 +19,7 @@
       </tr>
       <tr>
         <td data-i18n="moduledetails.path"></td>
-        <td>{{module.path}}</td>
+        <td><a href="{{baseuri}}/m/{{module.path}}">{{module.path}}</a></td>
       </tr>
       <tr>
         <td data-i18n="moduledetails.installdate"></td>
@@ -27,9 +27,9 @@
       </tr>
     </tbody>
   </table>
-  <a role="button" class="btn btn-danger" data-i18n="moduledetails.delete" href="settings/modules/uninstall/{{module.vendor}}/{{module.name}}"></button>
+  <a role="button" class="btn btn-danger" data-i18n="moduledetails.delete" href="settings/modules/uninstall/{{module.vendor}}/{{module.name}}"></a>
 </div>
-
+<br/>
 <div class="card">
   <div class="card-header" data-i18n="moduledetails.installer"></div>
   <table class="table">
@@ -61,7 +61,7 @@
     </tbody>
   </table>
 </div>
-
+<br/>
 <div class="card">
   <div class="card-header" data-i18n="moduledetails.routings"></div>
   <table class="table">

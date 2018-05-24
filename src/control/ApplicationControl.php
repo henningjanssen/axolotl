@@ -96,10 +96,10 @@ class ApplicationControl{
         $handler = $routeInfo[1];
         $vars = $routeInfo[2];
         try{
-          (new $handler($vars))->execute();
+          (new $handler($vars, $this->httpMethod))->execute();
         }
         catch(NotLoggedInException $nliex){
-          (new LoginControl($vars, $this->uri))->execute();
+          (new LoginControl($vars, $this->httpMethod, $this->uri))->execute();
         }
       break;
     }

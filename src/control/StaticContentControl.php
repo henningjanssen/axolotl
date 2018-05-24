@@ -43,7 +43,6 @@ class StaticContentControl extends PageControl{
     }
 
     $cont = file_get_contents($fullpath);
-    \axolotl\util\Log::debug("StaticMime", $mime);
     (new StaticContentView($cont, $mime))->render();
   }
 

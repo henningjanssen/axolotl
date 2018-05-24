@@ -47,7 +47,7 @@ class InstallModuleControl extends LoggedInPageControl{
     $newMods = array();
     foreach($modinfo as $info){
       try{
-        $module = $this->installMod($info);
+        list($module, $info) = $this->installMod($info);
         $newMods[] = $module;
         if(!$info['is_update']){
           $entityManager->persist($module);
@@ -64,7 +64,7 @@ class InstallModuleControl extends LoggedInPageControl{
     }
     $entityManager->flush();
 
-    return tuple($newMods, $errors);
+    return array($newMods, $errors);
   }
 
   private function getContentMetadata(
@@ -103,7 +103,7 @@ class InstallModuleControl extends LoggedInPageControl{
             'full_path' => "$modroot/$cont",
             'required_exist' => $reqFilesExist,
             'dependencies_exist' => true,
-            'is_update' => is_dir("$modroot/$cont"),
+            'is_update' => false,//is_dir("$modroot/$cont"),
             'modinfo' => $modinfo
           );
         }
@@ -112,7 +112,7 @@ class InstallModuleControl extends LoggedInPageControl{
     return $metadata;
   }
 
-  private function installMod(InstallModuleMetadata $modinfo): Module{
+  private function installMod(array $modinfo): array{
     $module = Module::newInstance(
       $modinfo['modinfo']['vendor']['name'],
       $modinfo['modinfo']['module']['name'],
@@ -122,11 +122,16 @@ class InstallModuleControl extends LoggedInPageControl{
       Session::getCurrentUser()
     );
     if($modinfo['is_update']){
-      $module = Module::getByName(
-        $modinfo['modinfo']['vendor']['name'],
-        $modinfo['modinfo']['module']['name']
-      );
-      $module->setDescription($modinfo['modinfo']['module']['description']);
+      try{
+        $module = Module::getByName(
+          $modinfo['modinfo']['vendor']['name'],
+          $modinfo['modinfo']['module']['name']
+        );
+        $module->setDescription($modinfo['modinfo']['module']['description']);
+      }
+      catch(axolotl\exceptions\EntityNotFoundException $ex){
+        $modinfo['is_update'] = false;
+      }
     }
 
     require_once(
@@ -152,6 +157,6 @@ class InstallModuleControl extends LoggedInPageControl{
     }
     $module->setRoutingInfoArray($install->getRoutings());
 
-    return $module;
+    return array($module, $modinfo);
   }
 }

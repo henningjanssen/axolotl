@@ -1,6 +1,5 @@
 <html>
   <head>
-    {% block head %}
     <meta charset="utf-8">
     <meta name="robots" content="noindex,nofollow"/>
 
@@ -15,6 +14,7 @@
 
     <link rel="stylesheet" href="static/3rd-party/bootstrap.min.css">
     <link href="static/3rd-party/material-icons.css" rel="stylesheet">
+    {% block head %}
     {% endblock %}
     <script>window.axlBase = "{{baseuri}}";</script>
   </head>
@@ -77,14 +77,17 @@
       </div>
     </div>
 
+    <!-- stuff for fileuploads -->
+    <script src="static/3rd-party/jquery-3.2.1.slim.min.js"></script>
+    <script src="static/3rd-party/resumable.js"></script>
+    <script src="static/js/fileupload.js"></script>
     <!-- content -->
-    <div class="container-fluid">
+    <div class="container-fluid" style="margin-top: 10px;">
       {% block content %}
       {% endblock %}
     </div>
 
     {% block jsincludes %}
-    <script src="static/3rd-party/jquery-3.2.1.slim.min.js"></script>
     <script src="static/3rd-party/popper.min.js"></script>
     <script src="static/3rd-party/bootstrap.min.js"></script>
 
@@ -92,10 +95,6 @@
     <script src="static/3rd-party/i18next-lngdetector.min.js"></script>
     <script src="static/3rd-party/i18next-xhr-backend.min.js"></script>
     <script src="static/3rd-party/i18next.min.js"></script>
-
-    <!-- stuff for fileuploads -->
-    <script src="static/3rd-party/resumable.js"></script>
-    <script src="static/js/fileupload.js"></script>
 
     <script type="text/javascript">
       i18next
@@ -107,7 +106,11 @@
           debug: true,
           fallbackLng: 'en',
           load: 'languageOnly',
+          {% if i18nMod %}
+          ns: ['axolotl', '{{i18nMod}}'],
+          {% else %}
           ns: 'axolotl',
+          {% endif %}
           defaultNS: 'axolotl',
           backend:{
             {% verbatim %}

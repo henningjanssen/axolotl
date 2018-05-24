@@ -17,13 +17,14 @@ RUN ln -s /system-data/php.ini /usr/local/etc/php/
 RUN chmod +x /system-data/entrypoint.sh
 
 # website-directory
-RUN mkdir /app && chown -R www-data:www-data /app
+RUN mkdir /app && chown -R www-data /app
 
 # Copy source and install dependencies
-RUN mkdir /axl && chown -R www-data:www-data /axl
+RUN mkdir /axl && chown -R www-data /axl
 WORKDIR /axl
 USER www-data
-COPY --chown=www-data:www-data . /axl
+COPY --chown=www-data . /axl
+RUN mkdir -p /axl/cache/doctrine-proxies /axl/cache/twig /axl/logs /axl/modules /axl/tmp /axl/uploads
 RUN chmod +x ./getcomposer.sh && ./getcomposer.sh
 RUN php ./composer.phar update
 

@@ -15,8 +15,8 @@ class LocalesControl extends PageControl{
       $path .= '/public';
     }
     else{
-      list($vendor, $module) = explode('__', $path);
-      $ns .= "/modules/$vendor/$module";
+      list($vendor, $module) = explode('__', $ns);
+      $path .= "/modules/$vendor/$module";
     }
     $path .= "/locale/$lang/translation.json";
 

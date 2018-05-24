@@ -1,9 +1,14 @@
+.dockerignore
 .git
 .gitignore
 .gitmodules
+cache/
 composer.lock
 composer.phar
 Dockerfile
+logs/
 Makefile
 modules/*
+tmp/
+uploads/
 vendor/
