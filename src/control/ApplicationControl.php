@@ -44,7 +44,7 @@ class ApplicationControl{
         $r->addRoute('GET', '/error/{errno:\d+}', ErrorControl::class);
         $r->addRoute(['GET','POST'], '/user/{id:\d+}', EditUserControl::class);
         $r->addRoute(['GET','POST'], '/user/new', EditUserControl::class);
-        //$r->addRoute('GET', '/users/list', 'somehandler');
+        $r->addRoute(['GET','POST'], '/users', ListUsersControl::class);
         $r->addRoute('GET', '/about', AboutControl::class);
         $r->addRoute('GET', '/i18n/{ns}/{lang}[/]', LocalesControl::class);
 

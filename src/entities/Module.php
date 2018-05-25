@@ -160,8 +160,10 @@ class Module{
   }
 
   public function setRoutingInfo(DoctrineCollection $info): Module{
+    $em = Doctrine::getEntityManager();
     foreach($this->routingInfo as $ri){
       $ri->setModule(null);
+      $em->remove($ri);
     }
     $hasRoot = false;
     foreach($info as $i){

@@ -50,6 +50,10 @@
     "title": "Install module",
     "zipfile": ".zip containing the module"
   },
+  "listusers":{
+    "title": "Users",
+    "newuser": "Create new user"
+  },
   "login":{
     "cookies": "This page uses cookies.",
     "failed": "Username or password is incorrect. Login failed.",

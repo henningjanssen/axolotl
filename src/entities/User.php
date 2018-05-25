@@ -88,9 +88,14 @@ class User{
     return $user;
   }
 
-  public static function get(int $id): User{
+  public static function get(int $id): ?User{
     $em = Doctrine::getEntityManager();
     return $em->find(User::class, $id);
+  }
+
+  public static function getAll(): array{
+    $em = Doctrine::getEntityManager();
+    return $em->getRepository(User::class)->findAll();
   }
 
   public static function getByLogin(string $login): User{

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<table class="table">
+  <thead>
+    <tr>
+      <th data-i18n="common.credentials.username"></th>
+      <th data-i18n="common.credentials.name"></th>
+      <th data-i18n="common.credentials.mail"></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for u in users %}
+      <tr>
+        <td>{{u.username}}</td>
+        <td>{{u.fullName}}</td>
+        <td>{{u.email}}</td>
+        <td>
+          <div class="clearfix">
+            <a href="user/{{u.id}}" class="btn btn-link float-left">
+              <i class="material-icons">forward</i>
+            </a>
+            {% if u.id != ownID %}
+            <form method="POST">
+              <input type="hidden" value="{{u.id}}" name="delete"/>
+              <button type="submit" class="btn btn-link">
+                <i class="material-icons">delete</i>
+              </button>
+            </form>
+            {% endif %}
+          </div>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a href="user/new" class="btn btn-primary" data-i18n="listusers.newuser"></a>
+{% endblock %}
