@@ -34,7 +34,8 @@ abstract class PageView extends View{
       foreach($modules as $m){
         $this->modulelist[] = array(
           'link' => "m/{$m->getVendor()}/{$m->getName()}/",
-          'name' => $m->getName()
+          'name' => $m->getName(),
+          'vendor' => $m->getVendor()
         );
       }
     }
