@@ -171,6 +171,7 @@ class Module{
         $hasRoot = true;
       }
       $i->setModule($this);
+      $em->persist($i);
     }
     if(!$hasRoot){
       throw new InvalidArgumentException('Module does not provide root');
@@ -183,6 +184,7 @@ class Module{
   }
   public function addRoutingInfo(RoutingInfo $info): Module{
     $info->setModule($this);
+    (Doctrine::getEntityManager())->persist($info);
     $this->routingInfo->add($info);
     return $this;
   }
