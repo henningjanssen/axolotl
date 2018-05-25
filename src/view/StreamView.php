@@ -21,16 +21,19 @@ class StreamView extends View{
 
   public function render(): void{
     $offset = $this->initialOffset;
-    while(true){
-      $cont = stream_get_contents($this->stream, 1024, $offset);
-      $offset = -1;
-      if($cont === false){
-        break;
-      }
-      echo $cont;
-      if($this->flush){
+    if($this->flush){
+      while(true){
+        $cont = stream_get_contents($this->stream, 102400, $offset);
+        $offset = -1;
+        if($cont === false){
+          break;
+        }
+        echo $cont;
         ob_flush();
       }
+    }
+    else{
+      echo stream_get_contents($this->stream);
     }
   }
 }
