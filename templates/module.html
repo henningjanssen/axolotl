@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<a class="btn btn-primary" href="settings/modules/install" data-i18n="module.installmodules"></a><br/><br/>
-
 <ul class="list-group list-group-flush">
   {% for item in modulelist %}
   <li class="list-group-item"><a href="{{baseuri}}/settings/modules/details/{{item.vendor}}/{{item.name}}">{{item.vendor}} / {{item.name}}</a></li>
@@ -10,4 +8,6 @@
   <li class="list-group-item" data-i18n="navigation.nomodules"></li>
   {% endfor %}
 </ul>
+<br/>
+<a class="btn btn-primary" href="settings/modules/install" data-i18n="module.installmodules"></a><br/><br/>
 {% endblock %}
