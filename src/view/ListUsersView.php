@@ -9,7 +9,7 @@ class ListUsersView extends PageView{
   public function __construct(
     array $users, int $ownID
   ){
-    parent::__construct("listusers.html", "listusers.title", true);
+    parent::__construct("listusers.html", "i18n:listusers.title");
     $dateFormat = "d.m.Y H:i";
     $this->setVars(array(
       "users" => $users,

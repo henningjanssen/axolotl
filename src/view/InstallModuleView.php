@@ -9,7 +9,7 @@ class InstallModuleView extends PageView{
   public function __construct(
     array $modules = array(), array $errors = array()
   ){
-    parent::__construct('installmodule.html', "installmodule.title", true);
+    parent::__construct('installmodule.html', "i18n:installmodule.title");
 
     $mods = array();
     foreach($modules as $m){

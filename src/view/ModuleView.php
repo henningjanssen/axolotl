@@ -9,6 +9,6 @@ class ModuleView extends PageView{
   public function __construct(
     array $modules
   ){
-    parent::__construct("module.html", "module.title", true);
+    parent::__construct("module.html", "i18n:module.title");
   }
 }

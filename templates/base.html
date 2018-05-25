@@ -3,10 +3,10 @@
     <meta charset="utf-8">
     <meta name="robots" content="noindex,nofollow"/>
 
-    {% if title.i18n %}
-    <title data-i18n="[prepend]{{title.value}}"> | AXL</title>
+    {% if title starts with 'i18n:' %}
+    <title data-i18n="[prepend]{{title[5:]}}"> | AXL</title>
     {% else %}
-    <title>{% if title %}{{title.value}} | {% endif %}AXL</title>
+    <title>{% if title %}{{title}} | {% endif %}AXL</title>
     {% endif %}
 
     <base href="{{baseuri}}/"/>
@@ -37,7 +37,11 @@
               <a class="nav-link dropdown-toggle" href="#" id="navbarSettingsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-i18n="navigation.module"></a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 {% for item in modulenav %}
+                  {% if item starts with 'i18n:' %}
+                  <a class="dropdown-item" href="{{item.link}}" data-i18n="{{item.name[5:]}}"></a>
+                  {% else %}
                   <a class="dropdown-item" href="{{item.link}}">{{item.name}}</a>
+                  {% endif %}
                 {% endfor %}
               </div>
             </li>

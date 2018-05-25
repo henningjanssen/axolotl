@@ -7,7 +7,7 @@ use axolotl\util\_;
 
 class ModuleDetailsView extends PageView{
   public function __construct(?Module $module){
-    parent::__construct("moduledetails.html", "moduledetails.title", true);
+    parent::__construct("moduledetails.html", "i18n:moduledetails.title");
 
     $routings = array();
 		foreach($module->getRoutingInfo() as $ri){
