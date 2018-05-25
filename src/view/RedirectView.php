@@ -10,4 +10,6 @@ class RedirectView extends View{
     $this->setHTTPStatusCode(303);
     $this->setHeader("Location: $base$target");
   }
+
+  public function render(): void{}
 }
