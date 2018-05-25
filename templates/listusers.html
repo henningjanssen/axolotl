@@ -22,12 +22,9 @@
               <i class="material-icons">forward</i>
             </a>
             {% if u.id != ownID %}
-            <form method="POST">
-              <input type="hidden" value="{{u.id}}" name="delete"/>
-              <button type="submit" class="btn btn-link">
-                <i class="material-icons">delete</i>
-              </button>
-            </form>
+            <a href="users?delete={{u.id}}" class="btn btn-link">
+              <i class="material-icons">delete</i>
+            </a>
             {% endif %}
           </div>
         </td>
