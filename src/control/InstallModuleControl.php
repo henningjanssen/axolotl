@@ -49,7 +49,7 @@ class InstallModuleControl extends LoggedInPageControl{
       try{
         list($module, $info) = $this->installMod($info);
         $newMods[] = $module;
-        if(!$info['is_update']){
+        if($module->getID() < 0){
           $entityManager->persist($module);
         }
       }
@@ -103,7 +103,6 @@ class InstallModuleControl extends LoggedInPageControl{
             'full_path' => "$modroot/$cont",
             'required_exist' => $reqFilesExist,
             'dependencies_exist' => true,
-            'is_update' => false,//is_dir("$modroot/$cont"),
             'modinfo' => $modinfo
           );
         }
@@ -113,25 +112,27 @@ class InstallModuleControl extends LoggedInPageControl{
   }
 
   private function installMod(array $modinfo): array{
-    $module = Module::newInstance(
-      $modinfo['modinfo']['vendor']['name'],
-      $modinfo['modinfo']['module']['name'],
-      $modinfo['modinfo']['module']['description'],
-      $modinfo['path'],
-      new \DateTime(),
-      Session::getCurrentUser()
-    );
-    if($modinfo['is_update']){
-      try{
-        $module = Module::getByName(
-          $modinfo['modinfo']['vendor']['name'],
-          $modinfo['modinfo']['module']['name']
-        );
-        $module->setDescription($modinfo['modinfo']['module']['description']);
-      }
-      catch(axolotl\exceptions\EntityNotFoundException $ex){
-        $modinfo['is_update'] = false;
-      }
+    $module = null;
+    $isUpdate = false;
+
+    // check if the module exists and this is an update
+    try{
+      $module = Module::getByName(
+        $modinfo['modinfo']['vendor']['name'],
+        $modinfo['modinfo']['module']['name']
+      );
+      $module->setDescription($modinfo['modinfo']['module']['description']);
+      $isUpdate = true;
+    }
+    catch(axolotl\exceptions\EntityNotFoundException $ex){
+      $module = Module::newInstance(
+        $modinfo['modinfo']['vendor']['name'],
+        $modinfo['modinfo']['module']['name'],
+        $modinfo['modinfo']['module']['description'],
+        $modinfo['path'],
+        new \DateTime(),
+        Session::getCurrentUser()
+      );
     }
 
     require_once(
@@ -148,10 +149,10 @@ class InstallModuleControl extends LoggedInPageControl{
     $install = new $classname();
     if(!($install instanceof ModuleControl)){
       throw new BrokenModuleException(
-        "Install-class `$classname` does not implement ModuleControl"
+        "Install-class `$classname` does not extend ModuleControl"
       );
     }
-    $succ = $modinfo['is_update'] ? $install->update() : $install->install();
+    $succ = $isUpdate ? $install->update() : $install->install();
     if(!$succ){
       throw new BrokenModuleException("Installation or update failed");
     }
