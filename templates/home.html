@@ -3,38 +3,41 @@
 {% block content %}
 <div class="card">
   <div class="card-header" data-i18n="common.user"></div>
-  <table class="table">
-    <tbody>
-      <tr>
-        <td data-i18n="common.credentials.username"></td>
-        <td>{{user.username}}</td>
-      </tr>
-      <tr>
-        <td data-i18n="common.credentials.mail"></td>
-        <td>{{user.mail}}</td>
-      </tr>
-      <tr>
-        <td data-i18n="common.credentials.name"></td>
-        <td>{{user.name}}</td>
-      </tr>
-      <tr>
-        <td data-i18n="home.note"></td>
-        <td>{{user.note}}</td>
-      </tr>
-      <tr>
-        <td data-i18n="home.registered"></td>
-        <td>{{user.registered}}</td>
-      </tr>
-      <tr>
-        <td data-i18n="home.lastactivity"></td>
-        <td>{{user.lastactivity}}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="card-body">
+    <table class="table">
+      <tbody>
+        <tr>
+          <th scope="row" data-i18n="common.credentials.username"></th>
+          <td>{{user.username}}</td>
+        </tr>
+        <tr>
+          <th scope="row" data-i18n="common.credentials.mail"></th>
+          <td>{{user.mail}}</td>
+        </tr>
+        <tr>
+          <th scope="row" data-i18n="common.credentials.name"></th>
+          <td>{{user.name}}</td>
+        </tr>
+        <tr>
+          <th scope="row" data-i18n="home.note"></th>
+          <td>{{user.note}}</td>
+        </tr>
+        <tr>
+          <th scope="row" data-i18n="home.registered"></th>
+          <td>{{user.registered}}</td>
+        </tr>
+        <tr>
+          <th scope="row" data-i18n="home.lastactivity"></th>
+          <td>{{user.lastactivity}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 <br/>
 <div class="card">
   <div class="card-header" data-i18n="home.installedmodules"></div>
+  <div class="card-body">
     <ul class="list-group list-group-flush">
       {% for item in modulelist %}
       <li class="list-group-item"><a href="{{item.link}}">{{item.name}}</a></li>
@@ -42,6 +45,6 @@
       <li class="list-group-item" data-i18n="navigation.nomodules"></li>
       {% endfor %}
     </ul>
-  </table>
+  </div>
 </div>
 {% endblock %}

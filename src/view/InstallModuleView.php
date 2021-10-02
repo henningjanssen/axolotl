@@ -14,7 +14,7 @@ class InstallModuleView extends PageView{
     $mods = array();
     foreach($modules as $m){
       $mods[] = array(
-        'link' => '/m/'.urlencode(strtolower($m->getVendor()))
+        'link' => 'm/'.urlencode(strtolower($m->getVendor()))
           .'/'.urlencode(strtolower($m->getName())).'/',
         'name' => $m->getName()
       );

@@ -120,6 +120,7 @@ class Psr4Autoloader{
       $file = $base_dir
         . str_replace('\\', '/', $relative_class)
         . '.php';
+      $file = str_replace('//', '/', $file);
 
       // if the mapped file exists, require it
       if ($this->requireFile($file)) {
@@ -140,7 +141,7 @@ class Psr4Autoloader{
    */
   protected function requireFile(string $file): bool{
     if (file_exists($file)) {
-      require $file;
+      require_once $file;
       return true;
     }
     return false;

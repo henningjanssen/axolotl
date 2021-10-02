@@ -16,16 +16,18 @@
 {% if installedmodules %}
 <div class="card">
   <div class="card-header" data-i18n="installmodule.installedmodules"></div>
-  <ul class="list-group list-group-flush">
-    {% for m in installedmodules %}
-    <li class="list-group-item"><a href="{{m.link}}">{{m.name}}</a></li>
-    {% endfor %}
-  </ul>
+  <div class="card-body">
+    <ul class="list-group list-group-flush">
+      {% for m in installedmodules %}
+      <li class="list-group-item"><a href="{{m.link}}">{{m.name}}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
 </div>
 {% endif %}
 
 <form class="form" action="settings/modules/install" method="POST" enctype="multipart/form-data">
-  <label for="__ax_modFile" data-i18n="installmodule.zipfile"></label>
+  <label class="form-label" for="__ax_modFile" data-i18n="installmodule.zipfile"></label>
   {% include 'components/fileupload.html' with {'funame': '__ax_modFile', 'fuid': '__ax_modFile', 'fuaccept': '"zip"'} %}
   <button type="submit" class="btn btn-primary float-right" data-i18n="installmodule.install"></button>
 </form>
