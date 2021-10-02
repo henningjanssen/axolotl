@@ -160,8 +160,10 @@ class Module{
   }
 
   public function setRoutingInfo(DoctrineCollection $info): Module{
+    $em = Doctrine::getEntityManager();
     foreach($this->routingInfo as $ri){
       $ri->setModule(null);
+      $em->remove($ri);
     }
     $hasRoot = false;
     foreach($info as $i){
@@ -169,6 +171,7 @@ class Module{
         $hasRoot = true;
       }
       $i->setModule($this);
+      $em->persist($i);
     }
     if(!$hasRoot){
       throw new InvalidArgumentException('Module does not provide root');
@@ -181,6 +184,7 @@ class Module{
   }
   public function addRoutingInfo(RoutingInfo $info): Module{
     $info->setModule($this);
+    (Doctrine::getEntityManager())->persist($info);
     $this->routingInfo->add($info);
     return $this;
   }

@@ -58,25 +58,44 @@ class User{
       "@".time(), new \DateTimeZone("Europe/Berlin")
     );
     $this->installedModules = array();
-    $this->language = null;
+    $this->language = "en";
   }
 
   //Not possible as a constructor as polymorfic method-overloading
   //is not possible
   public static function newInstance(
-    string $mail, string $username, string $fullName, string $password,
-    bool $pwHashed, string $note, ?\DateTime $registration,
-    ?\DateTime $lastActivity
+    string $mail = "",
+    string $username = "",
+    string $fullName = "",
+    string $password = "",
+    bool $pwHashed = true, // empty string for empty password
+    string $note = "",
+    ?\DateTime $registration = null,
+    ?\DateTime $lastActivity = null
   ): User{
     $user = new User();
-    $user->setEmail($mail);
-    $user->setUsername($username);
+    if(strlen($mail) > 0){
+      $user->setEmail($mail);
+    }
+    if(strlen($username) > 0){
+      $user->setUsername($username);
+    }
     $user->setFullName($fullName);
     $user->setPassword($password, $pwHashed);
     $user->setNote($note);
     $user->setRegistration($registration);
     $user->setLastActivity($lastActivity);
     return $user;
+  }
+
+  public static function get(int $id): ?User{
+    $em = Doctrine::getEntityManager();
+    return $em->find(User::class, $id);
+  }
+
+  public static function getAll(): array{
+    $em = Doctrine::getEntityManager();
+    return $em->getRepository(User::class)->findAll();
   }
 
   public static function getByLogin(string $login): User{
@@ -138,11 +157,6 @@ class User{
 
   public function setFullName(string $fullname): User{
     $fullname = trim($fullname);
-    if(strlen($fullname) === 0){
-      throw new \axolotl\exceptions\InvalidArgumentException(
-        "Full name is empty"
-      );
-    }
     $this->fullName = $fullname;
     return $this;
   }

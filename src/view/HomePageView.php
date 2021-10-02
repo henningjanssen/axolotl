@@ -9,7 +9,7 @@ class HomePageView extends PageView{
   public function __construct(
     User $user, array $modules
   ){
-    parent::__construct("home.html", "home.title", true);
+    parent::__construct("home.html", "i18n:home.title");
     $dateFormat = "d.m.Y H:i";
     $this->setVars(array(
       "user" => array(

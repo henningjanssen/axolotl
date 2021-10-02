@@ -18,12 +18,12 @@ abstract class PageView extends View{
   protected $vars = array();
 
   public function __construct(
-    string $file, string $title = "", bool $i18nTitle = false
+    string $file, string $title = ""
   ){
     $this->baseuri = strval(_::SETTINGS("system.base_uri", ""));
     $this->tempalteDir = realpath(__DIR__.'/../../templates');
 
-    $this->setTitle($title, $i18nTitle);
+    $this->setTitle($title);
     $this->setTemplateFile($file);
 
     if(Session::loggedIn()){
@@ -34,7 +34,8 @@ abstract class PageView extends View{
       foreach($modules as $m){
         $this->modulelist[] = array(
           'link' => "m/{$m->getVendor()}/{$m->getName()}/",
-          'name' => $m->getName()
+          'name' => $m->getName(),
+          'vendor' => $m->getVendor()
         );
       }
     }
@@ -65,11 +66,8 @@ abstract class PageView extends View{
     $this->templateFile = $file;
   }
 
-  final protected function setTitle(string $title, bool $i18n = false): void{
-    $this->title = array(
-      'i18n' => strlen($title) > 0 ? $i18n : false,
-      'value' => $title
-    );
+  final protected function setTitle(string $title): void{
+    $this->title = $title;
   }
 
   final protected function setVars(array $vars): void{

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for alert in alerts %}
+<div class="alert alert-danger" data-i18n="{{alert}}"></div>
+{% endfor %}
+<form method="POST">
+  <div class="row">
+    <div class="col-md mb-3">
+      <label class="form-label" for="username" data-i18n="common.credentials.username"></label>
+      <input type="text" class="form-control" value="{{user.username}}" id="username" name="username">
+    </div>
+    <div class="col-md mb-3">
+      <label class="form-label" for="mail" data-i18n="common.credentials.mail"></label>
+      <input type="email" class="form-control" value="{{user.email}}" id="mail" name="mail">
+    </div>
+    <div class="col-md mb-3">
+      <label class="form-label" for="name" data-i18n="common.credentials.name"></label>
+      <input type="text" class="form-control" value="{{user.fullname}}" id="username" name="name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md mb-3">
+      <label class="form-label" for="pw" data-i18n="common.credentials.password"></label>
+      <input type="password" class="form-control" id="pw" name="pw" aria-describedby="pwHelp">
+      <small id="pwHelp" class="form-text text-muted" data-i18n="edituser.pwleaveblank"></small>
+    </div>
+    <div class="col-md mb-3">
+      <label class="form-label" for="pw-confirm" data-i18n="edituser.pwconfirm"></label>
+      <input type="password" class="form-control" id="pw-confirm" name="pw-confirm">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md mb-3">
+      <label class="form-label" for="note" data-i18n="home.note"></label>
+      <textarea class="form-control" id="note" name="note" rows="5">{{user.note}}</textarea>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary" data-i18n="common.save"/>
+</form>
+{% endblock %}

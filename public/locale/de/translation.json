@@ -1,0 +1,94 @@
+{
+  "about":{
+    "title": "Über",
+    "project": "Projekt",
+    "vendor": "Entwickler",
+    "version": "Version"
+  },
+  "common":{
+    "user": "Nutzer",
+    "credentials":{
+      "id": "ID",
+      "mail": "E-Mail",
+      "name": "Name",
+      "password": "Passwort",
+      "phone": "Telefon",
+      "username": "Nutzername",
+      "website": "Website"
+    },
+    "submit": "Übertragen",
+    "save": "Speichern"
+  },
+  "components":{
+    "fileupload":{
+      "choosefile": "Datei auswählen"
+    }
+  },
+  "edituser":{
+    "title": "Nutzer bearbeiten",
+    "title_new": "Neuer Nutzer",
+    "alert": {
+      "malformed": "Die E-Mail-Adresse ist fehlerhaft",
+      "nopw": "Kein Passwort angegeben",
+      "pwmissmatch": "Die Passwörter stimmen nicht überein",
+      "uniqueviolation": "Ein Nutzer mit diesem Nutzernamen oder dieser E-Mail-Adresse existiert bereits"
+    },
+    "pwconfirm": "Passwort bestätigen",
+    "pwleaveblank": "Dieses Feld leer lassen, um das Passwort nicht zu ändern"
+  },
+  "home":{
+    "installedmodules": "Installierte Module",
+    "lastactivity": "Letzte Aktivität",
+    "note": "Notizen",
+    "registered": "Registriert",
+    "title": "Home"
+  },
+  "installmodule":{
+    "errors": "Fehler",
+    "install": "Installieren!",
+    "installedmodules": "Neu installierte Module",
+    "title": "Module installieren",
+    "zipfile": ".zip mit Modulen"
+  },
+  "listusers":{
+    "title": "Nutzer",
+    "newuser": "Neuen Nutzer erstellt"
+  },
+  "login":{
+    "cookies": "Diese Seite verwendet Cookies.",
+    "failed": "Login fehlgeschlagen. Der Nutzername oder das Passwort ist inkorrekt",
+    "nick": "Nutzername oder E-Mail-Adresse",
+    "title": "Login"
+  },
+  "module":{
+    "title": "Module",
+    "installmodules": "Neue Module installieren"
+  },
+  "moduledetails":{
+    "delete": "Löschen",
+    "description": "Beschreibung",
+    "handler": "Handler",
+    "installdate": "Installiert am",
+    "installer": "Installiert von",
+    "methods": "Methoden",
+    "moduleinfo": "Modulinfo",
+    "modulename": "Name",
+    "path": "Pfad",
+    "routings": "Routings",
+    "title":"Moduldetails",
+    "uri": "URI",
+    "vendor": "Entwickler"
+  },
+  "navigation":{
+    "about": "Über",
+    "home": "Home",
+    "login": "Login",
+    "logout": "Logout",
+    "nomodulenav": "Keine Links",
+    "nomodules": "Keine Module installiert",
+    "module": "Aktuelles Modul",
+    "modules": "Module",
+    "settings": "Einstellungen",
+    "users": "Nutzer"
+  }
+}

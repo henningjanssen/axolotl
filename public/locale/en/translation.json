@@ -8,6 +8,7 @@
   "common":{
     "user": "User",
     "credentials":{
+      "id": "ID",
       "mail": "Mail",
       "name": "Name",
       "password": "Password",
@@ -23,6 +24,18 @@
       "choosefile": "Choose file"
     }
   },
+  "edituser":{
+    "title": "Edit user",
+    "title_new": "New user",
+    "alert": {
+      "malformed": "Your E-Mail-address is malformed",
+      "nopw": "No password supplied",
+      "pwmissmatch": "The passwords do not match",
+      "uniqueviolation": "A user with this email-address or username does already exist"
+    },
+    "pwconfirm": "Confirm password",
+    "pwleaveblank": "Leave this field blank if you don't want to change the password"
+  },
   "home":{
     "installedmodules": "Installed modules",
     "lastactivity": "Last activity",
@@ -36,6 +49,10 @@
     "installedmodules": "Newly installed modules",
     "title": "Install module",
     "zipfile": ".zip containing the module"
+  },
+  "listusers":{
+    "title": "Users",
+    "newuser": "Create new user"
   },
   "login":{
     "cookies": "This page uses cookies.",
@@ -71,6 +88,7 @@
     "nomodules": "No modules installed",
     "module": "Current module",
     "modules": "Modules",
-    "settings": "Settings"
+    "settings": "Settings",
+    "users": "Users"
   }
 }

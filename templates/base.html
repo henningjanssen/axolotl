@@ -3,16 +3,16 @@
     <meta charset="utf-8">
     <meta name="robots" content="noindex,nofollow"/>
 
-    {% if title.i18n %}
-    <title data-i18n="[prepend]{{title.value}}"> | AXL</title>
+    {% if title starts with 'i18n:' %}
+    <title data-i18n="[prepend]{{title[5:]}}"> | AXL</title>
     {% else %}
-    <title>{% if title %}{{title.value}} | {% endif %}AXL</title>
+    <title>{% if title %}{{title}} | {% endif %}AXL</title>
     {% endif %}
 
     <base href="{{baseuri}}/"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="static/3rd-party/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link href="static/3rd-party/material-icons.css" rel="stylesheet">
     {% block head %}
     {% endblock %}
@@ -20,67 +20,75 @@
   </head>
   <body id="approot">
     <!-- navigation -->
-    <div class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="home">AXL</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="home">AXL</a>
 
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          {% if loggedin %}
-            <li class="nav-item"><a href="home" class="nav-link" data-i18n="navigation.home"></a></li>
-            {% if modulenav %}
-            <!-- module-navigation -->
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarSettingsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-i18n="navigation.module"></a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                {% for item in modulenav %}
-                  <a class="dropdown-item" href="{{item.link}}">{{item.name}}</a>
-                {% endfor %}
-              </div>
-            </li>
+         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            {% if loggedin %}
+              <li class="nav-item"><a href="home" class="nav-link" data-i18n="navigation.home"></a></li>
+              {% if modulenav %}
+              <!-- module-navigation -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarModuleDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-i18n="navigation.module"></a>
+                <div class="dropdown-menu" aria-labelledby="navbarModuleDropdown">
+                  {% for item in modulenav %}
+                    {% if item.name starts with 'i18n:' %}
+                    <a class="dropdown-item" href="{{item.link}}" data-i18n="{{item.name[5:]}}"></a>
+                    {% else %}
+                    <a class="dropdown-item" href="{{item.link}}">{{item.name}}</a>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              </li>
+              {% endif %}
+
+              <!-- modules -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarModuleListDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-i18n="navigation.modules"></a>
+                <div class="dropdown-menu" aria-labelledby="navbarModuleListDropdown">
+                  {% for item in modulelist %}
+                    <a class="dropdown-item" href="{{item.link}}">{{item.name}}</a>
+                  {% else %}
+                    <span class="dropdown-item" data-i18n="navigation.nomodules"></span>
+                  {% endfor %}
+                </div>
+              </li>
+
+              <!-- settings -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarSettingsDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-i18n="navigation.settings"></a>
+                <div class="dropdown-menu" aria-labelledby="navbarSettingsDropdown">
+                  <a class="dropdown-item" href="settings/modules" data-i18n="navigation.modules"></a>
+                  <a class="dropdown-item" href="users" data-i18n="navigation.users"></a>
+                  <hr class="dropdown-divider"></hr>
+                  <a class="dropdown-item" href="about" data-i18n="navigation.about"></a>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a href="logout" class="nav-link" data-i18n="navigation.logout"></a>
+              </li>
+
+            {% else %}
+              <li class="nav-item">
+                <a href="login" class="nav-link" data-i18n="navigation.login"></a>
+              </li>
             {% endif %}
-
-            <!-- modules -->
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarSettingsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-i18n="navigation.modules"></a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                {% for item in modulelist %}
-                  <a class="dropdown-item" href="{{item.link}}">{{item.name}}</a>
-                {% else %}
-                  <span class="dropdown-item" data-i18n="navigation.nomodules"></span>
-                {% endfor %}
-              </div>
-            </li>
-
-            <!-- settings -->
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarSettingsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-i18n="navigation.settings"></a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="settings/modules" data-i18n="navigation.modules"></a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="about" data-i18n="navigation.about"></a>
-              </div>
-            </li>
-            <li class="nav-item">
-              <a href="logout" class="nav-link" data-i18n="navigation.logout"></a>
-            </li>
-
-          {% else %}
-            <li class="nav-item">
-              <a href="login" class="nav-link" data-i18n="navigation.login"></a>
-            </li>
-          {% endif %}
-        </ul>
+          </ul>
+        </div>
       </div>
-    </div>
+    </nav>
 
     <!-- stuff for fileuploads -->
     <script src="static/3rd-party/jquery-3.2.1.slim.min.js"></script>
     <script src="static/3rd-party/resumable.js"></script>
     <script src="static/js/fileupload.js"></script>
+
     <!-- content -->
     <div class="container-fluid" style="margin-top: 10px;">
       {% block content %}
@@ -88,8 +96,8 @@
     </div>
 
     {% block jsincludes %}
-    <script src="static/3rd-party/popper.min.js"></script>
-    <script src="static/3rd-party/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
 
     <script src="static/3rd-party/jquery-i18next.min.js"></script>
     <script src="static/3rd-party/i18next-lngdetector.min.js"></script>
@@ -101,8 +109,8 @@
         .use(i18nextXHRBackend)
         .use(i18nextBrowserLanguageDetector)
         .init({
-          load: ['en'],
-          lng: 'en',
+          load: ['en', 'de'],
+          lng: 'de',
           debug: true,
           fallbackLng: 'en',
           load: 'languageOnly',

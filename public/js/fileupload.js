@@ -29,17 +29,15 @@ var FileUpload = {
         +file.fileName+"': "+message);
     });
     r.on('progress', function(){
-      $("#"+id+"_upload_startbtn").find('.glyhpicon')
-        .removeClass('glyphicon-pause')
-        .addClass('glyphicon-play');
+      $("#"+id+"_upload_startbtn").find('.material-icons')
+        .text('pause')
       $("#"+id+"_upload_progressbar")
         .attr('style', 'width:'+(r.progress()*100)+'%')
         .attr('aria-valuenow', r.progress() * 100);
     });
     r.on('pause', function(){
-      $("#"+id+"_upload_startbtn").find('.glyhpicon')
-        .removeClass('glyphicon-play')
-        .addClass('glyphicon-pause');
+      $("#"+id+"_upload_startbtn").find('.material-icons')
+        .text('play_arrow')
     });
   }
 };

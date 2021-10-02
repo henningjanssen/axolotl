@@ -1,5 +1,7 @@
 # axolotl
 
+This repo is archived and will not get any updates. Most of the intended functionality can be achieved by other headless CMS like directus.
+
 ## Configuration
 All configuration takes place in `config/config.json`.
 
