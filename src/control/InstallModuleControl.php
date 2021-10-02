@@ -124,7 +124,7 @@ class InstallModuleControl extends LoggedInPageControl{
       $module->setDescription($modinfo['modinfo']['module']['description']);
       $isUpdate = true;
     }
-    catch(axolotl\exceptions\EntityNotFoundException $ex){
+    catch(\axolotl\exceptions\EntityNotFoundException $ex){
       $module = Module::newInstance(
         $modinfo['modinfo']['vendor']['name'],
         $modinfo['modinfo']['module']['name'],
